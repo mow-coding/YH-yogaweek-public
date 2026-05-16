@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_ad788f6e754029a479a25b7ab09d0cb6 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.css"/>
+    <script src="https://cdn.jsdelivr.net/gh/ardhi/Leaflet.MousePosition/src/L.Control.MousePosition.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ardhi/Leaflet.MousePosition/src/L.Control.MousePosition.min.css"/>
+</head>
+<body>
+    
+    
+    <div class="yw-panel yw-title-panel">
+      <div class="yw-eyebrow">2026 연희 요가 위크 GIS</div>
+      <h1>장소별 Hype 지도</h1>
+      <p>원 크기는 순예약 규모, 색은 리뷰 Hype 신호입니다. 회색은 위치는 있으나 예약/리뷰 지표가 없는 장소입니다.</p>
+    </div>
+    <div class="yw-panel yw-legend-panel">
+      
+          <h2>읽는 법</h2>
+          <div class="yw-row"><span class="yw-dot" style="background:#c2410c"></span><span>리뷰 Hype 높음</span></div>
+          <div class="yw-row"><span class="yw-dot" style="background:#15803d"></span><span>리뷰 Hype 중간 이상</span></div>
+          <div class="yw-row"><span class="yw-dot" style="background:#2563eb"></span><span>리뷰 Hype 보통</span></div>
+          <div class="yw-row"><span class="yw-dot" style="background:#6b7280"></span><span>위치만 확인</span></div>
+          <div class="yw-note">큰 원은 예약 반응이 큰 장소입니다. 순위표가 아니라 장소별 반응 프로필로 읽습니다.</div>
+        
+    </div>
+    <style>
+      .leaflet-container {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #fffaf0;
+      }
+      .leaflet-control-layers,
+      .leaflet-bar a,
+      .leaflet-control-scale-line {
+        border-color: rgba(42, 24, 16, 0.14) !important;
+        box-shadow: 0 8px 22px rgba(42, 24, 16, 0.12) !important;
+      }
+      .leaflet-control-layers {
+        border-radius: 8px;
+        color: #2a1810;
+      }
+      .leaflet-popup-content-wrapper {
+        border-radius: 8px;
+        box-shadow: 0 18px 34px rgba(42, 24, 16, 0.20);
+      }
+      .yw-panel {
+        position: fixed;
+        z-index: 9999;
+        background: rgba(255, 253, 248, 0.92);
+        border: 1px solid rgba(229, 220, 200, 0.92);
+        border-radius: 8px;
+        box-shadow: 0 18px 38px rgba(42, 24, 16, 0.18);
+        color: #2a1810;
+        backdrop-filter: blur(10px);
+      }
+      .yw-title-panel {
+        top: 16px;
+        left: 56px;
+        width: min(420px, calc(100% - 96px));
+        padding: 15px 17px 14px;
+      }
+      .yw-title-panel h1 {
+        margin: 2px 0 7px;
+        font-size: 19px;
+        font-weight: 800;
+        line-height: 1.3;
+        letter-spacing: 0;
+      }
+      .yw-title-panel p {
+        margin: 0;
+        color: #64584e;
+        font-size: 13px;
+        line-height: 1.48;
+      }
+      .yw-eyebrow {
+        font-size: 11px;
+        letter-spacing: 0;
+        color: #9a5a00;
+        font-weight: 700;
+      }
+      .yw-legend-panel {
+        right: 18px;
+        bottom: 28px;
+        width: min(320px, calc(100% - 36px));
+        padding: 13px 15px;
+        font-size: 12px;
+        line-height: 1.45;
+      }
+      .yw-legend-panel h2 {
+        margin: 0 0 8px;
+        font-size: 13px;
+      }
+      .yw-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 6px 0;
+      }
+      .yw-dot {
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        display: inline-block;
+        border: 1px solid rgba(42, 24, 16, 0.25);
+        flex: 0 0 auto;
+      }
+      .yw-line {
+        width: 22px;
+        height: 0;
+        border-top: 4px solid #15803d;
+        border-radius: 999px;
+        display: inline-block;
+        flex: 0 0 auto;
+      }
+      .yw-note {
+        margin-top: 8px;
+        color: #6f645a;
+      }
+      .yw-popup {
+        min-width: 230px;
+        color: #2a1810;
+      }
+      .yw-popup h3 {
+        margin: 0 0 7px;
+        font-size: 15px;
+      }
+      .yw-popup table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+      }
+      .yw-popup td {
+        border-top: 1px solid #efe6d4;
+        padding: 5px 0;
+        vertical-align: top;
+      }
+      .yw-popup td:first-child {
+        color: #75685c;
+        padding-right: 10px;
+        white-space: nowrap;
+      }
+      @media (max-width: 640px) {
+        .yw-title-panel {
+          top: 10px;
+          left: 44px;
+          width: calc(100% - 58px);
+          padding: 11px 12px;
+        }
+        .yw-legend-panel {
+          right: 10px;
+          bottom: 20px;
+          padding: 10px 12px;
+        }
+      }
+    </style>
+    
+    
+            <div class="folium-map" id="map_ad788f6e754029a479a25b7ab09d0cb6" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_ad788f6e754029a479a25b7ab09d0cb6 = L.map(
+                "map_ad788f6e754029a479a25b7ab09d0cb6",
+                {
+                    center: [37.568389434452996, 126.92909738514845],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 14,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_ad788f6e754029a479a25b7ab09d0cb6);
+
+            
+
+        
+    
+            var tile_layer_75b1149250435d8d62e207f89c7cee8f = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_75b1149250435d8d62e207f89c7cee8f.addTo(map_ad788f6e754029a479a25b7ab09d0cb6);
+        
+    
+            var tile_layer_8f7a7be2c3ea8923295c74fc1ea6a0eb = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            L.control.fullscreen(
+                {
+  "position": "topleft",
+  "title": "\uc804\uccb4 \ud654\uba74",
+  "titleCancel": "\uc804\uccb4 \ud654\uba74 \ub2eb\uae30",
+  "forceSeparateButton": false,
+}
+            ).addTo(map_ad788f6e754029a479a25b7ab09d0cb6);
+        
+    
+            var tile_layer_11ed055dc7a845827effcaaca8ff440c = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detect_retina": false, "max_native_zoom": 19, "max_zoom": 19, "min_zoom": 0, "no_wrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+            var mini_map_937c087bab3ca89ae8d3a63c910883ed = new L.Control.MiniMap(
+                tile_layer_11ed055dc7a845827effcaaca8ff440c,
+                {
+  "position": "bottomleft",
+  "width": 150,
+  "height": 150,
+  "collapsedWidth": 25,
+  "collapsedHeight": 25,
+  "zoomLevelOffset": -5,
+  "centerFixed": false,
+  "zoomAnimation": false,
+  "toggleDisplay": true,
+  "autoToggleDisplay": false,
+  "minimized": false,
+}
+            );
+            map_ad788f6e754029a479a25b7ab09d0cb6.addControl(mini_map_937c087bab3ca89ae8d3a63c910883ed);
+        
+    
+            var mouse_position_45363f4b8f2d25303f05e6ce0b558d28 = new L.Control.MousePosition(
+                {
+  "position": "bottomright",
+  "separator": " / ",
+  "emptyString": "Unavailable",
+  "lngFirst": false,
+  "numDigits": 5,
+  "prefix": "\uc88c\ud45c",
+}
+            );
+            mouse_position_45363f4b8f2d25303f05e6ce0b558d28.options["latFormatter"] =
+                undefined;
+            mouse_position_45363f4b8f2d25303f05e6ce0b558d28.options["lngFormatter"] =
+                undefined;
+            map_ad788f6e754029a479a25b7ab09d0cb6.addControl(mouse_position_45363f4b8f2d25303f05e6ce0b558d28);
+        
+    
+            var feature_group_090633c99041e46c1ba175db78b3b848 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_cf1e5f297a200646e9351b15c3edb29b = L.circleMarker(
+                [37.564330104536, 126.927584999673],
+                {"bubblingMouseEvents": true, "color": "#2563eb", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2563eb", "fillOpacity": 0.68, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 23.146428199482244, "stroke": true, "weight": 2}
+            ).addTo(feature_group_090633c99041e46c1ba175db78b3b848);
+        
+    
+        var popup_39020b93641cfdb9131f4df6d446165b = L.popup({
+  "maxWidth": 340,
+});
+
+        
+            
+                var html_4b1a0ab8ee30eb689f4290ea679400e6 = $(`<div id="html_4b1a0ab8ee30eb689f4290ea679400e6" style="width: 100.0%; height: 100.0%;">             <div class="yw-popup">               <h3>연남장</h3>               <table>                 <tr><td>주소</td><td>서울특별시 서대문구 연희로5길 22</td></tr>                 <tr><td>순예약</td><td>150</td></tr>                 <tr><td>예약/취소</td><td>348 / 198</td></tr>                 <tr><td>리뷰</td><td>12</td></tr>                 <tr><td>예약 Hype</td><td>95.8</td></tr>                 <tr><td>리뷰 Hype</td><td>43.8</td></tr>                 <tr><td>만족 Hype</td><td>96.7</td></tr>                 <tr><td>활동 중심 거리</td><td>0.54 km</td></tr>               </table>             </div>             </div>`)[0];
+                popup_39020b93641cfdb9131f4df6d446165b.setContent(html_4b1a0ab8ee30eb689f4290ea679400e6);
+            
+        
+
+        circle_marker_cf1e5f297a200646e9351b15c3edb29b.bindPopup(popup_39020b93641cfdb9131f4df6d446165b)
+        ;
+
+        
+    
+    
+            circle_marker_cf1e5f297a200646e9351b15c3edb29b.bindTooltip(
+                `<div>
+                     연남장
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2de3f286802696fe27a8fd6231be6fff = L.circleMarker(
+                [37.565997558444, 126.929894716912],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#15803d", "fillOpacity": 0.68, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20.61642911247477, "stroke": true, "weight": 2}
+            ).addTo(feature_group_090633c99041e46c1ba175db78b3b848);
+        
+    
+        var popup_ae017e9600aedeedb1fe4735a7cf05f9 = L.popup({
+  "maxWidth": 340,
+});
+
+        
+            
+                var html_c16d9b4a82db6eb27d87713df79998f2 = $(`<div id="html_c16d9b4a82db6eb27d87713df79998f2" style="width: 100.0%; height: 100.0%;">             <div class="yw-popup">               <h3>마이트리</h3>               <table>                 <tr><td>주소</td><td>서울특별시 서대문구 연희로 85 5층</td></tr>                 <tr><td>순예약</td><td>109</td></tr>                 <tr><td>예약/취소</td><td>292 / 183</td></tr>                 <tr><td>리뷰</td><td>13</td></tr>                 <tr><td>예약 Hype</td><td>79.2</td></tr>                 <tr><td>리뷰 Hype</td><td>58.3</td></tr>                 <tr><td>만족 Hype</td><td>97.8</td></tr>                 <tr><td>활동 중심 거리</td><td>0.30 km</td></tr>               </table>             </div>             </div>`)[0];
+                popup_ae017e9600aedeedb1fe4735a7cf05f9.setContent(html_c16d9b4a82db6eb27d87713df79998f2);
+            
+        
+
+        circle_marker_2de3f286802696fe27a8fd6231be6fff.bindPopup(popup_ae017e9600aedeedb1fe4735a7cf05f9)
+        ;
+
+        
+    
+    
+            circle_marker_2de3f286802696fe27a8fd6231be6fff.bindTooltip(
+                `<div>
+                     마이트리
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f72c3ea3dae84d8290956657bc6aba41 = L.circleMarker(
+                [37.577020515491, 126.935853747155],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#15803d", "fillOpacity": 0.68, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20.816207341961707, "stroke": true, "weight": 2}
+            ).addTo(feature_group_090633c99041e46c1ba175db78b3b848);
+        
+    
+        var popup_27c171b628c8ed6583a3716d294fea3f = L.popup({
+  "maxWidth": 340,
+});
+
+        
+            
+                var html_ef606be1ad91d784813a226178ed6033 = $(`<div id="html_ef606be1ad91d784813a226178ed6033" style="width: 100.0%; height: 100.0%;">             <div class="yw-popup">               <h3>마인드플로우</h3>               <table>                 <tr><td>주소</td><td>서울특별시 서대문구 연희로 224 3층</td></tr>                 <tr><td>순예약</td><td>112</td></tr>                 <tr><td>예약/취소</td><td>270 / 158</td></tr>                 <tr><td>리뷰</td><td>13</td></tr>                 <tr><td>예약 Hype</td><td>87.5</td></tr>                 <tr><td>리뷰 Hype</td><td>62.5</td></tr>                 <tr><td>만족 Hype</td><td>99.1</td></tr>                 <tr><td>활동 중심 거리</td><td>1.05 km</td></tr>               </table>             </div>             </div>`)[0];
+                popup_27c171b628c8ed6583a3716d294fea3f.setContent(html_ef606be1ad91d784813a226178ed6033);
+            
+        
+
+        circle_marker_f72c3ea3dae84d8290956657bc6aba41.bindPopup(popup_27c171b628c8ed6583a3716d294fea3f)
+        ;
+
+        
+    
+    
+            circle_marker_f72c3ea3dae84d8290956657bc6aba41.bindTooltip(
+                `<div>
+                     마인드플로우
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8f3f5dda65992a7b1ed98c4fdde28c0c = L.circleMarker(
+                [37.567493895799, 126.928321014591],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#15803d", "fillOpacity": 0.68, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.662082348209474, "stroke": true, "weight": 2}
+            ).addTo(feature_group_090633c99041e46c1ba175db78b3b848);
+        
+    
+        var popup_2e2172148521b70857f25ccc7fd80af5 = L.popup({
+  "maxWidth": 340,
+});
+
+        
+            
+                var html_05dfe3da26d63f49743acfbe5e01a167 = $(`<div id="html_05dfe3da26d63f49743acfbe5e01a167" style="width: 100.0%; height: 100.0%;">             <div class="yw-popup">               <h3>시이작</h3>               <table>                 <tr><td>주소</td><td>서울특별시 서대문구 연희로11나길 5 2층</td></tr>                 <tr><td>순예약</td><td>58</td></tr>                 <tr><td>예약/취소</td><td>231 / 173</td></tr>                 <tr><td>리뷰</td><td>13</td></tr>                 <tr><td>예약 Hype</td><td>70.8</td></tr>                 <tr><td>리뷰 Hype</td><td>66.7</td></tr>                 <tr><td>만족 Hype</td><td>98.5</td></tr>                 <tr><td>활동 중심 거리</td><td>0.21 km</td></tr>               </table>             </div>             </div>`)[0];
+                popup_2e2172148521b70857f25ccc7fd80af5.setContent(html_05dfe3da26d63f49743acfbe5e01a167);
+            
+        
+
+        circle_marker_8f3f5dda65992a7b1ed98c4fdde28c0c.bindPopup(popup_2e2172148521b70857f25ccc7fd80af5)
+        ;
+
+        
+    
+    
+            circle_marker_8f3f5dda65992a7b1ed98c4fdde28c0c.bindTooltip(
+                `<div>
+                     시이작
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ff11d494dc48ee8fde1adffd8686d1a7 = L.circleMarker(
+                [37.568792797424, 126.930228568115],
+                {"bubblingMouseEvents": true, "color": "#c2410c", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#c2410c", "fillOpacity": 0.68, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.073036977771004, "stroke": true, "weight": 2}
+            ).addTo(feature_group_090633c99041e46c1ba175db78b3b848);
+        
+    
+        var popup_85e21bb72135fade2cebbd66d2a9092f = L.popup({
+  "maxWidth": 340,
+});
+
+        
+            
+                var html_a3b02fccbb60cfb073f4be844b1aba90 = $(`<div id="html_a3b02fccbb60cfb073f4be844b1aba90" style="width: 100.0%; height: 100.0%;">             <div class="yw-popup">               <h3>빅블루요가</h3>               <table>                 <tr><td>주소</td><td>서울특별시 서대문구 연희로15길 31 지층</td></tr>                 <tr><td>순예약</td><td>42</td></tr>                 <tr><td>예약/취소</td><td>200 / 158</td></tr>                 <tr><td>리뷰</td><td>21</td></tr>                 <tr><td>예약 Hype</td><td>54.2</td></tr>                 <tr><td>리뷰 Hype</td><td>91.7</td></tr>                 <tr><td>만족 Hype</td><td>97.4</td></tr>                 <tr><td>활동 중심 거리</td><td>0.01 km</td></tr>               </table>             </div>             </div>`)[0];
+                popup_85e21bb72135fade2cebbd66d2a9092f.setContent(html_a3b02fccbb60cfb073f4be844b1aba90);
+            
+        
+
+        circle_marker_ff11d494dc48ee8fde1adffd8686d1a7.bindPopup(popup_85e21bb72135fade2cebbd66d2a9092f)
+        ;
+
+        
+    
+    
+            circle_marker_ff11d494dc48ee8fde1adffd8686d1a7.bindTooltip(
+                `<div>
+                     빅블루요가
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_36a8e3c24ad44bce51509e9e43437d10 = L.circleMarker(
+                [37.570882196338, 126.928780175247],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#15803d", "fillOpacity": 0.68, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.59791644056146, "stroke": true, "weight": 2}
+            ).addTo(feature_group_090633c99041e46c1ba175db78b3b848);
+        
+    
+        var popup_fbcf7e7129fa02691917514a08ea69c6 = L.popup({
+  "maxWidth": 340,
+});
+
+        
+            
+                var html_f0ad5a3c4af168b19cd44f48782b408a = $(`<div id="html_f0ad5a3c4af168b19cd44f48782b408a" style="width: 100.0%; height: 100.0%;">             <div class="yw-popup">               <h3>바운드하우스</h3>               <table>                 <tr><td>주소</td><td>서울특별시 서대문구 연희동 108-6</td></tr>                 <tr><td>순예약</td><td>47</td></tr>                 <tr><td>예약/취소</td><td>98 / 51</td></tr>                 <tr><td>리뷰</td><td>6</td></tr>                 <tr><td>예약 Hype</td><td>62.5</td></tr>                 <tr><td>리뷰 Hype</td><td>54.2</td></tr>                 <tr><td>만족 Hype</td><td>81</td></tr>                 <tr><td>활동 중심 거리</td><td>0.27 km</td></tr>               </table>             </div>             </div>`)[0];
+                popup_fbcf7e7129fa02691917514a08ea69c6.setContent(html_f0ad5a3c4af168b19cd44f48782b408a);
+            
+        
+
+        circle_marker_36a8e3c24ad44bce51509e9e43437d10.bindPopup(popup_fbcf7e7129fa02691917514a08ea69c6)
+        ;
+
+        
+    
+    
+            circle_marker_36a8e3c24ad44bce51509e9e43437d10.bindTooltip(
+                `<div>
+                     바운드하우스
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_146e450c588fc67b6634bf0bbaaef7b8 = L.circleMarker(
+                [37.566711570866, 126.929277808838],
+                {"bubblingMouseEvents": true, "color": "#c2410c", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#c2410c", "fillOpacity": 0.68, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.714164132637807, "stroke": true, "weight": 2}
+            ).addTo(feature_group_090633c99041e46c1ba175db78b3b848);
+        
+    
+        var popup_36d855dcfc04ef412ecc8997185a6ed2 = L.popup({
+  "maxWidth": 340,
+});
+
+        
+            
+                var html_143ce63fd3b389e211b12a7380947331 = $(`<div id="html_143ce63fd3b389e211b12a7380947331" style="width: 100.0%; height: 100.0%;">             <div class="yw-popup">               <h3>연희정음</h3>               <table>                 <tr><td>주소</td><td>서울특별시 서대문구 연희동 189-2</td></tr>                 <tr><td>순예약</td><td>23</td></tr>                 <tr><td>예약/취소</td><td>96 / 73</td></tr>                 <tr><td>리뷰</td><td>12</td></tr>                 <tr><td>예약 Hype</td><td>37.5</td></tr>                 <tr><td>리뷰 Hype</td><td>77.1</td></tr>                 <tr><td>만족 Hype</td><td>96.2</td></tr>                 <tr><td>활동 중심 거리</td><td>0.23 km</td></tr>               </table>             </div>             </div>`)[0];
+                popup_36d855dcfc04ef412ecc8997185a6ed2.setContent(html_143ce63fd3b389e211b12a7380947331);
+            
+        
+
+        circle_marker_146e450c588fc67b6634bf0bbaaef7b8.bindPopup(popup_36d855dcfc04ef412ecc8997185a6ed2)
+        ;
+
+        
+    
+    
+            circle_marker_146e450c588fc67b6634bf0bbaaef7b8.bindTooltip(
+                `<div>
+                     연희정음
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9b492ef29d9efbe053db4b52fb50485c = L.circleMarker(
+                [37.568813333087, 126.927272103227],
+                {"bubblingMouseEvents": true, "color": "#2563eb", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2563eb", "fillOpacity": 0.68, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.04238770515324, "stroke": true, "weight": 2}
+            ).addTo(feature_group_090633c99041e46c1ba175db78b3b848);
+        
+    
+        var popup_01fb2c8cc574edb009a04334ed799660 = L.popup({
+  "maxWidth": 340,
+});
+
+        
+            
+                var html_66f30811903002e8374b321d79c8a7fb = $(`<div id="html_66f30811903002e8374b321d79c8a7fb" style="width: 100.0%; height: 100.0%;">             <div class="yw-popup">               <h3>무릉</h3>               <table>                 <tr><td>주소</td><td>서울특별시 서대문구 연희로11마길 23</td></tr>                 <tr><td>순예약</td><td>33</td></tr>                 <tr><td>예약/취소</td><td>47 / 14</td></tr>                 <tr><td>리뷰</td><td>1</td></tr>                 <tr><td>예약 Hype</td><td>45.8</td></tr>                 <tr><td>리뷰 Hype</td><td>16.7</td></tr>                 <tr><td>만족 Hype</td><td>100</td></tr>                 <tr><td>활동 중심 거리</td><td>0.25 km</td></tr>               </table>             </div>             </div>`)[0];
+                popup_01fb2c8cc574edb009a04334ed799660.setContent(html_66f30811903002e8374b321d79c8a7fb);
+            
+        
+
+        circle_marker_9b492ef29d9efbe053db4b52fb50485c.bindPopup(popup_01fb2c8cc574edb009a04334ed799660)
+        ;
+
+        
+    
+    
+            circle_marker_9b492ef29d9efbe053db4b52fb50485c.bindTooltip(
+                `<div>
+                     무릉
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_899d712d7313e8baf12cec1a34a449fe = L.circleMarker(
+                [37.572092920342, 126.93806774306],
+                {"bubblingMouseEvents": true, "color": "#2563eb", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2563eb", "fillOpacity": 0.68, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.238320341483519, "stroke": true, "weight": 2}
+            ).addTo(feature_group_090633c99041e46c1ba175db78b3b848);
+        
+    
+        var popup_46bc402e55ee4e2b614a6af3a7ac1143 = L.popup({
+  "maxWidth": 340,
+});
+
+        
+            
+                var html_94176edb4865502aa26f1474ab3e6442 = $(`<div id="html_94176edb4865502aa26f1474ab3e6442" style="width: 100.0%; height: 100.0%;">             <div class="yw-popup">               <h3>숨 명상센터</h3>               <table>                 <tr><td>주소</td><td>서울특별시 서대문구 연희동 16-2 2층</td></tr>                 <tr><td>순예약</td><td>14</td></tr>                 <tr><td>예약/취소</td><td>44 / 30</td></tr>                 <tr><td>리뷰</td><td>1</td></tr>                 <tr><td>예약 Hype</td><td>29.2</td></tr>                 <tr><td>리뷰 Hype</td><td>20.8</td></tr>                 <tr><td>만족 Hype</td><td>100</td></tr>                 <tr><td>활동 중심 거리</td><td>0.80 km</td></tr>               </table>             </div>             </div>`)[0];
+                popup_46bc402e55ee4e2b614a6af3a7ac1143.setContent(html_94176edb4865502aa26f1474ab3e6442);
+            
+        
+
+        circle_marker_899d712d7313e8baf12cec1a34a449fe.bindPopup(popup_46bc402e55ee4e2b614a6af3a7ac1143)
+        ;
+
+        
+    
+    
+            circle_marker_899d712d7313e8baf12cec1a34a449fe.bindTooltip(
+                `<div>
+                     숨 명상센터
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a758ad4d80d676b5ca35adcaa8a5c3ab = L.circleMarker(
+                [37.565560190736, 126.91602233188],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#15803d", "fillOpacity": 0.68, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.130495168499706, "stroke": true, "weight": 2}
+            ).addTo(feature_group_090633c99041e46c1ba175db78b3b848);
+        
+    
+        var popup_f2505f5ca9270998857c5333762da7b1 = L.popup({
+  "maxWidth": 340,
+});
+
+        
+            
+                var html_708aac6b6877fd332b8ce81b654aa764 = $(`<div id="html_708aac6b6877fd332b8ce81b654aa764" style="width: 100.0%; height: 100.0%;">             <div class="yw-popup">               <h3>너울너울</h3>               <table>                 <tr><td>주소</td><td>서울특별시 마포구 성산동 3-30</td></tr>                 <tr><td>순예약</td><td>5</td></tr>                 <tr><td>예약/취소</td><td>30 / 25</td></tr>                 <tr><td>리뷰</td><td>3</td></tr>                 <tr><td>예약 Hype</td><td>20.8</td></tr>                 <tr><td>리뷰 Hype</td><td>56.2</td></tr>                 <tr><td>만족 Hype</td><td>100</td></tr>                 <tr><td>활동 중심 거리</td><td>1.29 km</td></tr>               </table>             </div>             </div>`)[0];
+                popup_f2505f5ca9270998857c5333762da7b1.setContent(html_708aac6b6877fd332b8ce81b654aa764);
+            
+        
+
+        circle_marker_a758ad4d80d676b5ca35adcaa8a5c3ab.bindPopup(popup_f2505f5ca9270998857c5333762da7b1)
+        ;
+
+        
+    
+    
+            circle_marker_a758ad4d80d676b5ca35adcaa8a5c3ab.bindTooltip(
+                `<div>
+                     너울너울
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fcc04994b7ed0de2b588d1cfb4152777 = L.circleMarker(
+                [37.567682614349, 126.931274545813],
+                {"bubblingMouseEvents": true, "color": "#2563eb", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2563eb", "fillOpacity": 0.68, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.0, "stroke": true, "weight": 2}
+            ).addTo(feature_group_090633c99041e46c1ba175db78b3b848);
+        
+    
+        var popup_76b5cc1aca892853413532aa9d448864 = L.popup({
+  "maxWidth": 340,
+});
+
+        
+            
+                var html_9a55d2035de5c5805e92f51427e2e884 = $(`<div id="html_9a55d2035de5c5805e92f51427e2e884" style="width: 100.0%; height: 100.0%;">             <div class="yw-popup">               <h3>데이스타콜라보</h3>               <table>                 <tr><td>주소</td><td>서울특별시 서대문구 연희로 107-1 B1층</td></tr>                 <tr><td>순예약</td><td>0</td></tr>                 <tr><td>예약/취소</td><td>11 / 11</td></tr>                 <tr><td>리뷰</td><td>0</td></tr>                 <tr><td>예약 Hype</td><td>4.2</td></tr>                 <tr><td>리뷰 Hype</td><td>4.2</td></tr>                 <tr><td>만족 Hype</td><td>-</td></tr>                 <tr><td>활동 중심 거리</td><td>0.15 km</td></tr>               </table>             </div>             </div>`)[0];
+                popup_76b5cc1aca892853413532aa9d448864.setContent(html_9a55d2035de5c5805e92f51427e2e884);
+            
+        
+
+        circle_marker_fcc04994b7ed0de2b588d1cfb4152777.bindPopup(popup_76b5cc1aca892853413532aa9d448864)
+        ;
+
+        
+    
+    
+            circle_marker_fcc04994b7ed0de2b588d1cfb4152777.bindTooltip(
+                `<div>
+                     데이스타콜라보
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_08cf93d384ca541a4a8ef6a5d81bffe9 = L.circleMarker(
+                [37.567356642134, 126.928486557178],
+                {"bubblingMouseEvents": true, "color": "#2563eb", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2563eb", "fillOpacity": 0.68, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.424871130596427, "stroke": true, "weight": 2}
+            ).addTo(feature_group_090633c99041e46c1ba175db78b3b848);
+        
+    
+        var popup_552eb4a07193e8a1c778b199cbcf05e4 = L.popup({
+  "maxWidth": 340,
+});
+
+        
+            
+                var html_aba5e815553c941c52c6a2ddc3dba825 = $(`<div id="html_aba5e815553c941c52c6a2ddc3dba825" style="width: 100.0%; height: 100.0%;">             <div class="yw-popup">               <h3>비전스트롤</h3>               <table>                 <tr><td>주소</td><td>서울특별시 서대문구 연희로11가길 24</td></tr>                 <tr><td>순예약</td><td>3</td></tr>                 <tr><td>예약/취소</td><td>10 / 7</td></tr>                 <tr><td>리뷰</td><td>1</td></tr>                 <tr><td>예약 Hype</td><td>12.5</td></tr>                 <tr><td>리뷰 Hype</td><td>47.9</td></tr>                 <tr><td>만족 Hype</td><td>100</td></tr>                 <tr><td>활동 중심 거리</td><td>0.21 km</td></tr>               </table>             </div>             </div>`)[0];
+                popup_552eb4a07193e8a1c778b199cbcf05e4.setContent(html_aba5e815553c941c52c6a2ddc3dba825);
+            
+        
+
+        circle_marker_08cf93d384ca541a4a8ef6a5d81bffe9.bindPopup(popup_552eb4a07193e8a1c778b199cbcf05e4)
+        ;
+
+        
+    
+    
+            circle_marker_08cf93d384ca541a4a8ef6a5d81bffe9.bindTooltip(
+                `<div>
+                     비전스트롤
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_090633c99041e46c1ba175db78b3b848.addTo(map_ad788f6e754029a479a25b7ab09d0cb6);
+        
+    
+            var feature_group_d9f494483f487445581ad11c3c2d5ee5 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_d3c74aea32663313d32748661d138926 = L.circleMarker(
+                [37.566328308343, 126.927201695241],
+                {"bubblingMouseEvents": true, "color": "#6b7280", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#6b7280", "fillOpacity": 0.45, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1.5}
+            ).addTo(feature_group_d9f494483f487445581ad11c3c2d5ee5);
+        
+    
+        var popup_e4e1649eb30432a4ddde9f7cec830c97 = L.popup({
+  "maxWidth": 340,
+});
+
+        
+            
+                var html_908657fd084d0aa501dad322c572bddf = $(`<div id="html_908657fd084d0aa501dad322c572bddf" style="width: 100.0%; height: 100.0%;">             <div class="yw-popup">               <h3>파츄코파라다이스</h3>               <table>                 <tr><td>주소</td><td>서울특별시 서대문구 연희로11가길 56 2층</td></tr>                 <tr><td>상태</td><td>위치 카탈로그만 있음</td></tr>                 <tr><td>수동 확인</td><td>완료</td></tr>                 <tr><td>비고</td><td>공개 장소 정보와 지오코딩 결과가 일치해 GIS 분석용 주소로 사용</td></tr>               </table>             </div>             </div>`)[0];
+                popup_e4e1649eb30432a4ddde9f7cec830c97.setContent(html_908657fd084d0aa501dad322c572bddf);
+            
+        
+
+        circle_marker_d3c74aea32663313d32748661d138926.bindPopup(popup_e4e1649eb30432a4ddde9f7cec830c97)
+        ;
+
+        
+    
+    
+            circle_marker_d3c74aea32663313d32748661d138926.bindTooltip(
+                `<div>
+                     파츄코파라다이스 (location only)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_d9f494483f487445581ad11c3c2d5ee5.addTo(map_ad788f6e754029a479a25b7ab09d0cb6);
+        
+    
+            var feature_group_9695efcab57e125424cdf4da9f1241af = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_936cf78e46f5472b7a4208fa0624d0ff = L.circleMarker(
+                [37.568706932631684, 126.93011521721975],
+                {"bubblingMouseEvents": true, "color": "#2f6f4e", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f9a212", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_9695efcab57e125424cdf4da9f1241af);
+        
+    
+        var popup_d13d5dbce6d77160e3bcfb48bd9c1212 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_d3104d08cac031ed3dd916c926e35504 = $(`<div id="html_d3104d08cac031ed3dd916c926e35504" style="width: 100.0%; height: 100.0%;"><div class='yw-popup'><h3>예약 가중 활동 중심</h3><table><tr><td>의미</td><td>순예약 규모를 가중치로 계산한 행사 반응의 중심점입니다.</td></tr></table></div></div>`)[0];
+                popup_d13d5dbce6d77160e3bcfb48bd9c1212.setContent(html_d3104d08cac031ed3dd916c926e35504);
+            
+        
+
+        circle_marker_936cf78e46f5472b7a4208fa0624d0ff.bindPopup(popup_d13d5dbce6d77160e3bcfb48bd9c1212)
+        ;
+
+        
+    
+    
+            circle_marker_936cf78e46f5472b7a4208fa0624d0ff.bindTooltip(
+                `<div>
+                     예약 가중 활동 중심
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_9695efcab57e125424cdf4da9f1241af.addTo(map_ad788f6e754029a479a25b7ab09d0cb6);
+        
+    
+            map_ad788f6e754029a479a25b7ab09d0cb6.fitBounds(
+                [[37.564330104536, 126.91602233188], [37.577020515491, 126.93806774306]],
+                {"padding": [28, 28]}
+            );
+        
+    
+            var layer_control_d5650cd15001c1f7766ef4d7f5d539ab_layers = {
+                base_layers : {
+                    "cartodbpositron" : tile_layer_75b1149250435d8d62e207f89c7cee8f,
+                    "OpenStreetMap" : tile_layer_8f7a7be2c3ea8923295c74fc1ea6a0eb,
+                },
+                overlays :  {
+                    "Hype/\uc608\uc57d \ubc18\uc751" : feature_group_090633c99041e46c1ba175db78b3b848,
+                    "\uc704\uce58\ub9cc \uc788\ub294 \uc7a5\uc18c" : feature_group_d9f494483f487445581ad11c3c2d5ee5,
+                    "\uc608\uc57d \uac00\uc911 \ud65c\ub3d9 \uc911\uc2ec" : feature_group_9695efcab57e125424cdf4da9f1241af,
+                },
+            };
+            let layer_control_d5650cd15001c1f7766ef4d7f5d539ab = L.control.layers(
+                layer_control_d5650cd15001c1f7766ef4d7f5d539ab_layers.base_layers,
+                layer_control_d5650cd15001c1f7766ef4d7f5d539ab_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": false,
+  "autoZIndex": true,
+}
+            ).addTo(map_ad788f6e754029a479a25b7ab09d0cb6);
+
+        
+</script>
+</html>

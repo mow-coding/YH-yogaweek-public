@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/public/favicon-32.png">
+  <link rel="apple-touch-icon" href="../../assets/public/apple-touch-icon.png">
+  <title>방법론과 데이터 계보</title>
+  <style>
+    :root {
+      --ink: #221711;
+      --soft-ink: #3b2a21;
+      --muted: #6b6259;
+      --paper: #fffdf8;
+      --paper-strong: #ffffff;
+      --line: #e5dcc8;
+      --green: #2f6f4e;
+      --orange: #f9a212;
+      --cream: #fff7e6;
+      --blue: #1f5fbf;
+      --shadow: 0 18px 44px rgba(42, 24, 16, 0.09);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.72;
+      color: var(--ink);
+      background: var(--paper);
+      word-break: keep-all;
+    }
+    body::before {
+      content: "";
+      display: block;
+      height: 8px;
+      background: linear-gradient(90deg, var(--orange), #ed7a1a 52%, var(--green));
+    }
+    .report-shell {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 22px 24px 76px;
+    }
+    header {
+      position: relative;
+      margin-bottom: 34px;
+      padding: 42px 0 28px;
+      border-bottom: 1px solid var(--line);
+    }
+    .kicker {
+      color: #9a5a00;
+      font-size: 0.82rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      color: var(--muted);
+      margin: 12px 0 0;
+      max-width: 680px;
+      font-size: 1.03rem;
+      line-height: 1.7;
+      overflow-wrap: break-word;
+    }
+    h1 {
+      font-size: 3.05rem;
+      line-height: 1.12;
+      margin: 0;
+      letter-spacing: 0;
+      max-width: 850px;
+      word-break: keep-all;
+    }
+    h2 {
+      margin-top: 2.45rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid #edf0e8;
+      line-height: 1.3;
+      font-size: 1.45rem;
+      word-break: keep-all;
+    }
+    h3 { margin-top: 1.65rem; font-size: 1.12rem; }
+    a { color: var(--blue); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    main p {
+      max-width: 760px;
+      margin: 0.9rem 0;
+      line-height: 1.82;
+      overflow-wrap: break-word;
+    }
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 28px 30px 36px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: var(--shadow);
+    }
+    .report-meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0;
+      max-width: 820px;
+      margin: 0 0 32px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--paper-strong);
+    }
+    .report-meta p {
+      margin: 0;
+      padding: 14px 16px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      color: #3c332d;
+      font-size: 0.94rem;
+      word-break: keep-all;
+      line-height: 1.65;
+      overflow-wrap: break-word;
+    }
+    .report-meta p:nth-child(2n) { border-right: 0; }
+    .notice {
+      max-width: 760px;
+      padding: 13px 15px;
+      border-left: 4px solid var(--green);
+      background: #f4f8f5;
+      color: #38443e;
+      border-radius: 0 8px 8px 0;
+      margin: 18px 0 26px;
+      line-height: 1.75;
+    }
+    code {
+      background: #f3f5ef;
+      padding: 0.1rem 0.28rem;
+      border-radius: 4px;
+      font-size: 0.92em;
+      overflow-wrap: anywhere;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f3f5ef;
+      padding: 14px;
+      border-radius: 8px;
+    }
+    .table-wrap {
+      overflow-x: auto;
+      margin: 18px 0 24px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper-strong);
+    }
+    table {
+      width: 100%;
+      min-width: 720px;
+      border-collapse: collapse;
+      background: white;
+      font-size: 0.93rem;
+    }
+    th, td {
+      border-bottom: 1px solid #e8e1d2;
+      border-right: 1px solid #eee6d8;
+      padding: 11px 12px;
+      vertical-align: top;
+      line-height: 1.58;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+    th { background: #f1f5ee; text-align: left; color: #2f3d35; }
+    td:last-child, th:last-child { border-right: 0; }
+    td code { white-space: nowrap; }
+    main table:first-of-type th:nth-child(2),
+    main table:first-of-type td:nth-child(2),
+    main table:first-of-type th:nth-child(3),
+    main table:first-of-type td:nth-child(3) {
+      white-space: nowrap;
+    }
+    .responsibility-table th:nth-child(2),
+    .responsibility-table td:nth-child(2),
+    .responsibility-table th:nth-child(3),
+    .responsibility-table td:nth-child(3) {
+      white-space: nowrap;
+    }
+    .stakeholder-message-table {
+      table-layout: fixed;
+      min-width: 720px;
+    }
+    .stakeholder-message-table th:nth-child(1),
+    .stakeholder-message-table td:nth-child(1) {
+      width: 18%;
+    }
+    .stakeholder-message-table th:nth-child(2),
+    .stakeholder-message-table td:nth-child(2) {
+      width: 32%;
+    }
+    .two-column-text-table,
+    .three-column-text-table,
+    .four-column-text-table {
+      table-layout: fixed;
+    }
+    .two-column-text-table {
+      min-width: 0;
+    }
+    .three-column-text-table:not(.class-list-table) th:nth-child(1),
+    .three-column-text-table:not(.class-list-table) td:nth-child(1) {
+      width: 24%;
+    }
+    .three-column-text-table:not(.class-list-table) th:nth-child(2),
+    .three-column-text-table:not(.class-list-table) td:nth-child(2) {
+      width: 34%;
+    }
+    .four-column-text-table th,
+    .four-column-text-table td {
+      width: 25%;
+    }
+    .class-list-table th:nth-child(1),
+    .class-list-table td:nth-child(1) {
+      width: 24%;
+    }
+    .class-list-table th:nth-child(2),
+    .class-list-table td:nth-child(2) {
+      width: 64%;
+    }
+    .class-list-table th:nth-child(3),
+    .class-list-table td:nth-child(3) {
+      width: 12%;
+      text-align: right;
+    }
+    tr:nth-child(even) td { background: #fbfcf8; }
+    li {
+      max-width: 760px;
+      margin: 0.35rem 0;
+      line-height: 1.75;
+      overflow-wrap: break-word;
+    }
+    @media (max-width: 720px) {
+      .report-shell { padding: 18px 16px 52px; }
+      h1 { font-size: 2.15rem; }
+      main { padding: 18px 16px 26px; }
+      th, td { padding: 9px 10px; }
+      .report-meta { grid-template-columns: 1fr; }
+      .report-meta p { border-right: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="report-shell">
+    <header>
+      <div class="kicker">2026 YEONHUI YOGA WEEK</div>
+      <h1>방법론과 데이터 계보</h1>
+      <p class="subtitle">원천자료 수집부터 전처리, OCR, AI 검수, 공개/내부 분리까지 추적한 방법론 문서입니다.</p>
+    </header>
+    <main>
+<h1>방법론 및 데이터 계보</h1>
+<p>작성일: 2026-05-16</p>
+<p>현재 프로젝트 전체 현황판은 <code>docs/project-current-status.md</code>에 따로 정리되어 있다.</p>
+<h2>1. 처리 원칙</h2>
+<p>모든 데이터는 <code>원천자료 수집 -&gt; 전처리 -&gt; OCR -&gt; 구조화 -&gt; 비식별/내부 매칭 -&gt; 분석 -&gt; 리포트</code> 순서로 처리했다. public 산출물에는 전화번호, 실명, API key, 원본 스크린샷을 포함하지 않는다.</p>
+<h2>2. 원천자료와 접근 권한</h2>
+<div class="table-wrap"><table class="four-column-text-table">
+<thead><tr><th>자료</th><th>위치</th><th>접근/권한</th><th>사용 범위</th></tr></thead>
+<tbody>
+<tr><td>ON STUDIO 예약/취소/수업/강사</td><td><code>data/raw/onstudio/</code></td><td>축제 참여 요가원별 ON STUDIO 계정 접근 가능</td><td>예약/취소/수업 분석</td></tr>
+<tr><td>오붓 리뷰 스크린샷</td><td><code>data/raw/obud_reviews/screenshots/</code></td><td>오붓 리뷰 화면이 마우스 드래그/텍스트 복사를 허용하지 않아 사용자가 최신순으로 직접 화면 캡처. 원본은 private/raw</td><td>OCR 및 리뷰 분석</td></tr>
+<tr><td>Google Vision OCR 텍스트</td><td><code>data/raw/obud_reviews/ocr_text/</code></td><td>OCR API key는 로컬 파일/환경변수, 결과 원문은 raw</td><td>OCR 구조화</td></tr>
+<tr><td>Gemini Vision 검수 결과</td><td><code>data/processed/obud_reviews/private/obud_reviews_ai_checked_private.csv</code></td><td>Gemini API key는 로컬 전용. 원본 이미지와 OCR 텍스트를 함께 사용해 JSON 구조화 검수</td><td>리뷰 구조화 품질 검수</td></tr>
+<tr><td>티켓 가격표</td><td><code>references/obud-ticket-pricing.md</code></td><td>사용자 제공 이미지 기반 기록</td><td>가격 추정 기준</td></tr>
+<tr><td>오붓 정산 기준</td><td><code>references/obud-settlement-rules.md</code>, <code>data/raw/settlement/obud/</code></td><td>빅블루 요가 유동환 대표 전달 카카오톡 메시지와 오붓 화면 스크린샷 기반 전사. 2026-05-16 공개 오붓 사이트/FAQ/오붓패스/입점문의/sitemap 확인 결과 공개 정산표는 미확인</td><td>1회권/패스권 정산 추정</td></tr>
+<tr><td>요가원/행사 장소 주소</td><td><code>data/external/studio_locations_public.csv</code></td><td>ON STUDIO 수업 설명과 공개 웹 검색으로 수집. 최종 예약/시간표에 남은 active 장소만 GIS seed로 사용하며, 초기 기획안에만 남은 궁동산 행은 active GIS에서 제외</td><td>GIS 1차 분석</td></tr>
+<tr><td>수업별 실제 장소 증거</td><td><code>data/processed/analysis/public/class_location_evidence_public.csv</code></td><td>수업 설명의 <code>📍 장소</code>, <code>집합 장소</code>, <code>장소:</code> 문구를 파싱해 <code>organizer_studio_key</code>와 <code>actual_location_key</code>를 분리</td><td>GIS 동선 분석</td></tr>
+<tr><td>Google Drive 공유 프로그램/운영 문서</td><td><code>data/raw/google_drive_shared/rightnow_yogi/files/</code>, <code>data/raw/google_drive_shared/rightnow_yogi/full_archive/</code></td><td><code>bigblue.yoga@gmail.com</code> 계정에서 <code>rightnow.yogi@gmail.com</code>으로부터 공유받은 2026년 이후 연희 요가 축제 관련 자료의 로컬 사본. raw는 GitHub 공유 제외</td><td>수업 정원, 운영 문구, F&amp;B/스폰서/기획 맥락</td></tr>
+<tr><td>공유용 Notion 커뮤니케이션 문서</td><td><code>data/raw/notion_shared/</code></td><td>사용자가 제공한 공유용 Notion URL 2건을 읽기 전용으로 수집. 원문 JSON/텍스트와 블록별 원문 inventory는 raw/private로만 보관하고 GitHub 공유 제외</td><td>행사 기획 의도, 대외 메시지, 크루 운영 철학, 참여자 경험 설계 맥락</td></tr>
+<tr><td>Google Drive 수업 정원 후보표</td><td><code>data/processed/analysis/public/google_drive_program_capacity_reference.csv</code></td><td><code>program_obud_delivery.xlsx</code>에서 날짜/시간/장소/수업명/정원 후보를 추출한 public 파생표</td><td>정원 대비 예약률/운영 분석 후보</td></tr>
+<tr><td>ON STUDIO 캘린더 정원/예약현황</td><td><code>data/raw/onstudio/calendar_capacity/onstudio_calendar_capacity_2026_yeonhui_yoga_week_2026-05-16.txt</code></td><td>사용자가 ON STUDIO 캘린더 화면에서 직접 복사한 원본. raw는 GitHub 공유 제외</td><td>실제 운영 기준 정원/점유율 분석</td></tr>
+<tr><td>ON STUDIO 캘린더 public 파생표</td><td><code>data/processed/analysis/public/onstudio_calendar_capacity_reference.csv</code></td><td>캘린더 원본에서 수업별 <code>예약수|정원</code>을 추출한 public 파생표</td><td>정원 대비 채움률/운영 포화도 분석</td></tr>
+<tr><td>네이버 블로그 검색 결과</td><td><code>data/raw/external_web/naver_blog_mentions_raw.csv</code></td><td>네이버 검색 API. raw는 GitHub 공유 제외</td><td>외부 Viral 후보 수집</td></tr>
+<tr><td>네이버 블로그 본문</td><td><code>data/raw/external_web/naver_blog_bodies_raw.csv</code></td><td>confirmed 네이버 블로그 공개 페이지. 로그인/비공개 접근 없음. raw는 GitHub 공유 제외</td><td>본문 기반 노이즈 검수와 질적 요약</td></tr>
+<tr><td>유튜브 검색 결과</td><td><code>data/raw/external_web/youtube_mentions_raw.csv</code></td><td>YouTube Data API v3. raw는 GitHub 공유 제외</td><td>외부 Viral 후보 수집</td></tr>
+</tbody></table></div>
+<h2>3. 실행 스크립트 계보</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>단계</th><th>스크립트</th><th>입력</th><th>출력</th><th>현재 상태</th></tr></thead>
+<tbody>
+<tr><td>ON STUDIO 전처리</td><td><code>scripts/preprocess_onstudio.py</code></td><td><code>data/raw/onstudio/</code></td><td>processed ON STUDIO CSV</td><td>완료</td></tr>
+<tr><td>예약/취소 비식별</td><td><code>scripts/deidentify_reservation_cancel.py</code></td><td>private 예약/취소 CSV</td><td>public 비식별 CSV</td><td>완료</td></tr>
+<tr><td>public DuckDB 생성</td><td><code>scripts/build_public_duckdb.py</code></td><td>public CSV</td><td><code>data/database/yogaweek_public.duckdb</code></td><td>완료/재실행 가능</td></tr>
+<tr><td>Google Vision OCR</td><td><code>scripts/ocr_obud_reviews_google_vision.py</code></td><td>리뷰 스크린샷</td><td>OCR txt/json, manifest</td><td>완료</td></tr>
+<tr><td>OCR 통합표</td><td><code>scripts/build_obud_google_ocr_raw_table.py</code></td><td>OCR txt</td><td><code>data/interim/obud_reviews/google_vision_ocr_raw.csv</code></td><td>완료</td></tr>
+<tr><td>리뷰 필드 파싱</td><td><code>scripts/parse_obud_reviews.py</code></td><td>OCR raw CSV</td><td><code>data/processed/obud_reviews/private/obud_reviews_extracted_private.csv</code></td><td>완료</td></tr>
+<tr><td>수업명 매칭</td><td><code>scripts/match_review_classes.py</code></td><td>리뷰 파싱표, ON STUDIO 수업명</td><td>같은 private 리뷰표에 매칭 컬럼 추가</td><td>완료</td></tr>
+<tr><td>AI/규칙 검수</td><td><code>scripts/ai_review_quality_check.py</code></td><td>수업명 매칭 private 리뷰표</td><td><code>data/processed/obud_reviews/private/obud_reviews_ai_checked_private.csv</code></td><td>완료</td></tr>
+<tr><td>리뷰 작성자 내부 매칭</td><td><code>scripts/match_reviewers_private.py</code></td><td>리뷰 private, 예약 private</td><td><code>data/processed/obud_reviews/private/review_reviewer_match_private.csv</code></td><td>완료</td></tr>
+<tr><td>분석 테이블/리포트</td><td><code>scripts/build_analysis_tables.py</code></td><td>예약/취소/review/가격</td><td>public 리뷰, Hype metrics, 리포트</td><td>완료</td></tr>
+<tr><td>오붓 정산 기준/추정</td><td><code>scripts/build_obud_settlement_analysis.py</code></td><td>예약/취소 공개용 CSV, 오붓 정산표 전사값, 유동환 대표의 <code>소비자 기준</code>/<code>이용완료된 기준</code> 후속 확인</td><td>정산 규칙 CSV, 패스 정산표, 수업/요가원-월별 정산 추정치, 패스권 회차 추정 요약</td><td>완료/최종 정산서 확인 필요</td></tr>
+<tr><td>GIS 좌표화</td><td><code>scripts/geocode_studio_locations_arcgis.py</code></td><td><code>data/external/studio_locations_public.csv</code></td><td>좌표가 채워진 장소 테이블, 지오코딩 리포트</td><td>완료</td></tr>
+<tr><td>GIS 분석</td><td><code>scripts/build_gis_tables.py</code></td><td>장소 좌표, Hype metrics</td><td>GIS CSV, GeoJSON, HTML 지도, GIS 리포트</td><td>완료</td></tr>
+<tr><td>GIS 거리 행렬</td><td><code>scripts/build_gis_distance_matrix.py</code></td><td>행사 위치 카탈로그</td><td>location nodes, distance matrix</td><td>완료/재실행 가능</td></tr>
+<tr><td>GIS 시간표/동선</td><td><code>scripts/build_gis_schedule_flows.py</code></td><td>예약/취소, 거리 행렬, Hype GIS, 수업별 장소 증거</td><td>class location evidence, class schedule, transition feasibility</td><td>완료/재실행 가능</td></tr>
+<tr><td>GIS 심화 리포트</td><td><code>scripts/build_gis_deep_report.py</code></td><td>GIS 심화 public tables</td><td>심화 리포트, 이동 지도, 시간-공간 큐브</td><td>완료/재실행 가능</td></tr>
+<tr><td>Google Drive 정원 후보 추출</td><td><code>scripts/extract_google_drive_program_capacity_reference.py</code></td><td><code>program_obud_delivery.xlsx</code></td><td><code>google_drive_program_capacity_reference.csv</code></td><td>완료/재실행 가능</td></tr>
+<tr><td>ON STUDIO 캘린더 정원 파싱</td><td><code>scripts/parse_onstudio_calendar_capacity.py</code></td><td>ON STUDIO 캘린더 raw txt</td><td><code>onstudio_calendar_capacity_reference.csv</code></td><td>완료/재실행 가능</td></tr>
+<tr><td>정원표 대조</td><td><code>scripts/compare_capacity_references.py</code></td><td>Google Drive 정원표, ON STUDIO 캘린더 정원표</td><td><code>capacity_reference_comparison.csv</code>, 대조 리포트</td><td>완료/재실행 가능</td></tr>
+<tr><td>Google Drive 전량 아카이브</td><td><code>scripts/archive_google_drive_shared_files.py</code></td><td><code>bigblue.yoga@gmail.com</code> 접근 계정, <code>rightnow.yogi@gmail.com</code> 공유 원천, Drive 공유 폴더</td><td>raw full archive, 로컬 manifest/report</td><td>완료/재실행 가능. raw/manifest는 GitHub 공유 제외</td></tr>
+<tr><td>Google Drive 아카이브 분석</td><td><code>scripts/build_drive_archive_analysis.py</code></td><td>full archive manifest</td><td>Drive 영역 요약, asset type 요약, 분석 기회 matrix</td><td>완료/재실행 가능</td></tr>
+<tr><td>정원+Hype 결합</td><td><code>scripts/build_capacity_hype_analysis.py</code></td><td>ON STUDIO 캘린더 정원표, Hype metrics</td><td>수업별/요가원별 정원+Hype metrics, 리포트</td><td>완료/재실행 가능</td></tr>
+<tr><td>F&amp;B/스폰서 GIS 분석</td><td><code>scripts/build_fnb_sponsor_gis_analysis.py</code></td><td>F&amp;B 협업표, Drive manifest, location nodes</td><td>F&amp;B public/GIS 표, F&amp;B GeoJSON, 스폰서 asset inventory, 리포트</td><td>완료/재실행 가능</td></tr>
+<tr><td>Notion 공유 커뮤니케이션 자료 요약</td><td><code>scripts/archive_notion_shared_pages.py</code></td><td>사용자가 제공한 공유용 Notion URL 2건</td><td>raw/private 원문 보관본, public 페이지 요약, public 테마 요약, 커뮤니케이션 검토 리포트</td><td>완료/재실행 가능</td></tr>
+<tr><td>네이버 블로그 수집</td><td><code>scripts/collect_naver_blog_mentions.py</code></td><td>네이버 검색 API, 확장 검색어</td><td>블로그 검색 raw CSV, 수집 리포트</td><td>완료/재실행 가능</td></tr>
+<tr><td>유튜브 수집</td><td><code>scripts/collect_youtube_mentions.py</code></td><td>YouTube Data API v3, core 검색어</td><td>유튜브 검색 raw CSV, 수집 리포트</td><td>완료/재실행 가능</td></tr>
+<tr><td>Viral 검수 큐</td><td><code>scripts/build_viral_mentions_review_queue.py</code></td><td>네이버/유튜브 raw CSV</td><td>내부 검수 큐 CSV, 리포트</td><td>완료/재실행 가능</td></tr>
+<tr><td>연희요가위크 언급 필터</td><td><code>scripts/filter_yeonhui_yoga_week_mentions.py</code></td><td>Viral 검수 큐</td><td>confirmed internal/public 표, 플랫폼/요가원 요약</td><td>완료/재실행 가능</td></tr>
+<tr><td>네이버 블로그 본문 수집</td><td><code>scripts/collect_naver_blog_bodies.py</code></td><td>confirmed 네이버 블로그 링크</td><td>공개 본문 raw CSV, 본문 수집 리포트</td><td>완료/재실행 가능</td></tr>
+<tr><td>네이버 블로그 본문 특징</td><td><code>scripts/build_naver_blog_body_features.py</code></td><td>네이버 블로그 본문 raw</td><td>내부 본문 특징, public 테마/요가원 요약</td><td>완료/재실행 가능</td></tr>
+<tr><td>네이버 블로그 본문 심층 특징</td><td><code>scripts/build_naver_blog_body_deep_features.py</code></td><td>네이버 블로그 본문 raw, 기본 본문 특징</td><td>관련성 신뢰도, 후기 깊이, 감정 강도, 혼합글 위험도, 게시물 유형 요약</td><td>완료/재실행 가능</td></tr>
+<tr><td>Viral 지표</td><td><code>scripts/build_viral_metrics.py</code></td><td>public confirmed Viral 표</td><td>별도 Viral metrics, 분석 리포트</td><td>완료/재실행 가능</td></tr>
+</tbody></table></div>
+<h2>4. 행 수 검증</h2>
+<ul>
+<li>ON STUDIO 수업: 125건</li>
+<li>ON STUDIO 예약: 1611건</li>
+<li>ON STUDIO 취소: 1048건</li>
+<li>오붓 리뷰 public: 96건</li>
+<li>수업별 Hype metrics: 83행</li>
+<li>요가원별 Hype metrics: 12행</li>
+<li>GIS 위치 seed: 16행</li>
+<li>GIS 위치 카탈로그: 13행</li>
+<li>GIS 위치 카탈로그 중 수동 확인 필요: 0행</li>
+<li>GIS 장소 간 거리 matrix: 169행</li>
+<li>GIS 수업별 실제 장소 증거: 83행</li>
+<li>GIS 수업 시간표: 261행</li>
+<li>GIS public same-day 이동 가능성: 167행</li>
+<li>네이버 블로그 검색 raw: 2415행, 고유 링크 1075개</li>
+<li>유튜브 검색 raw: 85행, 고유 영상 68개, 고유 채널 32개</li>
+<li>Viral 통합 후보 mention: 1143행</li>
+<li><code>연희요가위크</code> confirmed 외부 언급: 60행</li>
+<li>Viral platform metrics: 2행</li>
+<li>Viral studio/place metrics: 10행</li>
+<li>Viral unmatched public mentions: 17행</li>
+<li>confirmed 네이버 블로그 본문 수집: 58행</li>
+<li>본문 내 <code>연희요가위크</code> 직접 확인: 56행</li>
+<li>본문 기준 노이즈 위험 후보: 2행</li>
+<li>네이버 블로그 본문 테마 요약: 6행</li>
+<li>네이버 블로그 본문 요가원/장소 요약: 13행</li>
+<li>본문 기준 strong/basic confirmed 블로그: 56행</li>
+<li>본문 기준 수동 확인 권장 블로그: 5행</li>
+<li>본문 기준 high-depth 후기/맥락 글: 30행</li>
+<li>본문 기준 positive/very positive 톤 글: 47행</li>
+<li>네이버 블로그 본문 게시물 유형 요약: 7행</li>
+<li>네이버 블로그 본문 품질 요약: 20행</li>
+<li>Google Drive 핵심 로컬 원본 사본: 10개</li>
+<li>Google Drive 전량 아카이브 manifest: 490행</li>
+<li>Google Drive 전량 아카이브 로컬 원본 사본: 384개</li>
+<li>Google Drive 전량 아카이브 2026 이전 제외: 24개</li>
+<li>Google Drive 전량 아카이브 실패: 0건</li>
+<li>Google Drive 아카이브 영역 요약: 14행</li>
+<li>Google Drive 아카이브 asset type 요약: 26행</li>
+<li>Google Drive 추가 분석 기회 matrix: 5행</li>
+<li>Google Drive 수업 정원 후보표: 248행, 정원 자동 추출 필요 검수 5행</li>
+<li>ON STUDIO 캘린더 정원/예약현황표: 263행, 날짜 범위 2026-04-20~2026-05-09</li>
+<li>정원표 대조 결과: 일치 132행, 정원 불일치 58행, 낮은 신뢰도 후보 41행, 같은 시각 Google Drive 후보 없음 31행, Drive 정원 누락 1행</li>
+<li>정원+Hype 수업별 결합표: 86행</li>
+<li>정원+Hype 요가원별 결합표: 12행</li>
+<li>F&amp;B 협업 브랜드 public/GIS 후보: 16행</li>
+<li>F&amp;B 좌표 확보: 16행</li>
+<li>행사 장소 300m 이내 F&amp;B 후보: 14행</li>
+<li>스폰서 asset inventory: 15행</li>
+<li>Notion 공유 페이지 요약: 2행</li>
+<li>Notion 공유 커뮤니케이션 테마 요약: 13행</li>
+<li>Notion raw/private 블록 inventory: 180행</li>
+</ul>
+<h2>5. 비식별 정책</h2>
+<ul>
+<li>public 예약/취소 표의 이름은 <code>participant_####</code>, 전화번호는 <code>PHONE_MASKED</code>로 대체했다.</li>
+<li>public 리뷰 표는 <code>masked_reviewer</code>를 직접 내보내지 않고 <code>reviewer_####</code> 형태의 내부 public ID만 사용한다.</li>
+<li>private 작성자 매칭표에는 실명/전화번호 후보가 포함될 수 있으므로 외부 공유 대상에서 제외한다.</li>
+<li>OCR API key는 <code>.secrets/google-api.txt</code>, Gemini API key는 <code>.secrets/gemini-api.txt</code>에 로컬 전용으로 보관하며, <code>.gitignore</code>에서 제외한다.</li>
+<li>네이버/유튜브 raw와 interim 검수 큐에는 공개 출처명, 공개 출처 ID, 원문 URL이 남을 수 있으므로 GitHub 공유 대상에서 제외한다.</li>
+<li>네이버 블로그 본문 raw는 개인 경험 서술이 포함될 수 있으므로 GitHub 공유 대상에서 제외한다.</li>
+<li>네이버 블로그 본문 심층 public feature는 원문 본문과 URL을 제외하고, mention ID와 점수/라벨/요약 feature만 포함한다.</li>
+<li>Viral public 표는 출처명, 출처 ID, 프로필 URL, 정확한 원문 URL을 제거하고 <code>external_source_####</code> 익명 ID만 남긴다.</li>
+<li>Google Drive raw 사본에는 쿠폰 코드, 신청자 정보, 운영 세부사항이 포함될 수 있으므로 GitHub 공유 대상에서 제외한다. public 분석에는 민감정보가 제거된 파생표만 사용한다.</li>
+<li>Google Drive full archive manifest는 source id와 원본 경로가 있으므로 로컬 기록용으로 두고 GitHub 공유 대상에서 제외한다.</li>
+<li>ON STUDIO 캘린더 raw 사본은 운영 화면 복사본이므로 GitHub 공유 대상에서 제외한다. public 파생표에는 실명/전화번호 없이 수업별 정원, 예약수, 채움률만 포함한다.</li>
+<li>Notion 공유 문서 원문에는 운영 세부사항과 내부 커뮤니케이션 문구가 포함될 수 있으므로 원문 JSON, 추출 텍스트, 블록별 inventory는 <code>data/raw/notion_shared/</code>에만 보관하고 GitHub 공유 대상에서 제외한다. public 산출물은 페이지 단위 요약과 테마별 집계만 사용한다.</li>
+</ul>
+<h2>6. AI 검수 상태</h2>
+<ul>
+<li>검수 모드별 건수:</li>
+</ul>
+<pre><code>ai_validation_mode
+gemini_vision_structured_output    96</code></pre>
+<ul>
+<li>API 상태별 건수:</li>
+</ul>
+<pre><code>ai_provider_status
+available    96</code></pre>
+<ul>
+<li>Gemini 모델별 건수:</li>
+</ul>
+<pre><code>ai_model
+gemini-3.1-flash-lite    67
+gemini-2.5-flash         29</code></pre>
+<p>모델이 둘로 나뉜 이유는 검수 중 <code>gemini-2.5-flash</code> 호출에서 쿼터 제한이 발생했기 때문이다. 이미 성공한 29건은 보존했고, 남은 67건은 <code>gemini-3.1-flash-lite</code>로 재시도해 완료했다. 두 모델 모두 같은 Pydantic 스키마로 검증했고, 최종 public 분석표는 96건 전부 Gemini Vision 구조화 검수가 완료된 표를 기준으로 재생성했다.</p>
+<h2>7. 분석 지표 정의</h2>
+<ul>
+<li>순예약 수: <code>reservation_count - cancellation_count</code></li>
+<li>취소율: <code>cancellation_count / (reservation_count + cancellation_count)</code></li>
+<li>리뷰 작성률: <code>review_count / reservation_count</code></li>
+<li>예약 Hype: 순예약 수의 percentile 점수</li>
+<li>리뷰 Hype: 리뷰 수 percentile과 리뷰 작성률 percentile의 평균</li>
+<li>만족 Hype: 평균 전체 별점 / 5 * 100</li>
+<li>재방문 Hype: 평균 방문회차 percentile</li>
+<li>결제 Hype: 참가자 결제 반응 추정 지표의 percentile</li>
+<li>정산 추정액: 오붓 정산 스크린샷 기준으로 1회권은 5% 수수료 차감. 패스권은 후속 확인에 따라 소비자 개인의 월간 이용완료 횟수 구간과 25,000원 기본 수업 단가를 적용한 추정액. 현재 자료는 오붓 전체 월간 이용내역이 아니라 연희 요가 위크 ON STUDIO 관측자료이므로 최종 회계 증빙에는 오붓 최종 정산서 또는 서면 확인 필요</li>
+<li>운영 안정성: <code>(1 - cancellation_rate) * 100</code></li>
+</ul>
+<p>Viral 지표는 Hype와 별도 축으로 둔다.</p>
+<ul>
+<li>Hype: 예약/취소/리뷰/만족/재방문/결제 등 행사 내부 참여와 경험 신호</li>
+<li>Viral: 네이버 블로그/유튜브 같은 외부 공개 웹 확산 신호</li>
+<li><code>viral_signal_score</code>: 직접 확인된 외부 언급 수, 익명 출처 수, 유튜브 조회수 추정 신호, 플랫폼 다양성을 조합한 설명용 점수</li>
+<li>Viral 지표는 기존 Hype 점수에 합산하지 않는다.</li>
+</ul>
+<h2>8. 재현 명령</h2>
+<pre><code>python scripts\preprocess_onstudio.py
+python scripts\deidentify_reservation_cancel.py
+python scripts\ocr_obud_reviews_google_vision.py
+python scripts\build_obud_google_ocr_raw_table.py
+python scripts\parse_obud_reviews.py
+python scripts\match_review_classes.py
+python scripts\ai_review_quality_check.py --use-api
+python scripts\match_reviewers_private.py
+python scripts\build_analysis_tables.py
+python scripts\geocode_studio_locations_arcgis.py
+python scripts\build_gis_tables.py
+python scripts\build_gis_distance_matrix.py
+python scripts\build_gis_schedule_flows.py
+python scripts\build_gis_deep_report.py
+python scripts\collect_naver_blog_mentions.py --queries-file references\naver-blog-viral-queries-expanded.txt
+python scripts\collect_youtube_mentions.py --queries-file references\external-web-viral-queries-core.txt
+python scripts\build_viral_mentions_review_queue.py
+python scripts\filter_yeonhui_yoga_week_mentions.py
+python scripts\collect_naver_blog_bodies.py
+python scripts\build_naver_blog_body_features.py
+python scripts\build_naver_blog_body_deep_features.py
+python scripts\build_viral_metrics.py
+python scripts\extract_google_drive_program_capacity_reference.py
+python scripts\parse_onstudio_calendar_capacity.py
+python scripts\compare_capacity_references.py
+python scripts\build_drive_archive_analysis.py
+python scripts\build_capacity_hype_analysis.py
+python scripts\build_fnb_sponsor_gis_analysis.py
+python scripts\archive_notion_shared_pages.py
+python scripts\build_public_duckdb.py</code></pre>
+<h2>9. GIS 방법론 참고 자료</h2>
+<ul>
+<li>GIS 1차 분석은 <code>ON STUDIO 수업 설명 주소 -&gt; ArcGIS 지오코딩 -&gt; 좌표/Hype 결합 -&gt; Folium 지도/GeoJSON</code> 순서로 만들었다.</li>
+<li>상세 참고 자료와 후속 분석 후보는 <code>docs/gis-method-references.md</code>에 기록했다.</li>
+<li>GIS 심화 분석은 <code>장소 노드 -&gt; OSMnx 보행 거리 matrix -&gt; 수업 시간표 -&gt; same-day 이동 가능성 -&gt; 이동 지도/시간-공간 큐브</code> 순서로 만들었다.</li>
+<li>개인별 itinerary와 transition은 private 산출물로만 보관하고, public 리포트에는 장소/수업 쌍 단위 집계만 사용한다.</li>
+</ul>
+    </main>
+  </div>
+</body>
+</html>

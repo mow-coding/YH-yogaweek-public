@@ -1,0 +1,27 @@
+pandas
+openpyxl
+duckdb
+pyarrow
+jupyterlab
+plotly
+folium
+networkx
+scikit-learn
+easyocr
+paddleocr
+paddlepaddle
+bertopic
+sentence-transformers
+rapidfuzz
+openai
+google-cloud-vision
+google-cloud-documentai
+pydantic
+requests
+beautifulsoup4
+
+# Optional GIS deep analysis dependencies.
+# The GIS scripts fall back to straight-line estimates if these are unavailable.
+osmnx
+geopy
+geopandas

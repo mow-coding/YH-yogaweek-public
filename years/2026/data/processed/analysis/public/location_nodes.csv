@@ -1,0 +1,14 @@
+﻿location_node_id,location_key,display_name,address,latitude,longitude,location_source,source_detail,geocode_method,geocode_confidence,needs_manual_verification,notes
+loc_001,너울너울,너울너울,서울특별시 마포구 성산동 3-30,37.565560190736,126.91602233188,ON STUDIO class description,수업 설명 내 장소 표기: 너울너울 (성산동 3-30),ArcGIS World Geocoding Service,1.0,False,
+loc_002,대저택프라이빗,바운드하우스,서울특별시 서대문구 연희동 108-6,37.570882196338,126.928780175247,ON STUDIO class description,수업 설명 내 장소 표기: 서울특별시 서대문구 연희동 108-6 / 바운드하우스,ArcGIS World Geocoding Service,1.0,False,
+loc_003,데이스타콜라보,데이스타콜라보,서울특별시 서대문구 연희로 107-1 B1층,37.567682614349,126.931274545813,ON STUDIO class description,수업 설명 내 장소 표기: 연희로 107-1 B1층,ArcGIS World Geocoding Service,1.0,False,
+loc_004,마이트리,마이트리,서울특별시 서대문구 연희로 85 5층,37.565997558444,126.929894716912,ON STUDIO class description,수업 설명 내 장소 표기: 서울 서대문구 연희로 85 5층,ArcGIS World Geocoding Service,1.0,False,
+loc_005,마인드플로우,마인드플로우,서울특별시 서대문구 연희로 224 3층,37.577020515491,126.935853747155,ON STUDIO class description,수업 설명 내 장소 표기: 서울 서대문구 연희로 224 3층,ArcGIS World Geocoding Service,1.0,False,
+loc_006,무릉,무릉,서울특별시 서대문구 연희로11마길 23,37.568813333087,126.927272103227,ON STUDIO class description,수업 설명 내 장소 표기: 서울 서대문구 연희로11마길 23,ArcGIS World Geocoding Service,1.0,False,
+loc_007,비전스트롤 콜라보,비전스트롤,서울특별시 서대문구 연희로11가길 24,37.567356642134,126.928486557178,ON STUDIO class description,수업 설명 내 장소 표기: 연희로11가길 24 건물 옥상,ArcGIS World Geocoding Service,1.0,False,
+loc_008,빅블루요가,빅블루요가,서울특별시 서대문구 연희로15길 31 지층,37.568792797424,126.930228568115,ON STUDIO class description,수업 설명 내 장소 표기: 서울 서대문구 연희로15길 31 지층,ArcGIS World Geocoding Service,1.0,False,
+loc_009,숨명상센터,숨 명상센터,서울특별시 서대문구 연희동 16-2 2층,37.572092920342,126.93806774306,ON STUDIO class description,수업 설명 내 장소 표기: 숨 명상센터(연희동 16-2 2층),ArcGIS World Geocoding Service,1.0,False,
+loc_010,시이작,시이작,서울특별시 서대문구 연희로11나길 5 2층,37.567493895799,126.928321014591,ON STUDIO class description,수업 설명 내 장소 표기: 연희로11나길 5 2층 시이작,ArcGIS World Geocoding Service,1.0,False,
+loc_011,연남장,연남장,서울특별시 서대문구 연희로5길 22,37.564330104536,126.927584999673,ON STUDIO class description,수업 설명 내 장소 표기: 서울특별시 서대문구 연희로5길 22 연남장,ArcGIS World Geocoding Service,1.0,False,
+loc_012,연희정음,연희정음,서울특별시 서대문구 연희동 189-2,37.566711570866,126.929277808838,ON STUDIO class description,수업 설명 내 장소 표기: 서울특별시 서대문구 연희동 189-2 / 연희정음 3층,ArcGIS World Geocoding Service,1.0,False,
+loc_013,파츄코파라다이스,파츄코파라다이스,서울특별시 서대문구 연희로11가길 56 2층,37.566328308343,126.927201695241,ON STUDIO class description + public place search,수업 설명에는 상세 주소 없음. 파츄코파라다이스 주소는 공개 장소 정보에서 서울특별시 서대문구 연희로11가길 56 2층으로 반복 확인됨. 참고: https://www.diningcode.com/profile.php?rid=BicQTTZ7h7jV https://www.konest.com/contents/gourmet_mise_detail.html?id=38240,ArcGIS World Geocoding Service,1.0,False,공개 장소 정보와 지오코딩 결과가 일치해 GIS 분석용 주소로 사용

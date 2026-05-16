@@ -1,0 +1,309 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.928450431176,
+          37.566165154598
+        ]
+      },
+      "properties": {
+        "fnb_brand_key": "도우클럽",
+        "fnb_brand_name": "도우클럽",
+        "fnb_category": "식당",
+        "address_text": "연희맛로 5 지하1층 101호",
+        "nearest_location_key": "연희정음",
+        "nearest_location_distance_km": 0.095,
+        "needs_manual_review": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.928486557178,
+          37.567356642134
+        ]
+      },
+      "properties": {
+        "fnb_brand_key": "비전스트롤",
+        "fnb_brand_name": "비전스트롤",
+        "fnb_category": "카페",
+        "address_text": "연희로11가길 24 1층",
+        "nearest_location_key": "비전스트롤 콜라보",
+        "nearest_location_distance_km": 0.0,
+        "needs_manual_review": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.928806578242,
+          37.56663152369
+        ]
+      },
+      "properties": {
+        "fnb_brand_key": "연희동국화빵",
+        "fnb_brand_name": "연희동국화빵",
+        "fnb_category": "디저트",
+        "address_text": "연희맛로 17-21 1층",
+        "nearest_location_key": "연희정음",
+        "nearest_location_distance_km": 0.042,
+        "needs_manual_review": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.928321014591,
+          37.567493895799
+        ]
+      },
+      "properties": {
+        "fnb_brand_key": "케뚜",
+        "fnb_brand_name": "케뚜",
+        "fnb_category": "식당",
+        "address_text": "연희로11나길 5 지층 01호",
+        "nearest_location_key": "시이작",
+        "nearest_location_distance_km": 0.0,
+        "needs_manual_review": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.927424737684,
+          37.574607742752
+        ]
+      },
+      "properties": {
+        "fnb_brand_key": "위어도우",
+        "fnb_brand_name": "위어도우",
+        "fnb_category": "식당",
+        "address_text": "증가로 80 2층 201호",
+        "nearest_location_key": "대저택프라이빗",
+        "nearest_location_distance_km": 0.431,
+        "needs_manual_review": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.93122802625,
+          37.576870102238
+        ]
+      },
+      "properties": {
+        "fnb_brand_key": "베지스",
+        "fnb_brand_name": "베지스",
+        "fnb_category": "식당",
+        "address_text": "홍연길 87 1층(연희동)",
+        "nearest_location_key": "마인드플로우",
+        "nearest_location_distance_km": 0.408,
+        "needs_manual_review": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.93029310877,
+          37.570544615188
+        ]
+      },
+      "properties": {
+        "fnb_brand_key": "쏘블루",
+        "fnb_brand_name": "쏘블루",
+        "fnb_category": "카페/서점",
+        "address_text": "서대문구 증가로 27 1층",
+        "nearest_location_key": "대저택프라이빗",
+        "nearest_location_distance_km": 0.139,
+        "needs_manual_review": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.929177645095,
+          37.567929796673
+        ]
+      },
+      "properties": {
+        "fnb_brand_key": "노만주의",
+        "fnb_brand_name": "노만주의",
+        "fnb_category": "카페",
+        "address_text": "연희로11가길 8 1층, 2층",
+        "nearest_location_key": "비전스트롤 콜라보",
+        "nearest_location_distance_km": 0.088,
+        "needs_manual_review": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.930131170401,
+          37.567489201933
+        ]
+      },
+      "properties": {
+        "fnb_brand_key": "마우디",
+        "fnb_brand_name": "마우디",
+        "fnb_category": "식당",
+        "address_text": "연희로11길 18",
+        "nearest_location_key": "데이스타콜라보",
+        "nearest_location_distance_km": 0.103,
+        "needs_manual_review": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.930408276119,
+          37.565066622368
+        ]
+      },
+      "properties": {
+        "fnb_brand_key": "마우디브런치",
+        "fnb_brand_name": "마우디브런치",
+        "fnb_category": "식당",
+        "address_text": "연희로 82 브라운스톤 A 102",
+        "nearest_location_key": "마이트리",
+        "nearest_location_distance_km": 0.113,
+        "needs_manual_review": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.928813471,
+          37.566637082
+        ]
+      },
+      "properties": {
+        "fnb_brand_key": "엄마식탁",
+        "fnb_brand_name": "엄마식탁",
+        "fnb_category": "식당",
+        "address_text": "연희맛로 17-21",
+        "nearest_location_key": "연희정음",
+        "nearest_location_distance_km": 0.042,
+        "needs_manual_review": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.929006989547,
+          37.568140308172
+        ]
+      },
+      "properties": {
+        "fnb_brand_key": "탄정",
+        "fnb_brand_name": "탄정",
+        "fnb_category": "티하우스",
+        "address_text": "연희로11가길 8-8 지층",
+        "nearest_location_key": "시이작",
+        "nearest_location_distance_km": 0.094,
+        "needs_manual_review": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.927549628041,
+          37.566348760187
+        ]
+      },
+      "properties": {
+        "fnb_brand_key": "텍스처커피",
+        "fnb_brand_name": "텍스처커피",
+        "fnb_category": "카페",
+        "address_text": "연희로11가길 51",
+        "nearest_location_key": "파츄코파라다이스",
+        "nearest_location_distance_km": 0.031,
+        "needs_manual_review": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.929716433831,
+          37.567959300973
+        ]
+      },
+      "properties": {
+        "fnb_brand_key": "금옥당",
+        "fnb_brand_name": "금옥당",
+        "fnb_category": "디저트",
+        "address_text": "연희로11라길 2",
+        "nearest_location_key": "빅블루요가",
+        "nearest_location_distance_km": 0.103,
+        "needs_manual_review": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.929661197089,
+          37.567154596358
+        ]
+      },
+      "properties": {
+        "fnb_brand_key": "금옥호두과자",
+        "fnb_brand_name": "금옥호두과자",
+        "fnb_category": "디저트",
+        "address_text": "연희맛로 23 . 1층 6호",
+        "nearest_location_key": "연희정음",
+        "nearest_location_distance_km": 0.06,
+        "needs_manual_review": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.93042554284,
+          37.568183433063
+        ]
+      },
+      "properties": {
+        "fnb_brand_key": "춘광",
+        "fnb_brand_name": "춘광",
+        "fnb_category": "요리주점",
+        "address_text": "연희맛로 31-10 안 쪽 나무문 가게",
+        "nearest_location_key": "빅블루요가",
+        "nearest_location_distance_km": 0.07,
+        "needs_manual_review": false
+      }
+    }
+  ]
+}

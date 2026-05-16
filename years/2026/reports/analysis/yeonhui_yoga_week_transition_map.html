@@ -1,0 +1,2836 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_0982a0977eece5c958c43bb69869acbc {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.css"/>
+    <script src="https://cdn.jsdelivr.net/gh/ardhi/Leaflet.MousePosition/src/L.Control.MousePosition.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ardhi/Leaflet.MousePosition/src/L.Control.MousePosition.min.css"/>
+</head>
+<body>
+    
+    
+    <div class="yw-panel yw-title-panel">
+      <div class="yw-eyebrow">2026 연희 요가 위크 GIS</div>
+      <h1>동선 가능성 지도</h1>
+      <p>같은 날 여러 수업을 예약한 흐름을 장소 쌍 단위로 집계했습니다. 선은 실제 GPS가 아니라 시간표상 가능한 이동 후보입니다.</p>
+    </div>
+    <div class="yw-panel yw-legend-panel">
+      
+          <h2>읽는 법</h2>
+          <div class="yw-row"><span class="yw-line" style="border-color:#15803d"></span><span>여유 있음</span></div>
+          <div class="yw-row"><span class="yw-line" style="border-color:#d97706"></span><span>빠듯함</span></div>
+          <div class="yw-row"><span class="yw-line" style="border-color:#dc2626"></span><span>시간표상 어려움</span></div>
+          <div class="yw-row"><span class="yw-line" style="border-color:#7c3aed"></span><span>시간 겹침</span></div>
+          <div class="yw-row"><span class="yw-dot" style="background:#f9a212"></span><span>원이 클수록 이동 허브성 큼</span></div>
+          <div class="yw-note">두꺼운 선은 같은 장소 쌍이 더 자주 등장했다는 뜻입니다.</div>
+        
+    </div>
+    <style>
+      .leaflet-container {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #fffaf0;
+      }
+      .leaflet-control-layers,
+      .leaflet-bar a,
+      .leaflet-control-scale-line {
+        border-color: rgba(42, 24, 16, 0.14) !important;
+        box-shadow: 0 8px 22px rgba(42, 24, 16, 0.12) !important;
+      }
+      .leaflet-control-layers {
+        border-radius: 8px;
+        color: #2a1810;
+        background: rgba(255, 253, 248, 0.96) !important;
+      }
+      .leaflet-popup-content-wrapper {
+        border-radius: 8px;
+        box-shadow: 0 18px 34px rgba(42, 24, 16, 0.20);
+      }
+      .yw-panel {
+        position: fixed;
+        z-index: 9999;
+        background: rgba(255, 253, 248, 0.95);
+        border: 1px solid rgba(229, 220, 200, 0.92);
+        border-radius: 8px;
+        box-shadow: 0 18px 38px rgba(42, 24, 16, 0.18);
+        color: #2a1810;
+        backdrop-filter: blur(10px);
+      }
+      .yw-title-panel {
+        top: 16px;
+        left: 56px;
+        width: min(430px, calc(100% - 96px));
+        padding: 16px 18px 15px;
+        border-top: 4px solid #f9a212;
+      }
+      .yw-title-panel h1 {
+        margin: 2px 0 7px;
+        font-size: 20px;
+        font-weight: 800;
+        line-height: 1.3;
+        letter-spacing: 0;
+        word-break: keep-all;
+      }
+      .yw-title-panel p {
+        margin: 0;
+        color: #64584e;
+        font-size: 13px;
+        line-height: 1.48;
+      }
+      .yw-eyebrow {
+        font-size: 11px;
+        letter-spacing: 0;
+        color: #9a5a00;
+        font-weight: 700;
+      }
+      .yw-legend-panel {
+        right: 18px;
+        bottom: 28px;
+        width: min(320px, calc(100% - 36px));
+        padding: 13px 15px;
+        font-size: 12px;
+        line-height: 1.45;
+      }
+      .yw-legend-panel h2 {
+        margin: 0 0 8px;
+        font-size: 13px;
+      }
+      .yw-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 6px 0;
+      }
+      .yw-row span:last-child {
+        word-break: keep-all;
+      }
+      .yw-dot {
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        display: inline-block;
+        border: 1px solid rgba(42, 24, 16, 0.25);
+        flex: 0 0 auto;
+      }
+      .yw-line {
+        width: 24px;
+        height: 0;
+        border-top: 4px solid #15803d;
+        border-radius: 999px;
+        display: inline-block;
+        flex: 0 0 auto;
+      }
+      .yw-note {
+        margin-top: 8px;
+        color: #6f645a;
+      }
+      .yw-popup {
+        min-width: 250px;
+        color: #2a1810;
+      }
+      .yw-popup h3 {
+        margin: 0 0 7px;
+        font-size: 15px;
+      }
+      .yw-popup table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+      }
+      .yw-popup td {
+        border-top: 1px solid #efe6d4;
+        padding: 5px 0;
+        vertical-align: top;
+      }
+      .yw-popup td:first-child {
+        color: #75685c;
+        padding-right: 10px;
+        white-space: nowrap;
+      }
+      @media (max-width: 640px) {
+        .yw-title-panel {
+          top: 10px;
+          left: 44px;
+          width: calc(100% - 58px);
+          padding: 11px 12px;
+        }
+        .yw-legend-panel {
+          right: 10px;
+          bottom: 20px;
+          padding: 10px 12px;
+        }
+      }
+    </style>
+    
+    
+            <div class="folium-map" id="map_0982a0977eece5c958c43bb69869acbc" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_0982a0977eece5c958c43bb69869acbc = L.map(
+                "map_0982a0977eece5c958c43bb69869acbc",
+                {
+                    center: [37.568389434452996, 126.92909738514845],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 14,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_0982a0977eece5c958c43bb69869acbc);
+
+            
+
+        
+    
+            var tile_layer_fefa3e703f5eececc91006c5c68eea31 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_fefa3e703f5eececc91006c5c68eea31.addTo(map_0982a0977eece5c958c43bb69869acbc);
+        
+    
+            var tile_layer_798bb033d2183144216aa25fb22662f1 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            L.control.fullscreen(
+                {
+  "position": "topleft",
+  "title": "\uc804\uccb4 \ud654\uba74",
+  "titleCancel": "\uc804\uccb4 \ud654\uba74 \ub2eb\uae30",
+  "forceSeparateButton": false,
+}
+            ).addTo(map_0982a0977eece5c958c43bb69869acbc);
+        
+    
+            var tile_layer_a1af9a445e1f710f39ca76c20b9ccd13 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detect_retina": false, "max_native_zoom": 19, "max_zoom": 19, "min_zoom": 0, "no_wrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+            var mini_map_d8624a4e7c0a6095088074f243e8ce64 = new L.Control.MiniMap(
+                tile_layer_a1af9a445e1f710f39ca76c20b9ccd13,
+                {
+  "position": "bottomleft",
+  "width": 150,
+  "height": 150,
+  "collapsedWidth": 25,
+  "collapsedHeight": 25,
+  "zoomLevelOffset": -5,
+  "centerFixed": false,
+  "zoomAnimation": false,
+  "toggleDisplay": true,
+  "autoToggleDisplay": false,
+  "minimized": false,
+}
+            );
+            map_0982a0977eece5c958c43bb69869acbc.addControl(mini_map_d8624a4e7c0a6095088074f243e8ce64);
+        
+    
+            var mouse_position_6be73fda5faa422f166b4f5e067dae81 = new L.Control.MousePosition(
+                {
+  "position": "bottomright",
+  "separator": " / ",
+  "emptyString": "Unavailable",
+  "lngFirst": false,
+  "numDigits": 5,
+  "prefix": "\uc88c\ud45c",
+}
+            );
+            mouse_position_6be73fda5faa422f166b4f5e067dae81.options["latFormatter"] =
+                undefined;
+            mouse_position_6be73fda5faa422f166b4f5e067dae81.options["lngFormatter"] =
+                undefined;
+            map_0982a0977eece5c958c43bb69869acbc.addControl(mouse_position_6be73fda5faa422f166b4f5e067dae81);
+        
+    
+            var feature_group_5fac74564b43c2f5dcb6cafa0af8d52b = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_e73cd844a7cca1969a5e5cd4f36274c7 = L.circleMarker(
+                [37.565560190736, 126.91602233188],
+                {"bubblingMouseEvents": true, "color": "#2a1810", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f9a212", "fillOpacity": 0.78, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.63826214360418, "stroke": true, "weight": 2}
+            ).addTo(feature_group_5fac74564b43c2f5dcb6cafa0af8d52b);
+        
+    
+        var popup_b8f64d1167f1fce616bbad70cc0f16a7 = L.popup({
+  "maxWidth": 340,
+});
+
+        
+            
+                var html_92abb2b2041f71fc477c23b8fa94f484 = $(`<div id="html_92abb2b2041f71fc477c23b8fa94f484" style="width: 100.0%; height: 100.0%;">             <div class="yw-popup">               <h3>너울너울</h3>               <table>                 <tr><td>주소</td><td>서울특별시 마포구 성산동 3-30</td></tr>                 <tr><td>이동 허브성</td><td>11</td></tr>                 <tr><td>들어오는 흐름</td><td>4</td></tr>                 <tr><td>나가는 흐름</td><td>7</td></tr>                 <tr><td>장소 내 연속 수강</td><td>0</td></tr>                 <tr><td>평균 여유</td><td>129.6분</td></tr>                 <tr><td>평균 도보</td><td>19.9분</td></tr>               </table>             </div>             </div>`)[0];
+                popup_b8f64d1167f1fce616bbad70cc0f16a7.setContent(html_92abb2b2041f71fc477c23b8fa94f484);
+            
+        
+
+        circle_marker_e73cd844a7cca1969a5e5cd4f36274c7.bindPopup(popup_b8f64d1167f1fce616bbad70cc0f16a7)
+        ;
+
+        
+    
+    
+            circle_marker_e73cd844a7cca1969a5e5cd4f36274c7.bindTooltip(
+                `<div>
+                     너울너울
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_97c7e2a8f8bdf770e53c8f0bde988c08 = L.circleMarker(
+                [37.570882196338, 126.928780175247],
+                {"bubblingMouseEvents": true, "color": "#2a1810", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f9a212", "fillOpacity": 0.78, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.154780172128657, "stroke": true, "weight": 2}
+            ).addTo(feature_group_5fac74564b43c2f5dcb6cafa0af8d52b);
+        
+    
+        var popup_4019393adc9f2a663a099c8c1f2665f2 = L.popup({
+  "maxWidth": 340,
+});
+
+        
+            
+                var html_87b5a47289c30d2223c0eef45ece5d41 = $(`<div id="html_87b5a47289c30d2223c0eef45ece5d41" style="width: 100.0%; height: 100.0%;">             <div class="yw-popup">               <h3>바운드하우스</h3>               <table>                 <tr><td>주소</td><td>서울특별시 서대문구 연희동 108-6</td></tr>                 <tr><td>이동 허브성</td><td>29</td></tr>                 <tr><td>들어오는 흐름</td><td>20</td></tr>                 <tr><td>나가는 흐름</td><td>15</td></tr>                 <tr><td>장소 내 연속 수강</td><td>4</td></tr>                 <tr><td>평균 여유</td><td>109.3분</td></tr>                 <tr><td>평균 도보</td><td>9.2분</td></tr>               </table>             </div>             </div>`)[0];
+                popup_4019393adc9f2a663a099c8c1f2665f2.setContent(html_87b5a47289c30d2223c0eef45ece5d41);
+            
+        
+
+        circle_marker_97c7e2a8f8bdf770e53c8f0bde988c08.bindPopup(popup_4019393adc9f2a663a099c8c1f2665f2)
+        ;
+
+        
+    
+    
+            circle_marker_97c7e2a8f8bdf770e53c8f0bde988c08.bindTooltip(
+                `<div>
+                     바운드하우스
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_70b91a65a292f85e22b91a6bd8e72fe5 = L.circleMarker(
+                [37.567682614349, 126.931274545813],
+                {"bubblingMouseEvents": true, "color": "#2a1810", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f9a212", "fillOpacity": 0.78, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.808326112068524, "stroke": true, "weight": 2}
+            ).addTo(feature_group_5fac74564b43c2f5dcb6cafa0af8d52b);
+        
+    
+        var popup_dc39f025222ee941f7908cf7d45d0c96 = L.popup({
+  "maxWidth": 340,
+});
+
+        
+            
+                var html_04794b32347ef17e416c96fcb4209ad5 = $(`<div id="html_04794b32347ef17e416c96fcb4209ad5" style="width: 100.0%; height: 100.0%;">             <div class="yw-popup">               <h3>데이스타콜라보</h3>               <table>                 <tr><td>주소</td><td>서울특별시 서대문구 연희로 107-1 B1층</td></tr>                 <tr><td>이동 허브성</td><td>8</td></tr>                 <tr><td>들어오는 흐름</td><td>4</td></tr>                 <tr><td>나가는 흐름</td><td>4</td></tr>                 <tr><td>장소 내 연속 수강</td><td>0</td></tr>                 <tr><td>평균 여유</td><td>137.5분</td></tr>                 <tr><td>평균 도보</td><td>8.1분</td></tr>               </table>             </div>             </div>`)[0];
+                popup_dc39f025222ee941f7908cf7d45d0c96.setContent(html_04794b32347ef17e416c96fcb4209ad5);
+            
+        
+
+        circle_marker_70b91a65a292f85e22b91a6bd8e72fe5.bindPopup(popup_dc39f025222ee941f7908cf7d45d0c96)
+        ;
+
+        
+    
+    
+            circle_marker_70b91a65a292f85e22b91a6bd8e72fe5.bindTooltip(
+                `<div>
+                     데이스타콜라보
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_791c8fed83654ebec6487989dd13f3d9 = L.circleMarker(
+                [37.565997558444, 126.929894716912],
+                {"bubblingMouseEvents": true, "color": "#2a1810", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f9a212", "fillOpacity": 0.78, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.020815280171306, "stroke": true, "weight": 2}
+            ).addTo(feature_group_5fac74564b43c2f5dcb6cafa0af8d52b);
+        
+    
+        var popup_6efa94e5f67b8d220f1447aacbf61aed = L.popup({
+  "maxWidth": 340,
+});
+
+        
+            
+                var html_b14c4598bc78b84020d2e8c908ec7bc7 = $(`<div id="html_b14c4598bc78b84020d2e8c908ec7bc7" style="width: 100.0%; height: 100.0%;">             <div class="yw-popup">               <h3>마이트리</h3>               <table>                 <tr><td>주소</td><td>서울특별시 서대문구 연희로 85 5층</td></tr>                 <tr><td>이동 허브성</td><td>50</td></tr>                 <tr><td>들어오는 흐름</td><td>42</td></tr>                 <tr><td>나가는 흐름</td><td>26</td></tr>                 <tr><td>장소 내 연속 수강</td><td>12</td></tr>                 <tr><td>평균 여유</td><td>140.7분</td></tr>                 <tr><td>평균 도보</td><td>6.4분</td></tr>               </table>             </div>             </div>`)[0];
+                popup_6efa94e5f67b8d220f1447aacbf61aed.setContent(html_b14c4598bc78b84020d2e8c908ec7bc7);
+            
+        
+
+        circle_marker_791c8fed83654ebec6487989dd13f3d9.bindPopup(popup_6efa94e5f67b8d220f1447aacbf61aed)
+        ;
+
+        
+    
+    
+            circle_marker_791c8fed83654ebec6487989dd13f3d9.bindTooltip(
+                `<div>
+                     마이트리
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f938a96f385b1bfcf6a5d0945327335b = L.circleMarker(
+                [37.577020515491, 126.935853747155],
+                {"bubblingMouseEvents": true, "color": "#2a1810", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f9a212", "fillOpacity": 0.78, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.082644088844503, "stroke": true, "weight": 2}
+            ).addTo(feature_group_5fac74564b43c2f5dcb6cafa0af8d52b);
+        
+    
+        var popup_96c54aaad51d17da9da4b0d77a45e328 = L.popup({
+  "maxWidth": 340,
+});
+
+        
+            
+                var html_b2b11106f47a19034c22bc13202f2490 = $(`<div id="html_b2b11106f47a19034c22bc13202f2490" style="width: 100.0%; height: 100.0%;">             <div class="yw-popup">               <h3>마인드플로우</h3>               <table>                 <tr><td>주소</td><td>서울특별시 서대문구 연희로 224 3층</td></tr>                 <tr><td>이동 허브성</td><td>42.5</td></tr>                 <tr><td>들어오는 흐름</td><td>21</td></tr>                 <tr><td>나가는 흐름</td><td>29</td></tr>                 <tr><td>장소 내 연속 수강</td><td>5</td></tr>                 <tr><td>평균 여유</td><td>136.6분</td></tr>                 <tr><td>평균 도보</td><td>14.9분</td></tr>               </table>             </div>             </div>`)[0];
+                popup_96c54aaad51d17da9da4b0d77a45e328.setContent(html_b2b11106f47a19034c22bc13202f2490);
+            
+        
+
+        circle_marker_f938a96f385b1bfcf6a5d0945327335b.bindPopup(popup_96c54aaad51d17da9da4b0d77a45e328)
+        ;
+
+        
+    
+    
+            circle_marker_f938a96f385b1bfcf6a5d0945327335b.bindTooltip(
+                `<div>
+                     마인드플로우
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4da331e5ac0277afe99e80d1b4a338ef = L.circleMarker(
+                [37.568813333087, 126.927272103227],
+                {"bubblingMouseEvents": true, "color": "#2a1810", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f9a212", "fillOpacity": 0.78, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.790378681424928, "stroke": true, "weight": 2}
+            ).addTo(feature_group_5fac74564b43c2f5dcb6cafa0af8d52b);
+        
+    
+        var popup_e51c77149462ea1603141db767bda52d = L.popup({
+  "maxWidth": 340,
+});
+
+        
+            
+                var html_071fa09279a2ce13d0efdd8cce6a640f = $(`<div id="html_071fa09279a2ce13d0efdd8cce6a640f" style="width: 100.0%; height: 100.0%;">             <div class="yw-popup">               <h3>무릉</h3>               <table>                 <tr><td>주소</td><td>서울특별시 서대문구 연희로11마길 23</td></tr>                 <tr><td>이동 허브성</td><td>21</td></tr>                 <tr><td>들어오는 흐름</td><td>8</td></tr>                 <tr><td>나가는 흐름</td><td>13</td></tr>                 <tr><td>장소 내 연속 수강</td><td>0</td></tr>                 <tr><td>평균 여유</td><td>115.7분</td></tr>                 <tr><td>평균 도보</td><td>9.5분</td></tr>               </table>             </div>             </div>`)[0];
+                popup_e51c77149462ea1603141db767bda52d.setContent(html_071fa09279a2ce13d0efdd8cce6a640f);
+            
+        
+
+        circle_marker_4da331e5ac0277afe99e80d1b4a338ef.bindPopup(popup_e51c77149462ea1603141db767bda52d)
+        ;
+
+        
+    
+    
+            circle_marker_4da331e5ac0277afe99e80d1b4a338ef.bindTooltip(
+                `<div>
+                     무릉
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f6225d90d6ffdd3710b309be9e025f6e = L.circleMarker(
+                [37.567356642134, 126.928486557178],
+                {"bubblingMouseEvents": true, "color": "#2a1810", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f9a212", "fillOpacity": 0.78, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.944486372867091, "stroke": true, "weight": 2}
+            ).addTo(feature_group_5fac74564b43c2f5dcb6cafa0af8d52b);
+        
+    
+        var popup_9e0cbe48b155a81cefd193bfcdff6efd = L.popup({
+  "maxWidth": 340,
+});
+
+        
+            
+                var html_dfe3dd1dcedbaaeb3065397966d1e860 = $(`<div id="html_dfe3dd1dcedbaaeb3065397966d1e860" style="width: 100.0%; height: 100.0%;">             <div class="yw-popup">               <h3>비전스트롤</h3>               <table>                 <tr><td>주소</td><td>서울특별시 서대문구 연희로11가길 24</td></tr>                 <tr><td>이동 허브성</td><td>3</td></tr>                 <tr><td>들어오는 흐름</td><td>0</td></tr>                 <tr><td>나가는 흐름</td><td>3</td></tr>                 <tr><td>장소 내 연속 수강</td><td>0</td></tr>                 <tr><td>평균 여유</td><td>220분</td></tr>                 <tr><td>평균 도보</td><td>3.8분</td></tr>               </table>             </div>             </div>`)[0];
+                popup_9e0cbe48b155a81cefd193bfcdff6efd.setContent(html_dfe3dd1dcedbaaeb3065397966d1e860);
+            
+        
+
+        circle_marker_f6225d90d6ffdd3710b309be9e025f6e.bindPopup(popup_9e0cbe48b155a81cefd193bfcdff6efd)
+        ;
+
+        
+    
+    
+            circle_marker_f6225d90d6ffdd3710b309be9e025f6e.bindTooltip(
+                `<div>
+                     비전스트롤
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5e37bdc7a34e238ca117bbdb9bf703ba = L.circleMarker(
+                [37.568792797424, 126.930228568115],
+                {"bubblingMouseEvents": true, "color": "#2a1810", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f9a212", "fillOpacity": 0.78, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.128918994641037, "stroke": true, "weight": 2}
+            ).addTo(feature_group_5fac74564b43c2f5dcb6cafa0af8d52b);
+        
+    
+        var popup_b94701b3f66e12213b470deea26c2c2e = L.popup({
+  "maxWidth": 340,
+});
+
+        
+            
+                var html_16ddc448950c5b0196ba800e960bb6e1 = $(`<div id="html_16ddc448950c5b0196ba800e960bb6e1" style="width: 100.0%; height: 100.0%;">             <div class="yw-popup">               <h3>빅블루요가</h3>               <table>                 <tr><td>주소</td><td>서울특별시 서대문구 연희로15길 31 지층</td></tr>                 <tr><td>이동 허브성</td><td>35.5</td></tr>                 <tr><td>들어오는 흐름</td><td>19</td></tr>                 <tr><td>나가는 흐름</td><td>24</td></tr>                 <tr><td>장소 내 연속 수강</td><td>5</td></tr>                 <tr><td>평균 여유</td><td>200.7분</td></tr>                 <tr><td>평균 도보</td><td>6.7분</td></tr>               </table>             </div>             </div>`)[0];
+                popup_b94701b3f66e12213b470deea26c2c2e.setContent(html_16ddc448950c5b0196ba800e960bb6e1);
+            
+        
+
+        circle_marker_5e37bdc7a34e238ca117bbdb9bf703ba.bindPopup(popup_b94701b3f66e12213b470deea26c2c2e)
+        ;
+
+        
+    
+    
+            circle_marker_5e37bdc7a34e238ca117bbdb9bf703ba.bindTooltip(
+                `<div>
+                     빅블루요가
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ddd0cb7c717cd15a796b9b24cf67837f = L.circleMarker(
+                [37.572092920342, 126.93806774306],
+                {"bubblingMouseEvents": true, "color": "#2a1810", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f9a212", "fillOpacity": 0.78, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.808326112068524, "stroke": true, "weight": 2}
+            ).addTo(feature_group_5fac74564b43c2f5dcb6cafa0af8d52b);
+        
+    
+        var popup_6308f172b0c05c12cdd80ef6d7fdf0ad = L.popup({
+  "maxWidth": 340,
+});
+
+        
+            
+                var html_813da57153a50d1963907983dc15e8a9 = $(`<div id="html_813da57153a50d1963907983dc15e8a9" style="width: 100.0%; height: 100.0%;">             <div class="yw-popup">               <h3>숨 명상센터</h3>               <table>                 <tr><td>주소</td><td>서울특별시 서대문구 연희동 16-2 2층</td></tr>                 <tr><td>이동 허브성</td><td>8</td></tr>                 <tr><td>들어오는 흐름</td><td>3</td></tr>                 <tr><td>나가는 흐름</td><td>5</td></tr>                 <tr><td>장소 내 연속 수강</td><td>0</td></tr>                 <tr><td>평균 여유</td><td>283.1분</td></tr>                 <tr><td>평균 도보</td><td>16.4분</td></tr>               </table>             </div>             </div>`)[0];
+                popup_6308f172b0c05c12cdd80ef6d7fdf0ad.setContent(html_813da57153a50d1963907983dc15e8a9);
+            
+        
+
+        circle_marker_ddd0cb7c717cd15a796b9b24cf67837f.bindPopup(popup_6308f172b0c05c12cdd80ef6d7fdf0ad)
+        ;
+
+        
+    
+    
+            circle_marker_ddd0cb7c717cd15a796b9b24cf67837f.bindTooltip(
+                `<div>
+                     숨 명상센터
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5293ee3985390448a6d5262523285838 = L.circleMarker(
+                [37.567493895799, 126.928321014591],
+                {"bubblingMouseEvents": true, "color": "#2a1810", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f9a212", "fillOpacity": 0.78, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.017259187293362, "stroke": true, "weight": 2}
+            ).addTo(feature_group_5fac74564b43c2f5dcb6cafa0af8d52b);
+        
+    
+        var popup_e7eb3dbece681da0b46ecfe2b0191e93 = L.popup({
+  "maxWidth": 340,
+});
+
+        
+            
+                var html_6e4182da831200692450a91486ac5ce0 = $(`<div id="html_6e4182da831200692450a91486ac5ce0" style="width: 100.0%; height: 100.0%;">             <div class="yw-popup">               <h3>시이작</h3>               <table>                 <tr><td>주소</td><td>서울특별시 서대문구 연희로11나길 5 2층</td></tr>                 <tr><td>이동 허브성</td><td>42</td></tr>                 <tr><td>들어오는 흐름</td><td>25</td></tr>                 <tr><td>나가는 흐름</td><td>23</td></tr>                 <tr><td>장소 내 연속 수강</td><td>4</td></tr>                 <tr><td>평균 여유</td><td>220.7분</td></tr>                 <tr><td>평균 도보</td><td>8.2분</td></tr>               </table>             </div>             </div>`)[0];
+                popup_e7eb3dbece681da0b46ecfe2b0191e93.setContent(html_6e4182da831200692450a91486ac5ce0);
+            
+        
+
+        circle_marker_5293ee3985390448a6d5262523285838.bindPopup(popup_e7eb3dbece681da0b46ecfe2b0191e93)
+        ;
+
+        
+    
+    
+            circle_marker_5293ee3985390448a6d5262523285838.bindTooltip(
+                `<div>
+                     시이작
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2a77e5259bb4c1d90b4d43072b084e35 = L.circleMarker(
+                [37.564330104536, 126.927584999673],
+                {"bubblingMouseEvents": true, "color": "#2a1810", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f9a212", "fillOpacity": 0.78, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 21.205262246998572, "stroke": true, "weight": 2}
+            ).addTo(feature_group_5fac74564b43c2f5dcb6cafa0af8d52b);
+        
+    
+        var popup_b60fd5b1c44049d1851fd7060be72e40 = L.popup({
+  "maxWidth": 340,
+});
+
+        
+            
+                var html_5094d0f7bdae7b59a708029724efbd30 = $(`<div id="html_5094d0f7bdae7b59a708029724efbd30" style="width: 100.0%; height: 100.0%;">             <div class="yw-popup">               <h3>연남장</h3>               <table>                 <tr><td>주소</td><td>서울특별시 서대문구 연희로5길 22</td></tr>                 <tr><td>이동 허브성</td><td>80</td></tr>                 <tr><td>들어오는 흐름</td><td>75</td></tr>                 <tr><td>나가는 흐름</td><td>68</td></tr>                 <tr><td>장소 내 연속 수강</td><td>42</td></tr>                 <tr><td>평균 여유</td><td>115.3분</td></tr>                 <tr><td>평균 도보</td><td>5.3분</td></tr>               </table>             </div>             </div>`)[0];
+                popup_b60fd5b1c44049d1851fd7060be72e40.setContent(html_5094d0f7bdae7b59a708029724efbd30);
+            
+        
+
+        circle_marker_2a77e5259bb4c1d90b4d43072b084e35.bindPopup(popup_b60fd5b1c44049d1851fd7060be72e40)
+        ;
+
+        
+    
+    
+            circle_marker_2a77e5259bb4c1d90b4d43072b084e35.bindTooltip(
+                `<div>
+                     연남장
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_86070441fa8279816bebc7e85df1dbbf = L.circleMarker(
+                [37.566711570866, 126.929277808838],
+                {"bubblingMouseEvents": true, "color": "#2a1810", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f9a212", "fillOpacity": 0.78, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.5, "stroke": true, "weight": 2}
+            ).addTo(feature_group_5fac74564b43c2f5dcb6cafa0af8d52b);
+        
+    
+        var popup_a55c60a29b10135c9682b53258d78183 = L.popup({
+  "maxWidth": 340,
+});
+
+        
+            
+                var html_962038fa9e1244e38e16bfcb1f2cbb23 = $(`<div id="html_962038fa9e1244e38e16bfcb1f2cbb23" style="width: 100.0%; height: 100.0%;">             <div class="yw-popup">               <h3>연희정음</h3>               <table>                 <tr><td>주소</td><td>서울특별시 서대문구 연희동 189-2</td></tr>                 <tr><td>이동 허브성</td><td>25</td></tr>                 <tr><td>들어오는 흐름</td><td>12</td></tr>                 <tr><td>나가는 흐름</td><td>16</td></tr>                 <tr><td>장소 내 연속 수강</td><td>2</td></tr>                 <tr><td>평균 여유</td><td>109.6분</td></tr>                 <tr><td>평균 도보</td><td>4.2분</td></tr>               </table>             </div>             </div>`)[0];
+                popup_a55c60a29b10135c9682b53258d78183.setContent(html_962038fa9e1244e38e16bfcb1f2cbb23);
+            
+        
+
+        circle_marker_86070441fa8279816bebc7e85df1dbbf.bindPopup(popup_a55c60a29b10135c9682b53258d78183)
+        ;
+
+        
+    
+    
+            circle_marker_86070441fa8279816bebc7e85df1dbbf.bindTooltip(
+                `<div>
+                     연희정음
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_09cfbe13021f21a1022f5669e11d35ba = L.circleMarker(
+                [37.566328308343, 126.927201695241],
+                {"bubblingMouseEvents": true, "color": "#2a1810", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f9a212", "fillOpacity": 0.78, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.0, "stroke": true, "weight": 2}
+            ).addTo(feature_group_5fac74564b43c2f5dcb6cafa0af8d52b);
+        
+    
+        var popup_d525665f96df52a2f5b3b8b31692f283 = L.popup({
+  "maxWidth": 340,
+});
+
+        
+            
+                var html_72cf1368c934b41ab52f3a5ce32a5127 = $(`<div id="html_72cf1368c934b41ab52f3a5ce32a5127" style="width: 100.0%; height: 100.0%;">             <div class="yw-popup">               <h3>파츄코파라다이스</h3>               <table>                 <tr><td>주소</td><td>서울특별시 서대문구 연희로11가길 56 2층</td></tr>                 <tr><td>이동 허브성</td><td>0</td></tr>                 <tr><td>들어오는 흐름</td><td>0</td></tr>                 <tr><td>나가는 흐름</td><td>0</td></tr>                 <tr><td>장소 내 연속 수강</td><td>0</td></tr>                 <tr><td>평균 여유</td><td>-분</td></tr>                 <tr><td>평균 도보</td><td>-분</td></tr>               </table>             </div>             </div>`)[0];
+                popup_d525665f96df52a2f5b3b8b31692f283.setContent(html_72cf1368c934b41ab52f3a5ce32a5127);
+            
+        
+
+        circle_marker_09cfbe13021f21a1022f5669e11d35ba.bindPopup(popup_d525665f96df52a2f5b3b8b31692f283)
+        ;
+
+        
+    
+    
+            circle_marker_09cfbe13021f21a1022f5669e11d35ba.bindTooltip(
+                `<div>
+                     파츄코파라다이스
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_5fac74564b43c2f5dcb6cafa0af8d52b.addTo(map_0982a0977eece5c958c43bb69869acbc);
+        
+    
+            var feature_group_504cdc6652233f1b3952aadb2f1c95d6 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var poly_line_287a484b52f52b98bb234c6e264df31e = L.polyline(
+                [[37.566711570866, 126.929277808838], [37.564330104536, 126.927584999673]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 4.60555127546399}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_e281ca9e1644d6faf13d0bd3e2819efd = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_94f0d23ecfc371b7c19eb6b1abb86ff7 = $(`<div id="html_94f0d23ecfc371b7c19eb6b1abb86ff7" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>연희정음 → 연남장</h3>                   <table>                     <tr><td>이동 후보</td><td>13건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>163.1분</td></tr>                     <tr><td>최소/최대 여유</td><td>50 / 330분</td></tr>                     <tr><td>평균 도보 시간</td><td>5.0분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_e281ca9e1644d6faf13d0bd3e2819efd.setContent(html_94f0d23ecfc371b7c19eb6b1abb86ff7);
+            
+        
+
+        poly_line_287a484b52f52b98bb234c6e264df31e.bindPopup(popup_e281ca9e1644d6faf13d0bd3e2819efd)
+        ;
+
+        
+    
+    
+            poly_line_287a484b52f52b98bb234c6e264df31e.bindTooltip(
+                `<div>
+                     연희정음 -> 연남장
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_85ee794bee1dc56894cfbafff5453cf6 = L.polyline(
+                [[37.568792797424, 126.930228568115], [37.565997558444, 126.929894716912]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 3.6457513110645907}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_ef816187a26c55fb9ea47014eba4ec42 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_0129e3f73ceae803bb9e809c5087cbf3 = $(`<div id="html_0129e3f73ceae803bb9e809c5087cbf3" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>빅블루요가 → 마이트리</h3>                   <table>                     <tr><td>이동 후보</td><td>7건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>180분</td></tr>                     <tr><td>최소/최대 여유</td><td>30 / 460분</td></tr>                     <tr><td>평균 도보 시간</td><td>6.1분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_ef816187a26c55fb9ea47014eba4ec42.setContent(html_0129e3f73ceae803bb9e809c5087cbf3);
+            
+        
+
+        poly_line_85ee794bee1dc56894cfbafff5453cf6.bindPopup(popup_ef816187a26c55fb9ea47014eba4ec42)
+        ;
+
+        
+    
+    
+            poly_line_85ee794bee1dc56894cfbafff5453cf6.bindTooltip(
+                `<div>
+                     빅블루요가 -> 마이트리
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_a275b960b58a9d4d7092c14e4c377a25 = L.polyline(
+                [[37.567493895799, 126.928321014591], [37.577020515491, 126.935853747155]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 3.23606797749979}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_9be5221624f8c7f28779b000b7e91ab6 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_02cd706cc04c602bc2bcee9943d8afc6 = $(`<div id="html_02cd706cc04c602bc2bcee9943d8afc6" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>시이작 → 마인드플로우</h3>                   <table>                     <tr><td>이동 후보</td><td>5건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>249분</td></tr>                     <tr><td>최소/최대 여유</td><td>30 / 615분</td></tr>                     <tr><td>평균 도보 시간</td><td>16.8분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_9be5221624f8c7f28779b000b7e91ab6.setContent(html_02cd706cc04c602bc2bcee9943d8afc6);
+            
+        
+
+        poly_line_a275b960b58a9d4d7092c14e4c377a25.bindPopup(popup_9be5221624f8c7f28779b000b7e91ab6)
+        ;
+
+        
+    
+    
+            poly_line_a275b960b58a9d4d7092c14e4c377a25.bindTooltip(
+                `<div>
+                     시이작 -> 마인드플로우
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_911c79860b4c7473ee676fe949a36f0e = L.polyline(
+                [[37.564330104536, 126.927584999673], [37.570882196338, 126.928780175247]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 3.23606797749979}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_156bd68a682ebac758dd230970da2fc4 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_acc8e17bf2ebd3412b5c6ac5dfb6be53 = $(`<div id="html_acc8e17bf2ebd3412b5c6ac5dfb6be53" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>연남장 → 바운드하우스</h3>                   <table>                     <tr><td>이동 후보</td><td>5건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>132분</td></tr>                     <tr><td>최소/최대 여유</td><td>60 / 300분</td></tr>                     <tr><td>평균 도보 시간</td><td>12.1분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_156bd68a682ebac758dd230970da2fc4.setContent(html_acc8e17bf2ebd3412b5c6ac5dfb6be53);
+            
+        
+
+        poly_line_911c79860b4c7473ee676fe949a36f0e.bindPopup(popup_156bd68a682ebac758dd230970da2fc4)
+        ;
+
+        
+    
+    
+            poly_line_911c79860b4c7473ee676fe949a36f0e.bindTooltip(
+                `<div>
+                     연남장 -> 바운드하우스
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_cd649e8de63106c3f378ca657486815b = L.polyline(
+                [[37.565997558444, 126.929894716912], [37.567493895799, 126.928321014591]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 3.23606797749979}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_a6b49a474d75ba0e85c7d1bcfd825fb0 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_729fa5648e5d2d9c2724b139fd672935 = $(`<div id="html_729fa5648e5d2d9c2724b139fd672935" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>마이트리 → 시이작</h3>                   <table>                     <tr><td>이동 후보</td><td>5건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>297분</td></tr>                     <tr><td>최소/최대 여유</td><td>60 / 420분</td></tr>                     <tr><td>평균 도보 시간</td><td>4.3분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_a6b49a474d75ba0e85c7d1bcfd825fb0.setContent(html_729fa5648e5d2d9c2724b139fd672935);
+            
+        
+
+        poly_line_cd649e8de63106c3f378ca657486815b.bindPopup(popup_a6b49a474d75ba0e85c7d1bcfd825fb0)
+        ;
+
+        
+    
+    
+            poly_line_cd649e8de63106c3f378ca657486815b.bindTooltip(
+                `<div>
+                     마이트리 -> 시이작
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_6262a16ffdb160daced854118a11c60d = L.polyline(
+                [[37.568813333087, 126.927272103227], [37.564330104536, 126.927584999673]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 3.23606797749979}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_b017f805eef3a18b572e299b84eb2d0f = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_be6c6cfe85cca92badbd097e0be7dae3 = $(`<div id="html_be6c6cfe85cca92badbd097e0be7dae3" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>무릉 → 연남장</h3>                   <table>                     <tr><td>이동 후보</td><td>5건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>174분</td></tr>                     <tr><td>최소/최대 여유</td><td>60 / 330분</td></tr>                     <tr><td>평균 도보 시간</td><td>10.0분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_b017f805eef3a18b572e299b84eb2d0f.setContent(html_be6c6cfe85cca92badbd097e0be7dae3);
+            
+        
+
+        poly_line_6262a16ffdb160daced854118a11c60d.bindPopup(popup_b017f805eef3a18b572e299b84eb2d0f)
+        ;
+
+        
+    
+    
+            poly_line_6262a16ffdb160daced854118a11c60d.bindTooltip(
+                `<div>
+                     무릉 -> 연남장
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_cebfc7a14ce7a378985c4a2adb2d3906 = L.polyline(
+                [[37.564330104536, 126.927584999673], [37.566711570866, 126.929277808838]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 3.23606797749979}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_66bc261750d667777d77168303ac3405 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_0548bc9e31595c81992909e6f38ae8a4 = $(`<div id="html_0548bc9e31595c81992909e6f38ae8a4" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>연남장 → 연희정음</h3>                   <table>                     <tr><td>이동 후보</td><td>5건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>60분</td></tr>                     <tr><td>최소/최대 여유</td><td>60 / 60분</td></tr>                     <tr><td>평균 도보 시간</td><td>5.0분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_66bc261750d667777d77168303ac3405.setContent(html_0548bc9e31595c81992909e6f38ae8a4);
+            
+        
+
+        poly_line_cebfc7a14ce7a378985c4a2adb2d3906.bindPopup(popup_66bc261750d667777d77168303ac3405)
+        ;
+
+        
+    
+    
+            poly_line_cebfc7a14ce7a378985c4a2adb2d3906.bindTooltip(
+                `<div>
+                     연남장 -> 연희정음
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_5b56270701c29274b0928e30293b8bf9 = L.polyline(
+                [[37.568813333087, 126.927272103227], [37.567493895799, 126.928321014591]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 3.0}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_16107ece1b6c4b2a3ea32adc169ffaad = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_751ba8e0b6993546a3e59b6c909f25f2 = $(`<div id="html_751ba8e0b6993546a3e59b6c909f25f2" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>무릉 → 시이작</h3>                   <table>                     <tr><td>이동 후보</td><td>4건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>157.5분</td></tr>                     <tr><td>최소/최대 여유</td><td>60 / 390분</td></tr>                     <tr><td>평균 도보 시간</td><td>3.2분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_16107ece1b6c4b2a3ea32adc169ffaad.setContent(html_751ba8e0b6993546a3e59b6c909f25f2);
+            
+        
+
+        poly_line_5b56270701c29274b0928e30293b8bf9.bindPopup(popup_16107ece1b6c4b2a3ea32adc169ffaad)
+        ;
+
+        
+    
+    
+            poly_line_5b56270701c29274b0928e30293b8bf9.bindTooltip(
+                `<div>
+                     무릉 -> 시이작
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_1b43a2b8447042a6597ae3d95ceee0e0 = L.polyline(
+                [[37.564330104536, 126.927584999673], [37.565997558444, 126.929894716912]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 3.0}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_75a2b53651a0d3ea8bbbf618527a3344 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_08ec031aa2f36bd6352724605c7c8ba3 = $(`<div id="html_08ec031aa2f36bd6352724605c7c8ba3" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>연남장 → 마이트리</h3>                   <table>                     <tr><td>이동 후보</td><td>4건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>90분</td></tr>                     <tr><td>최소/최대 여유</td><td>60 / 180분</td></tr>                     <tr><td>평균 도보 시간</td><td>5.3분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_75a2b53651a0d3ea8bbbf618527a3344.setContent(html_08ec031aa2f36bd6352724605c7c8ba3);
+            
+        
+
+        poly_line_1b43a2b8447042a6597ae3d95ceee0e0.bindPopup(popup_75a2b53651a0d3ea8bbbf618527a3344)
+        ;
+
+        
+    
+    
+            poly_line_1b43a2b8447042a6597ae3d95ceee0e0.bindTooltip(
+                `<div>
+                     연남장 -> 마이트리
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_23ba033f52a2e9147a299c3dbf47bb7a = L.polyline(
+                [[37.577020515491, 126.935853747155], [37.568813333087, 126.927272103227]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 3.0}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_783cf4e1cdd72a356c09983d4039c709 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_fae200e36c1227be76efe13563c2b6d9 = $(`<div id="html_fae200e36c1227be76efe13563c2b6d9" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>마인드플로우 → 무릉</h3>                   <table>                     <tr><td>이동 후보</td><td>4건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>127.5분</td></tr>                     <tr><td>최소/최대 여유</td><td>60 / 150분</td></tr>                     <tr><td>평균 도보 시간</td><td>16.7분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_783cf4e1cdd72a356c09983d4039c709.setContent(html_fae200e36c1227be76efe13563c2b6d9);
+            
+        
+
+        poly_line_23ba033f52a2e9147a299c3dbf47bb7a.bindPopup(popup_783cf4e1cdd72a356c09983d4039c709)
+        ;
+
+        
+    
+    
+            poly_line_23ba033f52a2e9147a299c3dbf47bb7a.bindTooltip(
+                `<div>
+                     마인드플로우 -> 무릉
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_3eb8e99e7975d014625842f7b0c037a5 = L.polyline(
+                [[37.567493895799, 126.928321014591], [37.570882196338, 126.928780175247]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 3.0}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_231cbebec172ad45eda340b6bdd5219d = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_d5f9bdfe1e255a7c5329a416489d07c2 = $(`<div id="html_d5f9bdfe1e255a7c5329a416489d07c2" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>시이작 → 바운드하우스</h3>                   <table>                     <tr><td>이동 후보</td><td>4건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>135분</td></tr>                     <tr><td>최소/최대 여유</td><td>135 / 135분</td></tr>                     <tr><td>평균 도보 시간</td><td>5.5분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_231cbebec172ad45eda340b6bdd5219d.setContent(html_d5f9bdfe1e255a7c5329a416489d07c2);
+            
+        
+
+        poly_line_3eb8e99e7975d014625842f7b0c037a5.bindPopup(popup_231cbebec172ad45eda340b6bdd5219d)
+        ;
+
+        
+    
+    
+            poly_line_3eb8e99e7975d014625842f7b0c037a5.bindTooltip(
+                `<div>
+                     시이작 -> 바운드하우스
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_5e2de110eedcecbc45f80ae067bc0c19 = L.polyline(
+                [[37.577020515491, 126.935853747155], [37.570882196338, 126.928780175247]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 3.0}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_bf63a81bdcb6b6a2205104fbffd796a2 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_def11e8cd17da8afd06ace24dca07117 = $(`<div id="html_def11e8cd17da8afd06ace24dca07117" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>마인드플로우 → 바운드하우스</h3>                   <table>                     <tr><td>이동 후보</td><td>4건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>105분</td></tr>                     <tr><td>최소/최대 여유</td><td>30 / 330분</td></tr>                     <tr><td>평균 도보 시간</td><td>15.1분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_bf63a81bdcb6b6a2205104fbffd796a2.setContent(html_def11e8cd17da8afd06ace24dca07117);
+            
+        
+
+        poly_line_5e2de110eedcecbc45f80ae067bc0c19.bindPopup(popup_bf63a81bdcb6b6a2205104fbffd796a2)
+        ;
+
+        
+    
+    
+            poly_line_5e2de110eedcecbc45f80ae067bc0c19.bindTooltip(
+                `<div>
+                     마인드플로우 -> 바운드하우스
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_5f9961319a3e75c949d7f62f44c90317 = L.polyline(
+                [[37.567682614349, 126.931274545813], [37.564330104536, 126.927584999673]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 3.0}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_4240759348dce9e0d7568d9170a9cc63 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_3678a71a0deac19e1a3136033c0e3f96 = $(`<div id="html_3678a71a0deac19e1a3136033c0e3f96" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>데이스타콜라보 → 연남장</h3>                   <table>                     <tr><td>이동 후보</td><td>4건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>150분</td></tr>                     <tr><td>최소/최대 여유</td><td>90 / 210분</td></tr>                     <tr><td>평균 도보 시간</td><td>7.6분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_4240759348dce9e0d7568d9170a9cc63.setContent(html_3678a71a0deac19e1a3136033c0e3f96);
+            
+        
+
+        poly_line_5f9961319a3e75c949d7f62f44c90317.bindPopup(popup_4240759348dce9e0d7568d9170a9cc63)
+        ;
+
+        
+    
+    
+            poly_line_5f9961319a3e75c949d7f62f44c90317.bindTooltip(
+                `<div>
+                     데이스타콜라보 -> 연남장
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_b285ce07d7a6d14075aee99d809689bf = L.polyline(
+                [[37.565997558444, 126.929894716912], [37.564330104536, 126.927584999673]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 3.0}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_c5e7c014168254f2b889fd8b49abc83c = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_7c87fbd65020e889fe512b6c7e4a0c03 = $(`<div id="html_7c87fbd65020e889fe512b6c7e4a0c03" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>마이트리 → 연남장</h3>                   <table>                     <tr><td>이동 후보</td><td>4건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>255분</td></tr>                     <tr><td>최소/최대 여유</td><td>120 / 360분</td></tr>                     <tr><td>평균 도보 시간</td><td>5.3분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_c5e7c014168254f2b889fd8b49abc83c.setContent(html_7c87fbd65020e889fe512b6c7e4a0c03);
+            
+        
+
+        poly_line_b285ce07d7a6d14075aee99d809689bf.bindPopup(popup_c5e7c014168254f2b889fd8b49abc83c)
+        ;
+
+        
+    
+    
+            poly_line_b285ce07d7a6d14075aee99d809689bf.bindTooltip(
+                `<div>
+                     마이트리 -> 연남장
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_e9d481fc07efe3061d1b1c61d43c74cf = L.polyline(
+                [[37.568792797424, 126.930228568115], [37.570882196338, 126.928780175247]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.732050807568877}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_d1de769c925cbf5fefa1c9a52e13fb2d = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_c504aa934dd8357203a8841d2e729ccb = $(`<div id="html_c504aa934dd8357203a8841d2e729ccb" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>빅블루요가 → 바운드하우스</h3>                   <table>                     <tr><td>이동 후보</td><td>3건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>93.3분</td></tr>                     <tr><td>최소/최대 여유</td><td>40 / 120분</td></tr>                     <tr><td>평균 도보 시간</td><td>3.4분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_d1de769c925cbf5fefa1c9a52e13fb2d.setContent(html_c504aa934dd8357203a8841d2e729ccb);
+            
+        
+
+        poly_line_e9d481fc07efe3061d1b1c61d43c74cf.bindPopup(popup_d1de769c925cbf5fefa1c9a52e13fb2d)
+        ;
+
+        
+    
+    
+            poly_line_e9d481fc07efe3061d1b1c61d43c74cf.bindTooltip(
+                `<div>
+                     빅블루요가 -> 바운드하우스
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_3de928f225014712723759ed61e6a0a2 = L.polyline(
+                [[37.565560190736, 126.91602233188], [37.567493895799, 126.928321014591]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.732050807568877}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_f76acb807b446a26b5261bf542c71288 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_ab285245f66eb24eabbf220f67da885b = $(`<div id="html_ab285245f66eb24eabbf220f67da885b" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>너울너울 → 시이작</h3>                   <table>                     <tr><td>이동 후보</td><td>3건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>90분</td></tr>                     <tr><td>최소/최대 여유</td><td>30 / 210분</td></tr>                     <tr><td>평균 도보 시간</td><td>18.2분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_f76acb807b446a26b5261bf542c71288.setContent(html_ab285245f66eb24eabbf220f67da885b);
+            
+        
+
+        poly_line_3de928f225014712723759ed61e6a0a2.bindPopup(popup_f76acb807b446a26b5261bf542c71288)
+        ;
+
+        
+    
+    
+            poly_line_3de928f225014712723759ed61e6a0a2.bindTooltip(
+                `<div>
+                     너울너울 -> 시이작
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_b4bb4d101dcdc3fc17b4a6eb427105b0 = L.polyline(
+                [[37.570882196338, 126.928780175247], [37.565997558444, 126.929894716912]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.732050807568877}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_cb7ab2eee15e58892679a4e2d642b1c3 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_08bc3fedd64ad17cfb5395ca9f34b5f7 = $(`<div id="html_08bc3fedd64ad17cfb5395ca9f34b5f7" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>바운드하우스 → 마이트리</h3>                   <table>                     <tr><td>이동 후보</td><td>3건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>120분</td></tr>                     <tr><td>최소/최대 여유</td><td>60 / 150분</td></tr>                     <tr><td>평균 도보 시간</td><td>9.4분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_cb7ab2eee15e58892679a4e2d642b1c3.setContent(html_08bc3fedd64ad17cfb5395ca9f34b5f7);
+            
+        
+
+        poly_line_b4bb4d101dcdc3fc17b4a6eb427105b0.bindPopup(popup_cb7ab2eee15e58892679a4e2d642b1c3)
+        ;
+
+        
+    
+    
+            poly_line_b4bb4d101dcdc3fc17b4a6eb427105b0.bindTooltip(
+                `<div>
+                     바운드하우스 -> 마이트리
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_4761b5a5909118dd56f8ee7770be480c = L.polyline(
+                [[37.567356642134, 126.928486557178], [37.565997558444, 126.929894716912]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.732050807568877}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_83534d87d3994a5cb51b4842f800d638 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_bfe312e93692e0ca1e275abf031d9ecf = $(`<div id="html_bfe312e93692e0ca1e275abf031d9ecf" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>비전스트롤 → 마이트리</h3>                   <table>                     <tr><td>이동 후보</td><td>3건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>220분</td></tr>                     <tr><td>최소/최대 여유</td><td>180 / 300분</td></tr>                     <tr><td>평균 도보 시간</td><td>3.8분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_83534d87d3994a5cb51b4842f800d638.setContent(html_bfe312e93692e0ca1e275abf031d9ecf);
+            
+        
+
+        poly_line_4761b5a5909118dd56f8ee7770be480c.bindPopup(popup_83534d87d3994a5cb51b4842f800d638)
+        ;
+
+        
+    
+    
+            poly_line_4761b5a5909118dd56f8ee7770be480c.bindTooltip(
+                `<div>
+                     비전스트롤 -> 마이트리
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_7789f59a426bde15dc4766741995f0a9 = L.polyline(
+                [[37.568813333087, 126.927272103227], [37.565997558444, 126.929894716912]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.732050807568877}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_cb2ddeed025b7aae5b2650076e7dd121 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_f047ab3fd0169dea896a68f137d2d967 = $(`<div id="html_f047ab3fd0169dea896a68f137d2d967" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>무릉 → 마이트리</h3>                   <table>                     <tr><td>이동 후보</td><td>3건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>60분</td></tr>                     <tr><td>최소/최대 여유</td><td>30 / 120분</td></tr>                     <tr><td>평균 도보 시간</td><td>7.3분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_cb2ddeed025b7aae5b2650076e7dd121.setContent(html_f047ab3fd0169dea896a68f137d2d967);
+            
+        
+
+        poly_line_7789f59a426bde15dc4766741995f0a9.bindPopup(popup_cb2ddeed025b7aae5b2650076e7dd121)
+        ;
+
+        
+    
+    
+            poly_line_7789f59a426bde15dc4766741995f0a9.bindTooltip(
+                `<div>
+                     무릉 -> 마이트리
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_cff2257cdf55a0ec6f2bf215ad7d9cdf = L.polyline(
+                [[37.577020515491, 126.935853747155], [37.567493895799, 126.928321014591]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.732050807568877}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_1703dc706d5ab63ccfc3fc1c2ab12864 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_629d1b667811cee03d94cbb35e364009 = $(`<div id="html_629d1b667811cee03d94cbb35e364009" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>마인드플로우 → 시이작</h3>                   <table>                     <tr><td>이동 후보</td><td>3건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>290분</td></tr>                     <tr><td>최소/최대 여유</td><td>30 / 420분</td></tr>                     <tr><td>평균 도보 시간</td><td>16.8분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_1703dc706d5ab63ccfc3fc1c2ab12864.setContent(html_629d1b667811cee03d94cbb35e364009);
+            
+        
+
+        poly_line_cff2257cdf55a0ec6f2bf215ad7d9cdf.bindPopup(popup_1703dc706d5ab63ccfc3fc1c2ab12864)
+        ;
+
+        
+    
+    
+            poly_line_cff2257cdf55a0ec6f2bf215ad7d9cdf.bindTooltip(
+                `<div>
+                     마인드플로우 -> 시이작
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_82cb1a07b4ef7bd22e60beda31feadd0 = L.polyline(
+                [[37.564330104536, 126.927584999673], [37.568792797424, 126.930228568115]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.732050807568877}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_59414598850998f91c7a5599b144e2a7 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_0da785329fd49c2f1dc4443f0464bd4c = $(`<div id="html_0da785329fd49c2f1dc4443f0464bd4c" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>연남장 → 빅블루요가</h3>                   <table>                     <tr><td>이동 후보</td><td>3건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>200분</td></tr>                     <tr><td>최소/최대 여유</td><td>120 / 240분</td></tr>                     <tr><td>평균 도보 시간</td><td>8.8분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_59414598850998f91c7a5599b144e2a7.setContent(html_0da785329fd49c2f1dc4443f0464bd4c);
+            
+        
+
+        poly_line_82cb1a07b4ef7bd22e60beda31feadd0.bindPopup(popup_59414598850998f91c7a5599b144e2a7)
+        ;
+
+        
+    
+    
+            poly_line_82cb1a07b4ef7bd22e60beda31feadd0.bindTooltip(
+                `<div>
+                     연남장 -> 빅블루요가
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_506070f35fcc53069fe409f7089e1724 = L.polyline(
+                [[37.577020515491, 126.935853747155], [37.565997558444, 126.929894716912]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.732050807568877}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_e8c962d3da2001eb91887ab3a2fce2e6 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_f2cb7991c7a4efe6099e55654f0b5a76 = $(`<div id="html_f2cb7991c7a4efe6099e55654f0b5a76" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>마인드플로우 → 마이트리</h3>                   <table>                     <tr><td>이동 후보</td><td>3건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>80분</td></tr>                     <tr><td>최소/최대 여유</td><td>60 / 120분</td></tr>                     <tr><td>평균 도보 시간</td><td>18.4분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_e8c962d3da2001eb91887ab3a2fce2e6.setContent(html_f2cb7991c7a4efe6099e55654f0b5a76);
+            
+        
+
+        poly_line_506070f35fcc53069fe409f7089e1724.bindPopup(popup_e8c962d3da2001eb91887ab3a2fce2e6)
+        ;
+
+        
+    
+    
+            poly_line_506070f35fcc53069fe409f7089e1724.bindTooltip(
+                `<div>
+                     마인드플로우 -> 마이트리
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_941c3d894c37a1b3ad5b8e295fc08a10 = L.polyline(
+                [[37.570882196338, 126.928780175247], [37.565560190736, 126.91602233188]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.414213562373095}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_d4f6c1fcbf6ce822e218aa97731e37e6 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_d1c78590fb41bc724caa42be18c9e30a = $(`<div id="html_d1c78590fb41bc724caa42be18c9e30a" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>바운드하우스 → 너울너울</h3>                   <table>                     <tr><td>이동 후보</td><td>2건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>90분</td></tr>                     <tr><td>최소/최대 여유</td><td>60 / 120분</td></tr>                     <tr><td>평균 도보 시간</td><td>19.5분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_d4f6c1fcbf6ce822e218aa97731e37e6.setContent(html_d1c78590fb41bc724caa42be18c9e30a);
+            
+        
+
+        poly_line_941c3d894c37a1b3ad5b8e295fc08a10.bindPopup(popup_d4f6c1fcbf6ce822e218aa97731e37e6)
+        ;
+
+        
+    
+    
+            poly_line_941c3d894c37a1b3ad5b8e295fc08a10.bindTooltip(
+                `<div>
+                     바운드하우스 -> 너울너울
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_5da2b7d2e1e4b113d71b888f3a20681a = L.polyline(
+                [[37.565560190736, 126.91602233188], [37.565997558444, 126.929894716912]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.414213562373095}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_2435574f545127d75641dfc828d2c6fa = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_197325d14db2f5fa5e3e2667ab2679c0 = $(`<div id="html_197325d14db2f5fa5e3e2667ab2679c0" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>너울너울 → 마이트리</h3>                   <table>                     <tr><td>이동 후보</td><td>2건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>60분</td></tr>                     <tr><td>최소/최대 여유</td><td>60 / 60분</td></tr>                     <tr><td>평균 도보 시간</td><td>19.0분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_2435574f545127d75641dfc828d2c6fa.setContent(html_197325d14db2f5fa5e3e2667ab2679c0);
+            
+        
+
+        poly_line_5da2b7d2e1e4b113d71b888f3a20681a.bindPopup(popup_2435574f545127d75641dfc828d2c6fa)
+        ;
+
+        
+    
+    
+            poly_line_5da2b7d2e1e4b113d71b888f3a20681a.bindTooltip(
+                `<div>
+                     너울너울 -> 마이트리
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_d7b4acdaec4bb7e9d75050d9e7151a44 = L.polyline(
+                [[37.564330104536, 126.927584999673], [37.577020515491, 126.935853747155]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.414213562373095}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_d6bee9da52dcc14d260f4354684a1075 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_42880ae1619c7141d8f8f880d4a007c7 = $(`<div id="html_42880ae1619c7141d8f8f880d4a007c7" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>연남장 → 마인드플로우</h3>                   <table>                     <tr><td>이동 후보</td><td>2건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>60분</td></tr>                     <tr><td>최소/최대 여유</td><td>60 / 60분</td></tr>                     <tr><td>평균 도보 시간</td><td>21.9분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_d6bee9da52dcc14d260f4354684a1075.setContent(html_42880ae1619c7141d8f8f880d4a007c7);
+            
+        
+
+        poly_line_d7b4acdaec4bb7e9d75050d9e7151a44.bindPopup(popup_d6bee9da52dcc14d260f4354684a1075)
+        ;
+
+        
+    
+    
+            poly_line_d7b4acdaec4bb7e9d75050d9e7151a44.bindTooltip(
+                `<div>
+                     연남장 -> 마인드플로우
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_e4d3ddffea84f050cadc9d4816e2e7bb = L.polyline(
+                [[37.567493895799, 126.928321014591], [37.565997558444, 126.929894716912]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.414213562373095}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_17b75c7d1ae2fee415ab890a10e045da = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_d169413a61e7e8d5e12267e06c77053e = $(`<div id="html_d169413a61e7e8d5e12267e06c77053e" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>시이작 → 마이트리</h3>                   <table>                     <tr><td>이동 후보</td><td>2건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>437.5분</td></tr>                     <tr><td>최소/최대 여유</td><td>125 / 750분</td></tr>                     <tr><td>평균 도보 시간</td><td>4.3분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_17b75c7d1ae2fee415ab890a10e045da.setContent(html_d169413a61e7e8d5e12267e06c77053e);
+            
+        
+
+        poly_line_e4d3ddffea84f050cadc9d4816e2e7bb.bindPopup(popup_17b75c7d1ae2fee415ab890a10e045da)
+        ;
+
+        
+    
+    
+            poly_line_e4d3ddffea84f050cadc9d4816e2e7bb.bindTooltip(
+                `<div>
+                     시이작 -> 마이트리
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_ec0d61a186cb7e9a66663aa0eda2670c = L.polyline(
+                [[37.567493895799, 126.928321014591], [37.566711570866, 126.929277808838]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.414213562373095}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_8fb76713a0aff6ee3d680e5f429ae82e = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_d8250b2f7d1483e4884e422cacf59260 = $(`<div id="html_d8250b2f7d1483e4884e422cacf59260" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>시이작 → 연희정음</h3>                   <table>                     <tr><td>이동 후보</td><td>2건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>150분</td></tr>                     <tr><td>최소/최대 여유</td><td>90 / 210분</td></tr>                     <tr><td>평균 도보 시간</td><td>2.0분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_8fb76713a0aff6ee3d680e5f429ae82e.setContent(html_d8250b2f7d1483e4884e422cacf59260);
+            
+        
+
+        poly_line_ec0d61a186cb7e9a66663aa0eda2670c.bindPopup(popup_8fb76713a0aff6ee3d680e5f429ae82e)
+        ;
+
+        
+    
+    
+            poly_line_ec0d61a186cb7e9a66663aa0eda2670c.bindTooltip(
+                `<div>
+                     시이작 -> 연희정음
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_b7e4b5f7357e8ce50003133ac6c8b230 = L.polyline(
+                [[37.565997558444, 126.929894716912], [37.568792797424, 126.930228568115]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.414213562373095}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_a15f84ff3be2c4b2083d2f61a306405c = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_dd7ac04228a17f19be6384192f66af2c = $(`<div id="html_dd7ac04228a17f19be6384192f66af2c" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>마이트리 → 빅블루요가</h3>                   <table>                     <tr><td>이동 후보</td><td>2건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>220분</td></tr>                     <tr><td>최소/최대 여유</td><td>40 / 400분</td></tr>                     <tr><td>평균 도보 시간</td><td>6.1분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_a15f84ff3be2c4b2083d2f61a306405c.setContent(html_dd7ac04228a17f19be6384192f66af2c);
+            
+        
+
+        poly_line_b7e4b5f7357e8ce50003133ac6c8b230.bindPopup(popup_a15f84ff3be2c4b2083d2f61a306405c)
+        ;
+
+        
+    
+    
+            poly_line_b7e4b5f7357e8ce50003133ac6c8b230.bindTooltip(
+                `<div>
+                     마이트리 -> 빅블루요가
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_eec0ccbfc0879f3baeedcf7d422caa32 = L.polyline(
+                [[37.568792797424, 126.930228568115], [37.567682614349, 126.931274545813]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.414213562373095}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_4ffff90f6ad38282e596ca8f33fa5072 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_c342171814def3d6943aad843a4af195 = $(`<div id="html_c342171814def3d6943aad843a4af195" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>빅블루요가 → 데이스타콜라보</h3>                   <table>                     <tr><td>이동 후보</td><td>2건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>130분</td></tr>                     <tr><td>최소/최대 여유</td><td>130 / 130분</td></tr>                     <tr><td>평균 도보 시간</td><td>2.0분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_4ffff90f6ad38282e596ca8f33fa5072.setContent(html_c342171814def3d6943aad843a4af195);
+            
+        
+
+        poly_line_eec0ccbfc0879f3baeedcf7d422caa32.bindPopup(popup_4ffff90f6ad38282e596ca8f33fa5072)
+        ;
+
+        
+    
+    
+            poly_line_eec0ccbfc0879f3baeedcf7d422caa32.bindTooltip(
+                `<div>
+                     빅블루요가 -> 데이스타콜라보
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_ffd6bbe6493e68a455ddcbffd13c741d = L.polyline(
+                [[37.577020515491, 126.935853747155], [37.567682614349, 126.931274545813]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.414213562373095}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_4ae71e143e64214ecd6d235f4e74ec42 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_ef32ff596269d483dfd7d7c9e476bfe0 = $(`<div id="html_ef32ff596269d483dfd7d7c9e476bfe0" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>마인드플로우 → 데이스타콜라보</h3>                   <table>                     <tr><td>이동 후보</td><td>2건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>120분</td></tr>                     <tr><td>최소/최대 여유</td><td>120 / 120분</td></tr>                     <tr><td>평균 도보 시간</td><td>15.2분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_4ae71e143e64214ecd6d235f4e74ec42.setContent(html_ef32ff596269d483dfd7d7c9e476bfe0);
+            
+        
+
+        poly_line_ffd6bbe6493e68a455ddcbffd13c741d.bindPopup(popup_4ae71e143e64214ecd6d235f4e74ec42)
+        ;
+
+        
+    
+    
+            poly_line_ffd6bbe6493e68a455ddcbffd13c741d.bindTooltip(
+                `<div>
+                     마인드플로우 -> 데이스타콜라보
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_19e995fa3b8f08def644f659dab16de2 = L.polyline(
+                [[37.570882196338, 126.928780175247], [37.567493895799, 126.928321014591]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.414213562373095}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_46ddf3bd172c03d3b4a71df587d7759a = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_75a4602f15e7f95ba8d51a9cf78e385a = $(`<div id="html_75a4602f15e7f95ba8d51a9cf78e385a" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>바운드하우스 → 시이작</h3>                   <table>                     <tr><td>이동 후보</td><td>2건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>355분</td></tr>                     <tr><td>최소/최대 여유</td><td>330 / 380분</td></tr>                     <tr><td>평균 도보 시간</td><td>5.5분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_46ddf3bd172c03d3b4a71df587d7759a.setContent(html_75a4602f15e7f95ba8d51a9cf78e385a);
+            
+        
+
+        poly_line_19e995fa3b8f08def644f659dab16de2.bindPopup(popup_46ddf3bd172c03d3b4a71df587d7759a)
+        ;
+
+        
+    
+    
+            poly_line_19e995fa3b8f08def644f659dab16de2.bindTooltip(
+                `<div>
+                     바운드하우스 -> 시이작
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_12e9fc2466e66bec774c14a59ea96f48 = L.polyline(
+                [[37.570882196338, 126.928780175247], [37.564330104536, 126.927584999673]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.414213562373095}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_24d1b21b7382eae7a0ac8cd4c66177c7 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_6ed129a49058d19cc382109c09555068 = $(`<div id="html_6ed129a49058d19cc382109c09555068" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>바운드하우스 → 연남장</h3>                   <table>                     <tr><td>이동 후보</td><td>2건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>60분</td></tr>                     <tr><td>최소/최대 여유</td><td>60 / 60분</td></tr>                     <tr><td>평균 도보 시간</td><td>12.1분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_24d1b21b7382eae7a0ac8cd4c66177c7.setContent(html_6ed129a49058d19cc382109c09555068);
+            
+        
+
+        poly_line_12e9fc2466e66bec774c14a59ea96f48.bindPopup(popup_24d1b21b7382eae7a0ac8cd4c66177c7)
+        ;
+
+        
+    
+    
+            poly_line_12e9fc2466e66bec774c14a59ea96f48.bindTooltip(
+                `<div>
+                     바운드하우스 -> 연남장
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_6672f97a78618b3f52bf29afd7dd1359 = L.polyline(
+                [[37.568792797424, 126.930228568115], [37.567493895799, 126.928321014591]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.414213562373095}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_db8db8ac2c293902166c981bfb231d89 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_d7886087db03ca52820895420ad9f58d = $(`<div id="html_d7886087db03ca52820895420ad9f58d" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>빅블루요가 → 시이작</h3>                   <table>                     <tr><td>이동 후보</td><td>2건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>245분</td></tr>                     <tr><td>최소/최대 여유</td><td>40 / 450분</td></tr>                     <tr><td>평균 도보 시간</td><td>3.3분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_db8db8ac2c293902166c981bfb231d89.setContent(html_d7886087db03ca52820895420ad9f58d);
+            
+        
+
+        poly_line_6672f97a78618b3f52bf29afd7dd1359.bindPopup(popup_db8db8ac2c293902166c981bfb231d89)
+        ;
+
+        
+    
+    
+            poly_line_6672f97a78618b3f52bf29afd7dd1359.bindTooltip(
+                `<div>
+                     빅블루요가 -> 시이작
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_63254a75a1db15496744ad1befe09a6a = L.polyline(
+                [[37.572092920342, 126.93806774306], [37.567493895799, 126.928321014591]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.414213562373095}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_563f40a92bb209150e93331e42d7302a = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_61fcd5ad4ed24f314628d5c0dca48f52 = $(`<div id="html_61fcd5ad4ed24f314628d5c0dca48f52" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>숨 명상센터 → 시이작</h3>                   <table>                     <tr><td>이동 후보</td><td>2건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>405분</td></tr>                     <tr><td>최소/최대 여유</td><td>320 / 490분</td></tr>                     <tr><td>평균 도보 시간</td><td>15.4분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_563f40a92bb209150e93331e42d7302a.setContent(html_61fcd5ad4ed24f314628d5c0dca48f52);
+            
+        
+
+        poly_line_63254a75a1db15496744ad1befe09a6a.bindPopup(popup_563f40a92bb209150e93331e42d7302a)
+        ;
+
+        
+    
+    
+            poly_line_63254a75a1db15496744ad1befe09a6a.bindTooltip(
+                `<div>
+                     숨 명상센터 -> 시이작
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_7cf066d241e2fc7a8674001c76fc5a29 = L.polyline(
+                [[37.577020515491, 126.935853747155], [37.568792797424, 126.930228568115]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.414213562373095}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_183105b79caff8004fa3b025f399283c = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_b67fb5a19567ed8f88b57881365a5741 = $(`<div id="html_b67fb5a19567ed8f88b57881365a5741" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>마인드플로우 → 빅블루요가</h3>                   <table>                     <tr><td>이동 후보</td><td>2건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>480분</td></tr>                     <tr><td>최소/최대 여유</td><td>480 / 480분</td></tr>                     <tr><td>평균 도보 시간</td><td>13.5분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_183105b79caff8004fa3b025f399283c.setContent(html_b67fb5a19567ed8f88b57881365a5741);
+            
+        
+
+        poly_line_7cf066d241e2fc7a8674001c76fc5a29.bindPopup(popup_183105b79caff8004fa3b025f399283c)
+        ;
+
+        
+    
+    
+            poly_line_7cf066d241e2fc7a8674001c76fc5a29.bindTooltip(
+                `<div>
+                     마인드플로우 -> 빅블루요가
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_2d99b5d4dc82c6559667444297341680 = L.polyline(
+                [[37.568792797424, 126.930228568115], [37.577020515491, 126.935853747155]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.414213562373095}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_bfb3c61b8b9d71d82f7d92157c879fb9 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_18bbd01f3fc0e94e15aa13034f770f83 = $(`<div id="html_18bbd01f3fc0e94e15aa13034f770f83" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>빅블루요가 → 마인드플로우</h3>                   <table>                     <tr><td>이동 후보</td><td>2건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>320분</td></tr>                     <tr><td>최소/최대 여유</td><td>210 / 430분</td></tr>                     <tr><td>평균 도보 시간</td><td>13.5분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_bfb3c61b8b9d71d82f7d92157c879fb9.setContent(html_18bbd01f3fc0e94e15aa13034f770f83);
+            
+        
+
+        poly_line_2d99b5d4dc82c6559667444297341680.bindPopup(popup_bfb3c61b8b9d71d82f7d92157c879fb9)
+        ;
+
+        
+    
+    
+            poly_line_2d99b5d4dc82c6559667444297341680.bindTooltip(
+                `<div>
+                     빅블루요가 -> 마인드플로우
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_afca6030acf0090d2e4966c367e2344c = L.polyline(
+                [[37.572092920342, 126.93806774306], [37.568792797424, 126.930228568115]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.414213562373095}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_7696054ebc23d8cdbdf4978d115df9cd = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_cd6b5d9e79a615a98d54a60820291df8 = $(`<div id="html_cd6b5d9e79a615a98d54a60820291df8" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>숨 명상센터 → 빅블루요가</h3>                   <table>                     <tr><td>이동 후보</td><td>2건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>450분</td></tr>                     <tr><td>최소/최대 여유</td><td>450 / 450분</td></tr>                     <tr><td>평균 도보 시간</td><td>12.2분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_7696054ebc23d8cdbdf4978d115df9cd.setContent(html_cd6b5d9e79a615a98d54a60820291df8);
+            
+        
+
+        poly_line_afca6030acf0090d2e4966c367e2344c.bindPopup(popup_7696054ebc23d8cdbdf4978d115df9cd)
+        ;
+
+        
+    
+    
+            poly_line_afca6030acf0090d2e4966c367e2344c.bindTooltip(
+                `<div>
+                     숨 명상센터 -> 빅블루요가
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_ba5155fb63845cc7c17389471e15b238 = L.polyline(
+                [[37.567493895799, 126.928321014591], [37.564330104536, 126.927584999673]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.414213562373095}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_23288ac242592e30f2e804c2c6ed5237 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_e527d348b2e4df54746f23d912053fcc = $(`<div id="html_e527d348b2e4df54746f23d912053fcc" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>시이작 → 연남장</h3>                   <table>                     <tr><td>이동 후보</td><td>2건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>135분</td></tr>                     <tr><td>최소/최대 여유</td><td>90 / 180분</td></tr>                     <tr><td>평균 도보 시간</td><td>7.0분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_23288ac242592e30f2e804c2c6ed5237.setContent(html_e527d348b2e4df54746f23d912053fcc);
+            
+        
+
+        poly_line_ba5155fb63845cc7c17389471e15b238.bindPopup(popup_23288ac242592e30f2e804c2c6ed5237)
+        ;
+
+        
+    
+    
+            poly_line_ba5155fb63845cc7c17389471e15b238.bindTooltip(
+                `<div>
+                     시이작 -> 연남장
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_c7309c29b4cc7a76863eb305f44bd715 = L.polyline(
+                [[37.568792797424, 126.930228568115], [37.564330104536, 126.927584999673]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.414213562373095}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_a3e08e8b3f7104285320570aa70fbfdf = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_29c522a579b37288c0e699a80d99e260 = $(`<div id="html_29c522a579b37288c0e699a80d99e260" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>빅블루요가 → 연남장</h3>                   <table>                     <tr><td>이동 후보</td><td>2건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>235분</td></tr>                     <tr><td>최소/최대 여유</td><td>40 / 430분</td></tr>                     <tr><td>평균 도보 시간</td><td>8.8분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_a3e08e8b3f7104285320570aa70fbfdf.setContent(html_29c522a579b37288c0e699a80d99e260);
+            
+        
+
+        poly_line_c7309c29b4cc7a76863eb305f44bd715.bindPopup(popup_a3e08e8b3f7104285320570aa70fbfdf)
+        ;
+
+        
+    
+    
+            poly_line_c7309c29b4cc7a76863eb305f44bd715.bindTooltip(
+                `<div>
+                     빅블루요가 -> 연남장
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_7cbe1972a14c08d06455d3ddf9a02cf6 = L.polyline(
+                [[37.565560190736, 126.91602233188], [37.568792797424, 126.930228568115]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.0}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_1f458790993e8fd2759027c895a3af04 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_5bb8b159be04f9efa261479cf655e434 = $(`<div id="html_5bb8b159be04f9efa261479cf655e434" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>너울너울 → 빅블루요가</h3>                   <table>                     <tr><td>이동 후보</td><td>1건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>90분</td></tr>                     <tr><td>최소/최대 여유</td><td>90 / 90분</td></tr>                     <tr><td>평균 도보 시간</td><td>20.4분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_1f458790993e8fd2759027c895a3af04.setContent(html_5bb8b159be04f9efa261479cf655e434);
+            
+        
+
+        poly_line_7cbe1972a14c08d06455d3ddf9a02cf6.bindPopup(popup_1f458790993e8fd2759027c895a3af04)
+        ;
+
+        
+    
+    
+            poly_line_7cbe1972a14c08d06455d3ddf9a02cf6.bindTooltip(
+                `<div>
+                     너울너울 -> 빅블루요가
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_f1ae9b43213adb76f11b5dc4476527d1 = L.polyline(
+                [[37.570882196338, 126.928780175247], [37.577020515491, 126.935853747155]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.0}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_5a86fbd8da531cbb6d04e2bf21af65e7 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_dc2cb9e2eb10f2c6ffd93c33991e364c = $(`<div id="html_dc2cb9e2eb10f2c6ffd93c33991e364c" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>바운드하우스 → 마인드플로우</h3>                   <table>                     <tr><td>이동 후보</td><td>1건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>120분</td></tr>                     <tr><td>최소/최대 여유</td><td>120 / 120분</td></tr>                     <tr><td>평균 도보 시간</td><td>15.1분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_5a86fbd8da531cbb6d04e2bf21af65e7.setContent(html_dc2cb9e2eb10f2c6ffd93c33991e364c);
+            
+        
+
+        poly_line_f1ae9b43213adb76f11b5dc4476527d1.bindPopup(popup_5a86fbd8da531cbb6d04e2bf21af65e7)
+        ;
+
+        
+    
+    
+            poly_line_f1ae9b43213adb76f11b5dc4476527d1.bindTooltip(
+                `<div>
+                     바운드하우스 -> 마인드플로우
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_767b1d2f166febe106d666bd8ef95605 = L.polyline(
+                [[37.565560190736, 126.91602233188], [37.572092920342, 126.93806774306]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.0}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_e3d248709d494356db78782b66ca3fb6 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_6dd358a3b37887177d677025d1407c46 = $(`<div id="html_6dd358a3b37887177d677025d1407c46" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>너울너울 → 숨 명상센터</h3>                   <table>                     <tr><td>이동 후보</td><td>1건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>90분</td></tr>                     <tr><td>최소/최대 여유</td><td>90 / 90분</td></tr>                     <tr><td>평균 도보 시간</td><td>32.5분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_e3d248709d494356db78782b66ca3fb6.setContent(html_6dd358a3b37887177d677025d1407c46);
+            
+        
+
+        poly_line_767b1d2f166febe106d666bd8ef95605.bindPopup(popup_e3d248709d494356db78782b66ca3fb6)
+        ;
+
+        
+    
+    
+            poly_line_767b1d2f166febe106d666bd8ef95605.bindTooltip(
+                `<div>
+                     너울너울 -> 숨 명상센터
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_d250f4234b21b5fb05fbd98ea4c40e73 = L.polyline(
+                [[37.568813333087, 126.927272103227], [37.577020515491, 126.935853747155]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.0}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_15729f39f37267f9be55a80d380142a0 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_3225b3f20acfb33e48bc05a71bd41ca1 = $(`<div id="html_3225b3f20acfb33e48bc05a71bd41ca1" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>무릉 → 마인드플로우</h3>                   <table>                     <tr><td>이동 후보</td><td>1건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>120분</td></tr>                     <tr><td>최소/최대 여유</td><td>120 / 120분</td></tr>                     <tr><td>평균 도보 시간</td><td>16.7분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_15729f39f37267f9be55a80d380142a0.setContent(html_3225b3f20acfb33e48bc05a71bd41ca1);
+            
+        
+
+        poly_line_d250f4234b21b5fb05fbd98ea4c40e73.bindPopup(popup_15729f39f37267f9be55a80d380142a0)
+        ;
+
+        
+    
+    
+            poly_line_d250f4234b21b5fb05fbd98ea4c40e73.bindTooltip(
+                `<div>
+                     무릉 -> 마인드플로우
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_17d7f8b03b0e69d13b6409a4a42cc504 = L.polyline(
+                [[37.577020515491, 126.935853747155], [37.564330104536, 126.927584999673]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.0}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_9fceebdd980f20f8df93af239f7e73c5 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_476eb49058d9772bb7f8f549b8244c32 = $(`<div id="html_476eb49058d9772bb7f8f549b8244c32" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>마인드플로우 → 연남장</h3>                   <table>                     <tr><td>이동 후보</td><td>1건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>150분</td></tr>                     <tr><td>최소/최대 여유</td><td>150 / 150분</td></tr>                     <tr><td>평균 도보 시간</td><td>21.9분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_9fceebdd980f20f8df93af239f7e73c5.setContent(html_476eb49058d9772bb7f8f549b8244c32);
+            
+        
+
+        poly_line_17d7f8b03b0e69d13b6409a4a42cc504.bindPopup(popup_9fceebdd980f20f8df93af239f7e73c5)
+        ;
+
+        
+    
+    
+            poly_line_17d7f8b03b0e69d13b6409a4a42cc504.bindTooltip(
+                `<div>
+                     마인드플로우 -> 연남장
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_0b992967b2033ba8a1ba320f3c5a32da = L.polyline(
+                [[37.565997558444, 126.929894716912], [37.568813333087, 126.927272103227]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.0}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_2f87a11d74ba6e3424621a9987f499b9 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_e7c27f4eb780395202a0389c147cef46 = $(`<div id="html_e7c27f4eb780395202a0389c147cef46" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>마이트리 → 무릉</h3>                   <table>                     <tr><td>이동 후보</td><td>1건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>60분</td></tr>                     <tr><td>최소/최대 여유</td><td>60 / 60분</td></tr>                     <tr><td>평균 도보 시간</td><td>7.3분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_2f87a11d74ba6e3424621a9987f499b9.setContent(html_e7c27f4eb780395202a0389c147cef46);
+            
+        
+
+        poly_line_0b992967b2033ba8a1ba320f3c5a32da.bindPopup(popup_2f87a11d74ba6e3424621a9987f499b9)
+        ;
+
+        
+    
+    
+            poly_line_0b992967b2033ba8a1ba320f3c5a32da.bindTooltip(
+                `<div>
+                     마이트리 -> 무릉
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_091876d5d50b187425275daf355248f2 = L.polyline(
+                [[37.572092920342, 126.93806774306], [37.577020515491, 126.935853747155]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.0}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_576aa54b3c36290dc72225d3dcc133b3 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_2f838da41369a65a8bf5c5102b884a4a = $(`<div id="html_2f838da41369a65a8bf5c5102b884a4a" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>숨 명상센터 → 마인드플로우</h3>                   <table>                     <tr><td>이동 후보</td><td>1건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>390분</td></tr>                     <tr><td>최소/최대 여유</td><td>390 / 390분</td></tr>                     <tr><td>평균 도보 시간</td><td>8.5분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_576aa54b3c36290dc72225d3dcc133b3.setContent(html_2f838da41369a65a8bf5c5102b884a4a);
+            
+        
+
+        poly_line_091876d5d50b187425275daf355248f2.bindPopup(popup_576aa54b3c36290dc72225d3dcc133b3)
+        ;
+
+        
+    
+    
+            poly_line_091876d5d50b187425275daf355248f2.bindTooltip(
+                `<div>
+                     숨 명상센터 -> 마인드플로우
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_174ba393be23bbf804e9403f10127762 = L.polyline(
+                [[37.568792797424, 126.930228568115], [37.566711570866, 126.929277808838]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.0}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_fe6e3517a21a394db9f6168a6f0678a3 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_192e2305aa52eaf2a4ef2f6a3b9d2cd0 = $(`<div id="html_192e2305aa52eaf2a4ef2f6a3b9d2cd0" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>빅블루요가 → 연희정음</h3>                   <table>                     <tr><td>이동 후보</td><td>1건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>40분</td></tr>                     <tr><td>최소/최대 여유</td><td>40 / 40분</td></tr>                     <tr><td>평균 도보 시간</td><td>3.8분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_fe6e3517a21a394db9f6168a6f0678a3.setContent(html_192e2305aa52eaf2a4ef2f6a3b9d2cd0);
+            
+        
+
+        poly_line_174ba393be23bbf804e9403f10127762.bindPopup(popup_fe6e3517a21a394db9f6168a6f0678a3)
+        ;
+
+        
+    
+    
+            poly_line_174ba393be23bbf804e9403f10127762.bindTooltip(
+                `<div>
+                     빅블루요가 -> 연희정음
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_c01503e548d7240b170aa2841945f507 = L.polyline(
+                [[37.567493895799, 126.928321014591], [37.568792797424, 126.930228568115]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.0}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_dbd87b956654e62460bdd093e9336bc5 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_d076f1aaad0f3b7eec1b53c3a2dc9e34 = $(`<div id="html_d076f1aaad0f3b7eec1b53c3a2dc9e34" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>시이작 → 빅블루요가</h3>                   <table>                     <tr><td>이동 후보</td><td>1건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>15분</td></tr>                     <tr><td>최소/최대 여유</td><td>15 / 15분</td></tr>                     <tr><td>평균 도보 시간</td><td>3.3분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_dbd87b956654e62460bdd093e9336bc5.setContent(html_d076f1aaad0f3b7eec1b53c3a2dc9e34);
+            
+        
+
+        poly_line_c01503e548d7240b170aa2841945f507.bindPopup(popup_dbd87b956654e62460bdd093e9336bc5)
+        ;
+
+        
+    
+    
+            poly_line_c01503e548d7240b170aa2841945f507.bindTooltip(
+                `<div>
+                     시이작 -> 빅블루요가
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_f5d17d35f2ae233a611c1c626645608d = L.polyline(
+                [[37.567493895799, 126.928321014591], [37.565560190736, 126.91602233188]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.0}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_78aa9f65f8ffd01d9618ab81d91fed4b = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_aeb9c0c06d78d7a0b777a984f8fd9707 = $(`<div id="html_aeb9c0c06d78d7a0b777a984f8fd9707" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>시이작 → 너울너울</h3>                   <table>                     <tr><td>이동 후보</td><td>1건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>435분</td></tr>                     <tr><td>최소/최대 여유</td><td>435 / 435분</td></tr>                     <tr><td>평균 도보 시간</td><td>18.2분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_78aa9f65f8ffd01d9618ab81d91fed4b.setContent(html_aeb9c0c06d78d7a0b777a984f8fd9707);
+            
+        
+
+        poly_line_f5d17d35f2ae233a611c1c626645608d.bindPopup(popup_78aa9f65f8ffd01d9618ab81d91fed4b)
+        ;
+
+        
+    
+    
+            poly_line_f5d17d35f2ae233a611c1c626645608d.bindTooltip(
+                `<div>
+                     시이작 -> 너울너울
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_d9177024ee781cc653720ef3c40c1ff3 = L.polyline(
+                [[37.567493895799, 126.928321014591], [37.572092920342, 126.93806774306]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.0}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_0a1c05d2f6a81e13a5de46444958641e = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_2d3e3e89d6fa559a314647a11761444a = $(`<div id="html_2d3e3e89d6fa559a314647a11761444a" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>시이작 → 숨 명상센터</h3>                   <table>                     <tr><td>이동 후보</td><td>1건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>75분</td></tr>                     <tr><td>최소/최대 여유</td><td>75 / 75분</td></tr>                     <tr><td>평균 도보 시간</td><td>15.4분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_0a1c05d2f6a81e13a5de46444958641e.setContent(html_2d3e3e89d6fa559a314647a11761444a);
+            
+        
+
+        poly_line_d9177024ee781cc653720ef3c40c1ff3.bindPopup(popup_0a1c05d2f6a81e13a5de46444958641e)
+        ;
+
+        
+    
+    
+            poly_line_d9177024ee781cc653720ef3c40c1ff3.bindTooltip(
+                `<div>
+                     시이작 -> 숨 명상센터
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_edd4bf6412bc7e886c90974669ebc271 = L.polyline(
+                [[37.564330104536, 126.927584999673], [37.565560190736, 126.91602233188]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.0}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_e07437ebff0da0bfcbf5680710f3125a = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_47d0ff9ea88ff9c77f0d28ece14617b4 = $(`<div id="html_47d0ff9ea88ff9c77f0d28ece14617b4" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>연남장 → 너울너울</h3>                   <table>                     <tr><td>이동 후보</td><td>1건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>240분</td></tr>                     <tr><td>최소/최대 여유</td><td>240 / 240분</td></tr>                     <tr><td>평균 도보 시간</td><td>16.5분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_e07437ebff0da0bfcbf5680710f3125a.setContent(html_47d0ff9ea88ff9c77f0d28ece14617b4);
+            
+        
+
+        poly_line_edd4bf6412bc7e886c90974669ebc271.bindPopup(popup_e07437ebff0da0bfcbf5680710f3125a)
+        ;
+
+        
+    
+    
+            poly_line_edd4bf6412bc7e886c90974669ebc271.bindTooltip(
+                `<div>
+                     연남장 -> 너울너울
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_c497518460217ee0fb4b7ed593c3f3d6 = L.polyline(
+                [[37.564330104536, 126.927584999673], [37.568813333087, 126.927272103227]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.0}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_45411bf3d5825dcf7289d1e62b3ff121 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_98cb53cc95dced1a28309aec4a128e5e = $(`<div id="html_98cb53cc95dced1a28309aec4a128e5e" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>연남장 → 무릉</h3>                   <table>                     <tr><td>이동 후보</td><td>1건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>30분</td></tr>                     <tr><td>최소/최대 여유</td><td>30 / 30분</td></tr>                     <tr><td>평균 도보 시간</td><td>10.0분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_45411bf3d5825dcf7289d1e62b3ff121.setContent(html_98cb53cc95dced1a28309aec4a128e5e);
+            
+        
+
+        poly_line_c497518460217ee0fb4b7ed593c3f3d6.bindPopup(popup_45411bf3d5825dcf7289d1e62b3ff121)
+        ;
+
+        
+    
+    
+            poly_line_c497518460217ee0fb4b7ed593c3f3d6.bindTooltip(
+                `<div>
+                     연남장 -> 무릉
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_c012c389d5ed806cee1c5ed5aaa118da = L.polyline(
+                [[37.566711570866, 126.929277808838], [37.568792797424, 126.930228568115]],
+                {"bubblingMouseEvents": true, "color": "#15803d", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#15803d", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.0}
+            ).addTo(feature_group_504cdc6652233f1b3952aadb2f1c95d6);
+        
+    
+        var popup_342bdd90cb1a5f0032baea13c8008fae = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_16ed76b1cf0a99a516fc9c9714f07677 = $(`<div id="html_16ed76b1cf0a99a516fc9c9714f07677" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>연희정음 → 빅블루요가</h3>                   <table>                     <tr><td>이동 후보</td><td>1건</td></tr>                     <tr><td>판정</td><td>여유 있음</td></tr>                     <tr><td>평균 이동 여유</td><td>30분</td></tr>                     <tr><td>최소/최대 여유</td><td>30 / 30분</td></tr>                     <tr><td>평균 도보 시간</td><td>3.8분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_342bdd90cb1a5f0032baea13c8008fae.setContent(html_16ed76b1cf0a99a516fc9c9714f07677);
+            
+        
+
+        poly_line_c012c389d5ed806cee1c5ed5aaa118da.bindPopup(popup_342bdd90cb1a5f0032baea13c8008fae)
+        ;
+
+        
+    
+    
+            poly_line_c012c389d5ed806cee1c5ed5aaa118da.bindTooltip(
+                `<div>
+                     연희정음 -> 빅블루요가
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_504cdc6652233f1b3952aadb2f1c95d6.addTo(map_0982a0977eece5c958c43bb69869acbc);
+        
+    
+            var feature_group_f925a4f3a96d51a5235fbaf0f21e9096 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var poly_line_021c02fc1f835e76ae3932793675b95a = L.polyline(
+                [[37.564330104536, 126.927584999673], [37.577020515491, 126.935853747155]],
+                {"bubblingMouseEvents": true, "color": "#d97706", "dashArray": "8, 7", "dashOffset": null, "fill": false, "fillColor": "#d97706", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.732050807568877}
+            ).addTo(feature_group_f925a4f3a96d51a5235fbaf0f21e9096);
+        
+    
+        var popup_eb58864af98923122b8f547249803dc2 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_9bac7eaadc51520492ea027755764394 = $(`<div id="html_9bac7eaadc51520492ea027755764394" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>연남장 → 마인드플로우</h3>                   <table>                     <tr><td>이동 후보</td><td>3건</td></tr>                     <tr><td>판정</td><td>빠듯함</td></tr>                     <tr><td>평균 이동 여유</td><td>30분</td></tr>                     <tr><td>최소/최대 여유</td><td>30 / 30분</td></tr>                     <tr><td>평균 도보 시간</td><td>21.9분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_eb58864af98923122b8f547249803dc2.setContent(html_9bac7eaadc51520492ea027755764394);
+            
+        
+
+        poly_line_021c02fc1f835e76ae3932793675b95a.bindPopup(popup_eb58864af98923122b8f547249803dc2)
+        ;
+
+        
+    
+    
+            poly_line_021c02fc1f835e76ae3932793675b95a.bindTooltip(
+                `<div>
+                     연남장 -> 마인드플로우
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_32e785720e8f25260b7cb02b732ae573 = L.polyline(
+                [[37.577020515491, 126.935853747155], [37.565997558444, 126.929894716912]],
+                {"bubblingMouseEvents": true, "color": "#d97706", "dashArray": "8, 7", "dashOffset": null, "fill": false, "fillColor": "#d97706", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.732050807568877}
+            ).addTo(feature_group_f925a4f3a96d51a5235fbaf0f21e9096);
+        
+    
+        var popup_f187661dccf8e7f53df5cba41ca6235b = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_1e04d69649e3096055485d02d9457f3d = $(`<div id="html_1e04d69649e3096055485d02d9457f3d" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>마인드플로우 → 마이트리</h3>                   <table>                     <tr><td>이동 후보</td><td>3건</td></tr>                     <tr><td>판정</td><td>빠듯함</td></tr>                     <tr><td>평균 이동 여유</td><td>20분</td></tr>                     <tr><td>최소/최대 여유</td><td>20 / 20분</td></tr>                     <tr><td>평균 도보 시간</td><td>18.4분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_f187661dccf8e7f53df5cba41ca6235b.setContent(html_1e04d69649e3096055485d02d9457f3d);
+            
+        
+
+        poly_line_32e785720e8f25260b7cb02b732ae573.bindPopup(popup_f187661dccf8e7f53df5cba41ca6235b)
+        ;
+
+        
+    
+    
+            poly_line_32e785720e8f25260b7cb02b732ae573.bindTooltip(
+                `<div>
+                     마인드플로우 -> 마이트리
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_ad133758a350e0867cc43b9274c05df3 = L.polyline(
+                [[37.565997558444, 126.929894716912], [37.568813333087, 126.927272103227]],
+                {"bubblingMouseEvents": true, "color": "#d97706", "dashArray": "8, 7", "dashOffset": null, "fill": false, "fillColor": "#d97706", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.414213562373095}
+            ).addTo(feature_group_f925a4f3a96d51a5235fbaf0f21e9096);
+        
+    
+        var popup_87b263407f5000083dc5f1b7bb93aac1 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_980955b76f7bdf2854d60dc6e83040de = $(`<div id="html_980955b76f7bdf2854d60dc6e83040de" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>마이트리 → 무릉</h3>                   <table>                     <tr><td>이동 후보</td><td>2건</td></tr>                     <tr><td>판정</td><td>빠듯함</td></tr>                     <tr><td>평균 이동 여유</td><td>15분</td></tr>                     <tr><td>최소/최대 여유</td><td>15 / 15분</td></tr>                     <tr><td>평균 도보 시간</td><td>7.3분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_87b263407f5000083dc5f1b7bb93aac1.setContent(html_980955b76f7bdf2854d60dc6e83040de);
+            
+        
+
+        poly_line_ad133758a350e0867cc43b9274c05df3.bindPopup(popup_87b263407f5000083dc5f1b7bb93aac1)
+        ;
+
+        
+    
+    
+            poly_line_ad133758a350e0867cc43b9274c05df3.bindTooltip(
+                `<div>
+                     마이트리 -> 무릉
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_f925a4f3a96d51a5235fbaf0f21e9096.addTo(map_0982a0977eece5c958c43bb69869acbc);
+        
+    
+            var feature_group_1b58e747630647fe10f208abdecd1ecd = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var poly_line_66e73338720ef4b5171586e5df3ba1a6 = L.polyline(
+                [[37.577020515491, 126.935853747155], [37.568792797424, 126.930228568115]],
+                {"bubblingMouseEvents": true, "color": "#dc2626", "dashArray": "3, 7", "dashOffset": null, "fill": false, "fillColor": "#dc2626", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.414213562373095}
+            ).addTo(feature_group_1b58e747630647fe10f208abdecd1ecd);
+        
+    
+        var popup_c57bb50f8f8ce440d3bd3e85db4f283b = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_ef076074bfae8c1e402aac4286050a2a = $(`<div id="html_ef076074bfae8c1e402aac4286050a2a" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>마인드플로우 → 빅블루요가</h3>                   <table>                     <tr><td>이동 후보</td><td>2건</td></tr>                     <tr><td>판정</td><td>시간표상 어려움</td></tr>                     <tr><td>평균 이동 여유</td><td>0분</td></tr>                     <tr><td>최소/최대 여유</td><td>0 / 0분</td></tr>                     <tr><td>평균 도보 시간</td><td>13.5분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_c57bb50f8f8ce440d3bd3e85db4f283b.setContent(html_ef076074bfae8c1e402aac4286050a2a);
+            
+        
+
+        poly_line_66e73338720ef4b5171586e5df3ba1a6.bindPopup(popup_c57bb50f8f8ce440d3bd3e85db4f283b)
+        ;
+
+        
+    
+    
+            poly_line_66e73338720ef4b5171586e5df3ba1a6.bindTooltip(
+                `<div>
+                     마인드플로우 -> 빅블루요가
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_1553451205fa3000949de584681e4aed = L.polyline(
+                [[37.570882196338, 126.928780175247], [37.577020515491, 126.935853747155]],
+                {"bubblingMouseEvents": true, "color": "#dc2626", "dashArray": "3, 7", "dashOffset": null, "fill": false, "fillColor": "#dc2626", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.0}
+            ).addTo(feature_group_1b58e747630647fe10f208abdecd1ecd);
+        
+    
+        var popup_de4c2abf8483b4cd9cd95ae07df3be93 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_2d2eb11b8f6cf749349ce15d02a89f91 = $(`<div id="html_2d2eb11b8f6cf749349ce15d02a89f91" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>바운드하우스 → 마인드플로우</h3>                   <table>                     <tr><td>이동 후보</td><td>1건</td></tr>                     <tr><td>판정</td><td>시간표상 어려움</td></tr>                     <tr><td>평균 이동 여유</td><td>0분</td></tr>                     <tr><td>최소/최대 여유</td><td>0 / 0분</td></tr>                     <tr><td>평균 도보 시간</td><td>15.1분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_de4c2abf8483b4cd9cd95ae07df3be93.setContent(html_2d2eb11b8f6cf749349ce15d02a89f91);
+            
+        
+
+        poly_line_1553451205fa3000949de584681e4aed.bindPopup(popup_de4c2abf8483b4cd9cd95ae07df3be93)
+        ;
+
+        
+    
+    
+            poly_line_1553451205fa3000949de584681e4aed.bindTooltip(
+                `<div>
+                     바운드하우스 -> 마인드플로우
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_9b7c8f596b408bbba33aa50a90fdf805 = L.polyline(
+                [[37.567493895799, 126.928321014591], [37.566711570866, 126.929277808838]],
+                {"bubblingMouseEvents": true, "color": "#7c3aed", "dashArray": "3, 7", "dashOffset": null, "fill": false, "fillColor": "#7c3aed", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.0}
+            ).addTo(feature_group_1b58e747630647fe10f208abdecd1ecd);
+        
+    
+        var popup_f2a7a909927edbf27365b84ad79b92dd = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_04714576f494ed4ee7af3f32866b215a = $(`<div id="html_04714576f494ed4ee7af3f32866b215a" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>시이작 → 연희정음</h3>                   <table>                     <tr><td>이동 후보</td><td>1건</td></tr>                     <tr><td>판정</td><td>시간 겹침</td></tr>                     <tr><td>평균 이동 여유</td><td>-30분</td></tr>                     <tr><td>최소/최대 여유</td><td>-30 / -30분</td></tr>                     <tr><td>평균 도보 시간</td><td>2.0분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_f2a7a909927edbf27365b84ad79b92dd.setContent(html_04714576f494ed4ee7af3f32866b215a);
+            
+        
+
+        poly_line_9b7c8f596b408bbba33aa50a90fdf805.bindPopup(popup_f2a7a909927edbf27365b84ad79b92dd)
+        ;
+
+        
+    
+    
+            poly_line_9b7c8f596b408bbba33aa50a90fdf805.bindTooltip(
+                `<div>
+                     시이작 -> 연희정음
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_4a6da8ddbacf0420df34664d443965f2 = L.polyline(
+                [[37.564330104536, 126.927584999673], [37.572092920342, 126.93806774306]],
+                {"bubblingMouseEvents": true, "color": "#dc2626", "dashArray": "3, 7", "dashOffset": null, "fill": false, "fillColor": "#dc2626", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.0}
+            ).addTo(feature_group_1b58e747630647fe10f208abdecd1ecd);
+        
+    
+        var popup_283179049a8e9fb8ec674a0108ba6ce9 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_dca3682cc8848fb5994634c3e34a3a8a = $(`<div id="html_dca3682cc8848fb5994634c3e34a3a8a" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>연남장 → 숨 명상센터</h3>                   <table>                     <tr><td>이동 후보</td><td>1건</td></tr>                     <tr><td>판정</td><td>시간표상 어려움</td></tr>                     <tr><td>평균 이동 여유</td><td>0분</td></tr>                     <tr><td>최소/최대 여유</td><td>0 / 0분</td></tr>                     <tr><td>평균 도보 시간</td><td>19.7분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_283179049a8e9fb8ec674a0108ba6ce9.setContent(html_dca3682cc8848fb5994634c3e34a3a8a);
+            
+        
+
+        poly_line_4a6da8ddbacf0420df34664d443965f2.bindPopup(popup_283179049a8e9fb8ec674a0108ba6ce9)
+        ;
+
+        
+    
+    
+            poly_line_4a6da8ddbacf0420df34664d443965f2.bindTooltip(
+                `<div>
+                     연남장 -> 숨 명상센터
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_be4d34d18181bef8547013e377a39df0 = L.polyline(
+                [[37.564330104536, 126.927584999673], [37.566711570866, 126.929277808838]],
+                {"bubblingMouseEvents": true, "color": "#7c3aed", "dashArray": "3, 7", "dashOffset": null, "fill": false, "fillColor": "#7c3aed", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.72, "smoothFactor": 1.0, "stroke": true, "weight": 2.0}
+            ).addTo(feature_group_1b58e747630647fe10f208abdecd1ecd);
+        
+    
+        var popup_5b45267928501a523b6e6fcf17375a85 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_aaa67a1a23b870490a44d6d29b1e3186 = $(`<div id="html_aaa67a1a23b870490a44d6d29b1e3186" style="width: 100.0%; height: 100.0%;">                 <div class="yw-popup">                   <h3>연남장 → 연희정음</h3>                   <table>                     <tr><td>이동 후보</td><td>1건</td></tr>                     <tr><td>판정</td><td>시간 겹침</td></tr>                     <tr><td>평균 이동 여유</td><td>-30분</td></tr>                     <tr><td>최소/최대 여유</td><td>-30 / -30분</td></tr>                     <tr><td>평균 도보 시간</td><td>5.0분</td></tr>                     <tr><td>도보거리 산정</td><td>osmnx_walk_network</td></tr>                   </table>                 </div>                 </div>`)[0];
+                popup_5b45267928501a523b6e6fcf17375a85.setContent(html_aaa67a1a23b870490a44d6d29b1e3186);
+            
+        
+
+        poly_line_be4d34d18181bef8547013e377a39df0.bindPopup(popup_5b45267928501a523b6e6fcf17375a85)
+        ;
+
+        
+    
+    
+            poly_line_be4d34d18181bef8547013e377a39df0.bindTooltip(
+                `<div>
+                     연남장 -> 연희정음
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_1b58e747630647fe10f208abdecd1ecd.addTo(map_0982a0977eece5c958c43bb69869acbc);
+        
+    
+            map_0982a0977eece5c958c43bb69869acbc.fitBounds(
+                [[37.564330104536, 126.91602233188], [37.577020515491, 126.93806774306]],
+                {"padding": [28, 28]}
+            );
+        
+    
+            var layer_control_52c8e281aa0e8b9bc27b551cf91b9c78_layers = {
+                base_layers : {
+                    "cartodbpositron" : tile_layer_fefa3e703f5eececc91006c5c68eea31,
+                    "OpenStreetMap" : tile_layer_798bb033d2183144216aa25fb22662f1,
+                },
+                overlays :  {
+                    "\uc7a5\uc18c\ubcc4 \uc774\ub3d9 \ud5c8\ube0c\uc131" : feature_group_5fac74564b43c2f5dcb6cafa0af8d52b,
+                    "\uc5ec\uc720 \uc788\uc74c" : feature_group_504cdc6652233f1b3952aadb2f1c95d6,
+                    "\ube60\ub4ef\ud568" : feature_group_f925a4f3a96d51a5235fbaf0f21e9096,
+                    "\uc2dc\uac04\ud45c\uc0c1 \uc5b4\ub824\uc6c0/\uacb9\uce68" : feature_group_1b58e747630647fe10f208abdecd1ecd,
+                },
+            };
+            let layer_control_52c8e281aa0e8b9bc27b551cf91b9c78 = L.control.layers(
+                layer_control_52c8e281aa0e8b9bc27b551cf91b9c78_layers.base_layers,
+                layer_control_52c8e281aa0e8b9bc27b551cf91b9c78_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": false,
+  "autoZIndex": true,
+}
+            ).addTo(map_0982a0977eece5c958c43bb69869acbc);
+
+        
+</script>
+</html>

@@ -1,0 +1,75 @@
+﻿origin_location_key,origin_display_name,destination_location_key,destination_display_name,feasibility_status,feasibility_label,walk_method,same_location,transition_count,avg_gap_minutes,min_gap_minutes,max_gap_minutes,avg_walk_minutes,avg_walk_distance_m
+연남장,연남장,연남장,연남장,comfortable,여유 있음,osmnx_walk_network,True,39,98.46,15.0,420.0,0.0,0.0
+연희정음,연희정음,연남장,연남장,comfortable,여유 있음,osmnx_walk_network,False,13,163.08,50.0,330.0,5.02,401.67
+마이트리,마이트리,마이트리,마이트리,comfortable,여유 있음,osmnx_walk_network,True,11,71.82,30.0,240.0,0.0,0.0
+빅블루요가,빅블루요가,마이트리,마이트리,comfortable,여유 있음,osmnx_walk_network,False,7,180.0,30.0,460.0,6.08,486.03
+시이작,시이작,마인드플로우,마인드플로우,comfortable,여유 있음,osmnx_walk_network,False,5,249.0,30.0,615.0,16.8,1343.74
+연남장,연남장,대저택프라이빗,바운드하우스,comfortable,여유 있음,osmnx_walk_network,False,5,132.0,60.0,300.0,12.14,970.95
+마이트리,마이트리,시이작,시이작,comfortable,여유 있음,osmnx_walk_network,False,5,297.0,60.0,420.0,4.33,346.52
+무릉,무릉,연남장,연남장,comfortable,여유 있음,osmnx_walk_network,False,5,174.0,60.0,330.0,10.03,802.24
+연남장,연남장,연희정음,연희정음,comfortable,여유 있음,osmnx_walk_network,False,5,60.0,60.0,60.0,5.02,401.67
+무릉,무릉,시이작,시이작,comfortable,여유 있음,osmnx_walk_network,False,4,157.5,60.0,390.0,3.16,253.07
+연남장,연남장,마이트리,마이트리,comfortable,여유 있음,osmnx_walk_network,False,4,90.0,60.0,180.0,5.31,424.61
+마인드플로우,마인드플로우,무릉,무릉,comfortable,여유 있음,osmnx_walk_network,False,4,127.5,60.0,150.0,16.66,1332.54
+시이작,시이작,대저택프라이빗,바운드하우스,comfortable,여유 있음,osmnx_walk_network,False,4,135.0,135.0,135.0,5.45,435.81
+빅블루요가,빅블루요가,빅블루요가,빅블루요가,comfortable,여유 있음,osmnx_walk_network,True,4,310.0,130.0,490.0,0.0,0.0
+마인드플로우,마인드플로우,대저택프라이빗,바운드하우스,comfortable,여유 있음,osmnx_walk_network,False,4,105.0,30.0,330.0,15.1,1208.27
+데이스타콜라보,데이스타콜라보,연남장,연남장,comfortable,여유 있음,osmnx_walk_network,False,4,150.0,90.0,210.0,7.62,609.4
+마이트리,마이트리,연남장,연남장,comfortable,여유 있음,osmnx_walk_network,False,4,255.0,120.0,360.0,5.31,424.61
+빅블루요가,빅블루요가,대저택프라이빗,바운드하우스,comfortable,여유 있음,osmnx_walk_network,False,3,93.33,40.0,120.0,3.36,269.08
+너울너울,너울너울,시이작,시이작,comfortable,여유 있음,osmnx_walk_network,False,3,90.0,30.0,210.0,18.18,1454.58
+대저택프라이빗,바운드하우스,마이트리,마이트리,comfortable,여유 있음,osmnx_walk_network,False,3,120.0,60.0,150.0,9.44,755.11
+비전스트롤 콜라보,비전스트롤,마이트리,마이트리,comfortable,여유 있음,osmnx_walk_network,False,3,220.0,180.0,300.0,3.8,304.35
+무릉,무릉,마이트리,마이트리,comfortable,여유 있음,osmnx_walk_network,False,3,60.0,30.0,120.0,7.33,586.41
+마인드플로우,마인드플로우,시이작,시이작,comfortable,여유 있음,osmnx_walk_network,False,3,290.0,30.0,420.0,16.8,1343.74
+연남장,연남장,연남장,연남장,overlap,시간 겹침,osmnx_walk_network,True,3,-60.0,-60.0,-60.0,0.0,0.0
+연남장,연남장,빅블루요가,빅블루요가,comfortable,여유 있음,osmnx_walk_network,False,3,200.0,120.0,240.0,8.77,701.86
+연남장,연남장,마인드플로우,마인드플로우,tight,빠듯함,osmnx_walk_network,False,3,30.0,30.0,30.0,21.92,1753.99
+시이작,시이작,시이작,시이작,comfortable,여유 있음,osmnx_walk_network,True,3,270.0,20.0,710.0,0.0,0.0
+마인드플로우,마인드플로우,마이트리,마이트리,comfortable,여유 있음,osmnx_walk_network,False,3,80.0,60.0,120.0,18.35,1468.23
+마인드플로우,마인드플로우,마이트리,마이트리,tight,빠듯함,osmnx_walk_network,False,3,20.0,20.0,20.0,18.35,1468.23
+마인드플로우,마인드플로우,마인드플로우,마인드플로우,comfortable,여유 있음,osmnx_walk_network,True,3,30.0,30.0,30.0,0.0,0.0
+대저택프라이빗,바운드하우스,너울너울,너울너울,comfortable,여유 있음,osmnx_walk_network,False,2,90.0,60.0,120.0,19.49,1559.43
+대저택프라이빗,바운드하우스,대저택프라이빗,바운드하우스,comfortable,여유 있음,osmnx_walk_network,True,2,60.0,60.0,60.0,0.0,0.0
+너울너울,너울너울,마이트리,마이트리,comfortable,여유 있음,osmnx_walk_network,False,2,60.0,60.0,60.0,18.99,1518.95
+대저택프라이빗,바운드하우스,대저택프라이빗,바운드하우스,overlap,시간 겹침,osmnx_walk_network,True,2,-60.0,-60.0,-60.0,0.0,0.0
+연희정음,연희정음,연희정음,연희정음,comfortable,여유 있음,osmnx_walk_network,True,2,60.0,60.0,60.0,0.0,0.0
+연남장,연남장,마인드플로우,마인드플로우,comfortable,여유 있음,osmnx_walk_network,False,2,60.0,60.0,60.0,21.92,1753.99
+시이작,시이작,마이트리,마이트리,comfortable,여유 있음,osmnx_walk_network,False,2,437.5,125.0,750.0,4.33,346.52
+시이작,시이작,연희정음,연희정음,comfortable,여유 있음,osmnx_walk_network,False,2,150.0,90.0,210.0,2.01,160.69
+마이트리,마이트리,빅블루요가,빅블루요가,comfortable,여유 있음,osmnx_walk_network,False,2,220.0,40.0,400.0,6.08,486.03
+빅블루요가,빅블루요가,데이스타콜라보,데이스타콜라보,comfortable,여유 있음,osmnx_walk_network,False,2,130.0,130.0,130.0,2.03,162.02
+마인드플로우,마인드플로우,마인드플로우,마인드플로우,overlap,시간 겹침,osmnx_walk_network,True,2,-60.0,-60.0,-60.0,0.0,0.0
+마인드플로우,마인드플로우,데이스타콜라보,데이스타콜라보,comfortable,여유 있음,osmnx_walk_network,False,2,120.0,120.0,120.0,15.18,1214.15
+대저택프라이빗,바운드하우스,시이작,시이작,comfortable,여유 있음,osmnx_walk_network,False,2,355.0,330.0,380.0,5.45,435.81
+대저택프라이빗,바운드하우스,연남장,연남장,comfortable,여유 있음,osmnx_walk_network,False,2,60.0,60.0,60.0,12.14,970.95
+마이트리,마이트리,무릉,무릉,tight,빠듯함,osmnx_walk_network,False,2,15.0,15.0,15.0,7.33,586.41
+빅블루요가,빅블루요가,시이작,시이작,comfortable,여유 있음,osmnx_walk_network,False,2,245.0,40.0,450.0,3.27,261.57
+숨명상센터,숨 명상센터,시이작,시이작,comfortable,여유 있음,osmnx_walk_network,False,2,405.0,320.0,490.0,15.45,1235.87
+마인드플로우,마인드플로우,빅블루요가,빅블루요가,comfortable,여유 있음,osmnx_walk_network,False,2,480.0,480.0,480.0,13.53,1082.17
+마인드플로우,마인드플로우,빅블루요가,빅블루요가,difficult,시간표상 어려움,osmnx_walk_network,False,2,0.0,0.0,0.0,13.53,1082.17
+빅블루요가,빅블루요가,마인드플로우,마인드플로우,comfortable,여유 있음,osmnx_walk_network,False,2,320.0,210.0,430.0,13.53,1082.17
+숨명상센터,숨 명상센터,빅블루요가,빅블루요가,comfortable,여유 있음,osmnx_walk_network,False,2,450.0,450.0,450.0,12.18,974.29
+시이작,시이작,연남장,연남장,comfortable,여유 있음,osmnx_walk_network,False,2,135.0,90.0,180.0,7.03,562.36
+빅블루요가,빅블루요가,연남장,연남장,comfortable,여유 있음,osmnx_walk_network,False,2,235.0,40.0,430.0,8.77,701.86
+너울너울,너울너울,빅블루요가,빅블루요가,comfortable,여유 있음,osmnx_walk_network,False,1,90.0,90.0,90.0,20.4,1631.8
+대저택프라이빗,바운드하우스,마인드플로우,마인드플로우,difficult,시간표상 어려움,osmnx_walk_network,False,1,0.0,0.0,0.0,15.1,1208.27
+대저택프라이빗,바운드하우스,마인드플로우,마인드플로우,comfortable,여유 있음,osmnx_walk_network,False,1,120.0,120.0,120.0,15.1,1208.27
+너울너울,너울너울,숨명상센터,숨 명상센터,comfortable,여유 있음,osmnx_walk_network,False,1,90.0,90.0,90.0,32.45,2596.15
+마이트리,마이트리,마이트리,마이트리,overlap,시간 겹침,osmnx_walk_network,True,1,-60.0,-60.0,-60.0,0.0,0.0
+빅블루요가,빅블루요가,빅블루요가,빅블루요가,overlap,시간 겹침,osmnx_walk_network,True,1,-90.0,-90.0,-90.0,0.0,0.0
+무릉,무릉,마인드플로우,마인드플로우,comfortable,여유 있음,osmnx_walk_network,False,1,120.0,120.0,120.0,16.66,1332.54
+마인드플로우,마인드플로우,연남장,연남장,comfortable,여유 있음,osmnx_walk_network,False,1,150.0,150.0,150.0,21.92,1753.99
+마이트리,마이트리,무릉,무릉,comfortable,여유 있음,osmnx_walk_network,False,1,60.0,60.0,60.0,7.33,586.41
+숨명상센터,숨 명상센터,마인드플로우,마인드플로우,comfortable,여유 있음,osmnx_walk_network,False,1,390.0,390.0,390.0,8.48,678.47
+빅블루요가,빅블루요가,연희정음,연희정음,comfortable,여유 있음,osmnx_walk_network,False,1,40.0,40.0,40.0,3.75,300.2
+시이작,시이작,빅블루요가,빅블루요가,comfortable,여유 있음,osmnx_walk_network,False,1,15.0,15.0,15.0,3.27,261.57
+시이작,시이작,너울너울,너울너울,comfortable,여유 있음,osmnx_walk_network,False,1,435.0,435.0,435.0,18.18,1454.58
+시이작,시이작,시이작,시이작,overlap,시간 겹침,osmnx_walk_network,True,1,-90.0,-90.0,-90.0,0.0,0.0
+시이작,시이작,숨명상센터,숨 명상센터,comfortable,여유 있음,osmnx_walk_network,False,1,75.0,75.0,75.0,15.45,1235.87
+연남장,연남장,너울너울,너울너울,comfortable,여유 있음,osmnx_walk_network,False,1,240.0,240.0,240.0,16.46,1316.82
+시이작,시이작,연희정음,연희정음,overlap,시간 겹침,osmnx_walk_network,False,1,-30.0,-30.0,-30.0,2.01,160.69
+연남장,연남장,무릉,무릉,comfortable,여유 있음,osmnx_walk_network,False,1,30.0,30.0,30.0,10.03,802.24
+연남장,연남장,숨명상센터,숨 명상센터,difficult,시간표상 어려움,osmnx_walk_network,False,1,0.0,0.0,0.0,19.7,1576.0
+연희정음,연희정음,빅블루요가,빅블루요가,comfortable,여유 있음,osmnx_walk_network,False,1,30.0,30.0,30.0,3.75,300.2
+연남장,연남장,연희정음,연희정음,overlap,시간 겹침,osmnx_walk_network,False,1,-30.0,-30.0,-30.0,5.02,401.67

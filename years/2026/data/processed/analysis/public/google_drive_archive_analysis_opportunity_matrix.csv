@@ -1,0 +1,6 @@
+﻿analysis_axis,source_area,question,evidence_available,method,public_output_candidate,privacy_level,current_record_count
+program_design,program,어떤 수업/외부연사/공간 구성이 행사 반응을 만들었는가?,"프로그램표, 수업 설명, 강사/공간 소개, 사진 자료","문서 인벤토리, 수업 카테고리 태깅, Hype/Capacity/GIS 결합","수업 유형별 반응표, 내년 프로그램 확장 후보",public derivative only,114
+sponsor_network,sponsor,어떤 스폰서가 어떤 형태의 지원/노출/콘텐츠로 연결되었는가?,"스폰서 폴더, 로고/카드뉴스/브랜드 이미지","스폰서 asset inventory, 후원 유형 분류, 노출자료 집계","스폰서십 구조 요약, 후원사별 활용 가능 asset 현황",internal review before sharing,174
+local_consumption_route,fnb,요가원 방문 동선이 주변 F&B 협업과 어떻게 이어질 수 있는가?,"F&B 브랜드 목록, 쿠폰/브랜드 자료, GIS 장소 노드","F&B inventory, 주소/좌표 보강, 요가원-상점 거리/동선 분석","지역 소비 동선 지도, 협업 브랜드 후보군",public derivative after address verification,74
+promotion_asset_archive,design,어떤 홍보물/디자인 asset이 다음 회차에 재사용 가능한가?,"포스터, 디자인 원본, 카드뉴스, 이미지 자료","asset type summary, 재사용 가능 asset 구분, public/private 구분",홍보물 아카이브 목록과 다음 회차 제작 체크리스트,"internal raw, public summary only",7
+operations_and_recovery,operations_response,크루/리커버리 운영 참여 데이터에서 다음 운영 개선점은 무엇인가?,"응답 시트, 리커버리 트랙 자료","private-only 응답 집계, 개인정보 제거 후 운영 지표화",운영 개선 요약. 원문/개인응답 외부 공유 금지,private only unless fully aggregated,2

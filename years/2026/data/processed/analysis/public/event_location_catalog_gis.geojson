@@ -1,0 +1,330 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.91602233188,
+          37.565560190736
+        ]
+      },
+      "properties": {
+        "studio_key": "너울너울",
+        "normalized_studio_key": "너울너울",
+        "display_name": "너울너울",
+        "address": "서울특별시 마포구 성산동 3-30",
+        "location_source": "ON STUDIO class description",
+        "source_detail": "수업 설명 내 장소 표기: 너울너울 (성산동 3-30)",
+        "geocode_method": "ArcGIS World Geocoding Service",
+        "geocode_confidence": 1.0,
+        "needs_manual_verification": false,
+        "notes": null,
+        "geocoded_address": "서울특별시 마포구 성산동 3-30",
+        "geocode_addr_type": "PointAddress",
+        "geocode_score": 100.0
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.928780175247,
+          37.570882196338
+        ]
+      },
+      "properties": {
+        "studio_key": "대저택 프라이빗",
+        "normalized_studio_key": "대저택프라이빗",
+        "display_name": "바운드하우스",
+        "address": "서울특별시 서대문구 연희동 108-6",
+        "location_source": "ON STUDIO class description",
+        "source_detail": "수업 설명 내 장소 표기: 서울특별시 서대문구 연희동 108-6 / 바운드하우스",
+        "geocode_method": "ArcGIS World Geocoding Service",
+        "geocode_confidence": 1.0,
+        "needs_manual_verification": false,
+        "notes": null,
+        "geocoded_address": "서울특별시 서대문구 연희동 108-6",
+        "geocode_addr_type": "PointAddress",
+        "geocode_score": 100.0
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.931274545813,
+          37.567682614349
+        ]
+      },
+      "properties": {
+        "studio_key": "데이스타콜라보",
+        "normalized_studio_key": "데이스타콜라보",
+        "display_name": "데이스타콜라보",
+        "address": "서울특별시 서대문구 연희로 107-1 B1층",
+        "location_source": "ON STUDIO class description",
+        "source_detail": "수업 설명 내 장소 표기: 연희로 107-1 B1층",
+        "geocode_method": "ArcGIS World Geocoding Service",
+        "geocode_confidence": 1.0,
+        "needs_manual_verification": false,
+        "notes": null,
+        "geocoded_address": "서울특별시 서대문구 연희동 연희로 107-1",
+        "geocode_addr_type": "PointAddress",
+        "geocode_score": 100.0
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.929894716912,
+          37.565997558444
+        ]
+      },
+      "properties": {
+        "studio_key": "마이트리",
+        "normalized_studio_key": "마이트리",
+        "display_name": "마이트리",
+        "address": "서울특별시 서대문구 연희로 85 5층",
+        "location_source": "ON STUDIO class description",
+        "source_detail": "수업 설명 내 장소 표기: 서울 서대문구 연희로 85 5층",
+        "geocode_method": "ArcGIS World Geocoding Service",
+        "geocode_confidence": 1.0,
+        "needs_manual_verification": false,
+        "notes": null,
+        "geocoded_address": "서울특별시 서대문구 연희동 연희로 85",
+        "geocode_addr_type": "PointAddress",
+        "geocode_score": 100.0
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.935853747155,
+          37.577020515491
+        ]
+      },
+      "properties": {
+        "studio_key": "마인드플로우",
+        "normalized_studio_key": "마인드플로우",
+        "display_name": "마인드플로우",
+        "address": "서울특별시 서대문구 연희로 224 3층",
+        "location_source": "ON STUDIO class description",
+        "source_detail": "수업 설명 내 장소 표기: 서울 서대문구 연희로 224 3층",
+        "geocode_method": "ArcGIS World Geocoding Service",
+        "geocode_confidence": 1.0,
+        "needs_manual_verification": false,
+        "notes": null,
+        "geocoded_address": "서울특별시 서대문구 연희동 연희로 224",
+        "geocode_addr_type": "PointAddress",
+        "geocode_score": 100.0
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.927272103227,
+          37.568813333087
+        ]
+      },
+      "properties": {
+        "studio_key": "무릉",
+        "normalized_studio_key": "무릉",
+        "display_name": "무릉",
+        "address": "서울특별시 서대문구 연희로11마길 23",
+        "location_source": "ON STUDIO class description",
+        "source_detail": "수업 설명 내 장소 표기: 서울 서대문구 연희로11마길 23",
+        "geocode_method": "ArcGIS World Geocoding Service",
+        "geocode_confidence": 1.0,
+        "needs_manual_verification": false,
+        "notes": null,
+        "geocoded_address": "서울특별시 서대문구 연희동 연희로11마길 23",
+        "geocode_addr_type": "PointAddress",
+        "geocode_score": 100.0
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.928486557178,
+          37.567356642134
+        ]
+      },
+      "properties": {
+        "studio_key": "비전스트롤",
+        "normalized_studio_key": "비전스트롤 콜라보",
+        "display_name": "비전스트롤",
+        "address": "서울특별시 서대문구 연희로11가길 24",
+        "location_source": "ON STUDIO class description",
+        "source_detail": "수업 설명 내 장소 표기: 연희로11가길 24 건물 옥상",
+        "geocode_method": "ArcGIS World Geocoding Service",
+        "geocode_confidence": 1.0,
+        "needs_manual_verification": false,
+        "notes": null,
+        "geocoded_address": "서울특별시 서대문구 연희동 연희로11가길 24",
+        "geocode_addr_type": "PointAddress",
+        "geocode_score": 100.0
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.930228568115,
+          37.568792797424
+        ]
+      },
+      "properties": {
+        "studio_key": "빅블루요가",
+        "normalized_studio_key": "빅블루요가",
+        "display_name": "빅블루요가",
+        "address": "서울특별시 서대문구 연희로15길 31 지층",
+        "location_source": "ON STUDIO class description",
+        "source_detail": "수업 설명 내 장소 표기: 서울 서대문구 연희로15길 31 지층",
+        "geocode_method": "ArcGIS World Geocoding Service",
+        "geocode_confidence": 1.0,
+        "needs_manual_verification": false,
+        "notes": null,
+        "geocoded_address": "서울특별시 서대문구 연희동 연희로15길 31",
+        "geocode_addr_type": "PointAddress",
+        "geocode_score": 100.0
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.93806774306,
+          37.572092920342
+        ]
+      },
+      "properties": {
+        "studio_key": "숨 명상센터",
+        "normalized_studio_key": "숨명상센터",
+        "display_name": "숨 명상센터",
+        "address": "서울특별시 서대문구 연희동 16-2 2층",
+        "location_source": "ON STUDIO class description",
+        "source_detail": "수업 설명 내 장소 표기: 숨 명상센터(연희동 16-2 2층)",
+        "geocode_method": "ArcGIS World Geocoding Service",
+        "geocode_confidence": 1.0,
+        "needs_manual_verification": false,
+        "notes": null,
+        "geocoded_address": "서울특별시 서대문구 연희동 16-2",
+        "geocode_addr_type": "PointAddress",
+        "geocode_score": 100.0
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.928321014591,
+          37.567493895799
+        ]
+      },
+      "properties": {
+        "studio_key": "시이작",
+        "normalized_studio_key": "시이작",
+        "display_name": "시이작",
+        "address": "서울특별시 서대문구 연희로11나길 5 2층",
+        "location_source": "ON STUDIO class description",
+        "source_detail": "수업 설명 내 장소 표기: 연희로11나길 5 2층 시이작",
+        "geocode_method": "ArcGIS World Geocoding Service",
+        "geocode_confidence": 1.0,
+        "needs_manual_verification": false,
+        "notes": null,
+        "geocoded_address": "서울특별시 서대문구 연희동 연희로11나길 5",
+        "geocode_addr_type": "PointAddress",
+        "geocode_score": 100.0
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.927584999673,
+          37.564330104536
+        ]
+      },
+      "properties": {
+        "studio_key": "연남장",
+        "normalized_studio_key": "연남장",
+        "display_name": "연남장",
+        "address": "서울특별시 서대문구 연희로5길 22",
+        "location_source": "ON STUDIO class description",
+        "source_detail": "수업 설명 내 장소 표기: 서울특별시 서대문구 연희로5길 22 연남장",
+        "geocode_method": "ArcGIS World Geocoding Service",
+        "geocode_confidence": 1.0,
+        "needs_manual_verification": false,
+        "notes": null,
+        "geocoded_address": "서울특별시 서대문구 연희동 연희로5길 22",
+        "geocode_addr_type": "PointAddress",
+        "geocode_score": 100.0
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.929277808838,
+          37.566711570866
+        ]
+      },
+      "properties": {
+        "studio_key": "연희정음",
+        "normalized_studio_key": "연희정음",
+        "display_name": "연희정음",
+        "address": "서울특별시 서대문구 연희동 189-2",
+        "location_source": "ON STUDIO class description",
+        "source_detail": "수업 설명 내 장소 표기: 서울특별시 서대문구 연희동 189-2 / 연희정음 3층",
+        "geocode_method": "ArcGIS World Geocoding Service",
+        "geocode_confidence": 1.0,
+        "needs_manual_verification": false,
+        "notes": null,
+        "geocoded_address": "서울특별시 서대문구 연희동 189-2",
+        "geocode_addr_type": "PointAddress",
+        "geocode_score": 100.0
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.927201695241,
+          37.566328308343
+        ]
+      },
+      "properties": {
+        "studio_key": "파츄코파라다이스",
+        "normalized_studio_key": "파츄코파라다이스",
+        "display_name": "파츄코파라다이스",
+        "address": "서울특별시 서대문구 연희로11가길 56 2층",
+        "location_source": "ON STUDIO class description + public place search",
+        "source_detail": "수업 설명에는 상세 주소 없음. 파츄코파라다이스 주소는 공개 장소 정보에서 서울특별시 서대문구 연희로11가길 56 2층으로 반복 확인됨. 참고: https://www.diningcode.com/profile.php?rid=BicQTTZ7h7jV https://www.konest.com/contents/gourmet_mise_detail.html?id=38240",
+        "geocode_method": "ArcGIS World Geocoding Service",
+        "geocode_confidence": 1.0,
+        "needs_manual_verification": false,
+        "notes": "공개 장소 정보와 지오코딩 결과가 일치해 GIS 분석용 주소로 사용",
+        "geocoded_address": "서울특별시 서대문구 연희동 연희로11가길 56",
+        "geocode_addr_type": "PointAddress",
+        "geocode_score": 100.0
+      }
+    }
+  ]
+}

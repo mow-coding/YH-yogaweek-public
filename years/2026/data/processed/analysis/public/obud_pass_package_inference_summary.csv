@@ -1,0 +1,7 @@
+﻿inferred_pass_package_bucket,participant_count,total_completed_pass_count,min_completed_pass_count,max_completed_pass_count
+20회권 이하 사용 추정,2,34,14,20
+10회권 이하 사용 추정,2,18,9,9
+8회권 이하 사용 추정,18,118,5,8
+4회권 사용 완료 추정,45,180,4,4
+4회권 이하 사용 또는 미사용분 존재,102,247,1,3
+pass_completed_0_or_cancelled,77,0,0,0

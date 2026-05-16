@@ -1,0 +1,15 @@
+# Local/private data must never be added to the public repo
+.secrets/
+**/.secrets/
+data/raw/
+**/data/raw/
+data/interim/
+**/data/interim/
+**/data/processed/**/private/
+**/data/database/
+*.duckdb
+*.duckdb.wal
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+cache/
