@@ -466,10 +466,10 @@ def main() -> None:
     lines.append(md_table(
         ["지도", "용도", "바로 보기"],
         [
-            ["GIS 기본 지도", "행사 장소와 Hype 신호를 지도 위에서 확인", "[열기](https://mow-coding.github.io/YH-yogaweek-public/years/2026/reports/analysis/yeonhui_yoga_week_gis_map.html)"],
-            ["시간 흐름 지도", "시간 슬라이더로 수업이 언제 어디서 열렸는지 확인", "[열기](https://mow-coding.github.io/YH-yogaweek-public/years/2026/reports/analysis/yeonhui_yoga_week_time_slider_map.html)"],
-            ["동선 가능성 지도", "같은 날 수업 간 이동 가능성 확인", "[열기](https://mow-coding.github.io/YH-yogaweek-public/years/2026/reports/analysis/yeonhui_yoga_week_transition_map.html)"],
-            ["시간-공간 큐브", "장소와 시간을 3D로 겹쳐 보는 고급/보조 시각화", "[열기](https://mow-coding.github.io/YH-yogaweek-public/years/2026/reports/analysis/yeonhui_yoga_week_space_time_cube.html)"],
+            ["GIS 기본 지도", "행사 장소와 Hype 신호를 지도 위에서 확인", "[열기](https://mow-coding.github.io/YH-yogaweek/years/2026/reports/analysis/yeonhui_yoga_week_gis_map.html)"],
+            ["시간 흐름 지도", "시간 슬라이더로 수업이 언제 어디서 열렸는지 확인", "[열기](https://mow-coding.github.io/YH-yogaweek/years/2026/reports/analysis/yeonhui_yoga_week_time_slider_map.html)"],
+            ["동선 가능성 지도", "같은 날 수업 간 이동 가능성 확인", "[열기](https://mow-coding.github.io/YH-yogaweek/years/2026/reports/analysis/yeonhui_yoga_week_transition_map.html)"],
+            ["시간-공간 큐브", "장소와 시간을 3D로 겹쳐 보는 고급/보조 시각화", "[열기](https://mow-coding.github.io/YH-yogaweek/years/2026/reports/analysis/yeonhui_yoga_week_space_time_cube.html)"],
         ],
     ))
     lines.append("")

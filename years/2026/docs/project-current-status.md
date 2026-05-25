@@ -36,7 +36,7 @@ Google Drive 자료는 `bigblue.yoga@gmail.com` 계정에서 `rightnow.yogi@gmai
 | Notion 커뮤니케이션 자료 | 공유용 기획/운영 문서가 보고서 메시지에 쓸만한가 | 공유 URL 2건 확인, raw/private 보관, public 요약 완료 | `notion_shared_page_summary_public.csv`, `notion_shared_communication_theme_summary_public.csv` |
 | Public DuckDB | 여러 CSV를 SQL처럼 조회할 수 있나 | 생성 완료 | `data/database/yogaweek_public.duckdb` |
 | 통합 이해관계자 보고서 | 9가지 독자에게 하나의 보고서로 메시지를 전달할 수 있나 | 최종 1차 분석 기반 재작성 완료 | `reports/stakeholders/yeonhui_yoga_week_integrated_stakeholder_report.md` |
-| Public GitHub 레포 | 민감정보 제외 공개 패키지를 따로 둘 수 있나 | 별도 public 레포 생성/푸시 완료 | <https://github.com/mow-coding/YH-yogaweek-public> |
+| Public GitHub 레포 | 민감정보 제외 공개 패키지를 따로 둘 수 있나 | 별도 public 레포 생성/푸시 완료 | <https://github.com/mow-coding/YH-yogaweek> |
 
 ## 3. 현재 숫자 요약
 

@@ -37,4 +37,4 @@ Allowed emails in this public package:
 
 ## Decision
 
-Published to https://github.com/mow-coding/YH-yogaweek-public after the scan returned 0 forbidden findings, 0 raw/interim/private/database path findings, and 0 Markdown table structure findings. Human review is still recommended before circulating the link as an official external report.
+Published to https://github.com/mow-coding/YH-yogaweek after the scan returned 0 forbidden findings, 0 raw/interim/private/database path findings, and 0 Markdown table structure findings. Human review is still recommended before circulating the link as an official external report.

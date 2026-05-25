@@ -15,7 +15,7 @@ import pandas as pd
 
 YEAR_ROOT = Path(__file__).resolve().parents[1]
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
-DEFAULT_PUBLIC_ROOT = PROJECT_ROOT.parent / "YH-yogaweek-public"
+DEFAULT_PUBLIC_ROOT = PROJECT_ROOT.parent / "YH-yogaweek"
 REPORT_DIR = YEAR_ROOT / "reports" / "public_release"
 REPORT_MD = REPORT_DIR / "release_quality_gate_report.md"
 REPORT_JSON = REPORT_DIR / "release_quality_gate_report.json"
@@ -166,7 +166,7 @@ def github_contributor_check(skip: bool) -> tuple[list[str], list[str]]:
     if skip:
         passes.append("GitHub contributor check skipped by flag")
         return blockers, passes
-    url = "https://api.github.com/repos/mow-coding/YH-yogaweek-public/contributors"
+    url = "https://api.github.com/repos/mow-coding/YH-yogaweek/contributors"
     request = Request(url, headers={"User-Agent": "codex-public-release-validator"})
     try:
         with urlopen(request, timeout=20) as response:

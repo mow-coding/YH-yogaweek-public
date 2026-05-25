@@ -6,10 +6,10 @@
 
 기존 private 작업 레포지토리 `mow-coding/YH-yogaweek`는 그대로 private으로 유지한다.
 
-대신 외부 공유를 위해 별도 public 레포지토리 `mow-coding/YH-yogaweek-public`을 만들었다.
+대신 외부 공유를 위해 별도 public 레포지토리 `mow-coding/YH-yogaweek`을 만들었다.
 
-- public URL: <https://github.com/mow-coding/YH-yogaweek-public>
-- 로컬 public staging 폴더: `C:\Users\mylifeisbusy\Documents\dev\YH-yogaweek-public`
+- public URL: <https://github.com/mow-coding/YH-yogaweek>
+- 로컬 public staging 폴더: `C:\Users\mylifeisbusy\Documents\dev\YH-yogaweek`
 - public package 생성 스크립트: `years/2026/scripts/prepare_public_repository.py`
 - public package 파일 수: 150개
 - 금지 패턴 검사: 전화번호/API key/금지 계정 0건
@@ -46,6 +46,6 @@
 ## 권장 운영
 
 - private 작업 레포지토리 `mow-coding/YH-yogaweek`는 계속 private로 유지한다.
-- 외부 공유는 `mow-coding/YH-yogaweek-public`을 사용한다.
+- 외부 공유는 `mow-coding/YH-yogaweek`을 사용한다.
 - public 레포를 갱신할 때에는 private 레포에서 `python years\2026\scripts\prepare_public_repository.py`를 먼저 실행하고, audit 결과가 0건인지 확인한 뒤 public 레포에 커밋/푸시한다.
 - 공개 링크를 기관/파트너에게 보내기 전에는 통합 보고서 문장과 public package audit을 사람이 한 번 더 읽는다.

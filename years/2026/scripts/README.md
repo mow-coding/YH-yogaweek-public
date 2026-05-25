@@ -93,7 +93,7 @@ python scripts\build_viral_metrics.py
 - `build_fnb_sponsor_gis_analysis.py`: Google Drive F&B 협업표와 스폰서 asset 폴더를 public 파생표로 만들고, F&B 주소를 지오코딩해 행사 장소와의 거리 후보를 계산합니다.
 - `archive_notion_shared_pages.py`: 사용자가 제공한 공유용 Notion URL을 읽어 raw/private 원문 보관본과 public 커뮤니케이션 요약표, 검토 리포트를 생성합니다. 원문 블록 inventory는 `data/raw/notion_shared/` 아래에만 보관하고 GitHub 공유 대상에서 제외합니다.
 - `build_integrated_stakeholder_report.py`: 최종 public 분석표를 다시 읽어 9가지 독자 페르소나를 함께 고려한 통합 이해관계자 보고서를 재생성합니다.
-- `prepare_public_repository.py`: private 작업 레포를 public으로 전환하지 않고, 외부 공유 가능한 파일만 `..\YH-yogaweek-public` 폴더로 복사해 별도 public 레포 패키지를 만듭니다. 실행 후 `PUBLIC_RELEASE_AUDIT.md`에서 금지 패턴 0건인지 확인해야 합니다.
+- `prepare_public_repository.py`: private 작업 레포를 public으로 전환하지 않고, 외부 공유 가능한 파일만 `..\YH-yogaweek` 폴더로 복사해 별도 public 레포 패키지를 만듭니다. 실행 후 `PUBLIC_RELEASE_AUDIT.md`에서 금지 패턴 0건인지 확인해야 합니다.
 
 ## API key 파일
 

@@ -2,7 +2,7 @@
 
 - status: PASS
 - generated_at: 2026-05-17T10:17:43
-- public_root: `C:\Users\mylifeisbusy\Documents\dev\YH-yogaweek-public`
+- public_root: `C:\Users\mylifeisbusy\Documents\dev\YH-yogaweek`
 
 ## Blockers
 - 없음

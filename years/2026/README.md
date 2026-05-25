@@ -50,7 +50,7 @@
 - Google Drive 전량 아카이브는 승인 계정/공유 원천 계정 검증 후 완료했고, 원본 사본은 GitHub 공유 제외 위치에 보존했습니다.
 - 공유용 Notion 문서 2건을 public 요약표로 정리했습니다.
 - 9가지 독자 관점을 반영한 통합 이해관계자 보고서를 재생성했습니다.
-- private 작업 레포와 별도로 sanitized public 레포 `mow-coding/YH-yogaweek-public`을 만들었습니다.
+- private 작업 레포와 별도로 sanitized public 레포 `mow-coding/YH-yogaweek`을 만들었습니다.
 - public CSV 기반의 로컬 DuckDB 분석 데이터베이스를 만들었습니다.
 
 ## 현재 검증 결과

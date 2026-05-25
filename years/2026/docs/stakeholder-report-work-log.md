@@ -87,8 +87,8 @@ The user asked to rewrite the stakeholder report from the ground up after the fu
 - Regenerated `reports/stakeholders/yeonhui_yoga_week_integrated_stakeholder_report.md` from current public CSV outputs.
 - Updated outdated Gemini validation model counts from 24/72 to the final 29/67 split where they remained in methodology documents.
 - Added `scripts/prepare_public_repository.py`.
-- Created sanitized public staging folder at `C:\Users\mylifeisbusy\Documents\dev\YH-yogaweek-public`.
-- Created and pushed the separate public GitHub repository: <https://github.com/mow-coding/YH-yogaweek-public>.
+- Created sanitized public staging folder at `C:\Users\mylifeisbusy\Documents\dev\YH-yogaweek`.
+- Created and pushed the separate public GitHub repository: <https://github.com/mow-coding/YH-yogaweek>.
 
 ### Public Release Checks
 

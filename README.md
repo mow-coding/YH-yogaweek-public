@@ -13,8 +13,8 @@
 
 ## 먼저 볼 문서
 
-1. [2026 연희 요가 위크 통합 분석 보고서](https://mow-coding.github.io/YH-yogaweek-public/years/2026/reports/stakeholders/yeonhui_yoga_week_integrated_stakeholder_report.html)
-2. [방법론과 데이터 계보](https://mow-coding.github.io/YH-yogaweek-public/years/2026/reports/analysis/methodology_and_data_lineage.html)
+1. [2026 연희 요가 위크 통합 분석 보고서](https://mow-coding.github.io/YH-yogaweek/years/2026/reports/stakeholders/yeonhui_yoga_week_integrated_stakeholder_report.html)
+2. [방법론과 데이터 계보](https://mow-coding.github.io/YH-yogaweek/years/2026/reports/analysis/methodology_and_data_lineage.html)
 3. `years/2026/docs/project-current-status.md`
 4. `PUBLIC_RELEASE_AUDIT.md`
 5. `PUBLIC_RELEASE_MANIFEST.csv`
@@ -23,11 +23,11 @@
 
 GitHub 파일 화면에서는 HTML 지도가 코드처럼 보일 수 있으므로, 아래 GitHub Pages 링크로 열어야 지도처럼 볼 수 있습니다.
 
-- [GIS 기본 지도](https://mow-coding.github.io/YH-yogaweek-public/years/2026/reports/analysis/yeonhui_yoga_week_gis_map.html)
-- [시간 흐름 지도](https://mow-coding.github.io/YH-yogaweek-public/years/2026/reports/analysis/yeonhui_yoga_week_time_slider_map.html)
-- [동선 가능성 지도](https://mow-coding.github.io/YH-yogaweek-public/years/2026/reports/analysis/yeonhui_yoga_week_transition_map.html)
-- [시간-공간 큐브](https://mow-coding.github.io/YH-yogaweek-public/years/2026/reports/analysis/yeonhui_yoga_week_space_time_cube.html)
-- [보고서/지도 링크 첫 화면](https://mow-coding.github.io/YH-yogaweek-public/)
+- [GIS 기본 지도](https://mow-coding.github.io/YH-yogaweek/years/2026/reports/analysis/yeonhui_yoga_week_gis_map.html)
+- [시간 흐름 지도](https://mow-coding.github.io/YH-yogaweek/years/2026/reports/analysis/yeonhui_yoga_week_time_slider_map.html)
+- [동선 가능성 지도](https://mow-coding.github.io/YH-yogaweek/years/2026/reports/analysis/yeonhui_yoga_week_transition_map.html)
+- [시간-공간 큐브](https://mow-coding.github.io/YH-yogaweek/years/2026/reports/analysis/yeonhui_yoga_week_space_time_cube.html)
+- [보고서/지도 링크 첫 화면](https://mow-coding.github.io/YH-yogaweek/)
 
 ## 공개/내부 분리 원칙
 
