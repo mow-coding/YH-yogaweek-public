@@ -1,16 +1,4 @@
-﻿usage_count_min,usage_count_max,usage_count_band,settlement_rate,class_unit_price_vat_included_krw,settlement_amount_per_completed_use_krw,source
-1,9,1~9회,0.75,20000,15000,obud settlement screenshot provided by Bigblue Yoga representative
-1,9,1~9회,0.75,25000,18750,obud settlement screenshot provided by Bigblue Yoga representative
-1,9,1~9회,0.75,30000,22500,obud settlement screenshot provided by Bigblue Yoga representative
-1,9,1~9회,0.75,35000,26250,obud settlement screenshot provided by Bigblue Yoga representative
-1,9,1~9회,0.75,40000,30000,obud settlement screenshot provided by Bigblue Yoga representative
-10,99,10~99회,0.65,20000,13000,obud settlement screenshot provided by Bigblue Yoga representative
-10,99,10~99회,0.65,25000,16250,obud settlement screenshot provided by Bigblue Yoga representative
-10,99,10~99회,0.65,30000,19500,obud settlement screenshot provided by Bigblue Yoga representative
-10,99,10~99회,0.65,35000,22750,obud settlement screenshot provided by Bigblue Yoga representative
-10,99,10~99회,0.65,40000,26000,obud settlement screenshot provided by Bigblue Yoga representative
-100,,100회~,0.55,20000,11000,obud settlement screenshot provided by Bigblue Yoga representative
-100,,100회~,0.55,25000,13750,obud settlement screenshot provided by Bigblue Yoga representative
-100,,100회~,0.55,30000,16500,obud settlement screenshot provided by Bigblue Yoga representative
-100,,100회~,0.55,35000,19250,obud settlement screenshot provided by Bigblue Yoga representative
-100,,100회~,0.55,40000,22000,obud settlement screenshot provided by Bigblue Yoga representative
+﻿usage_count_min,usage_count_max,usage_count_band,settlement_rate,calculation_basis,public_release_note
+1,9,1~9회,0.75,consumer_monthly_completed_pass_use_count,Rate table only; final amount must follow the official settlement statement.
+10,99,10~99회,0.65,consumer_monthly_completed_pass_use_count,Rate table only; final amount must follow the official settlement statement.
+100,,100회~,0.55,consumer_monthly_completed_pass_use_count,Rate table only; final amount must follow the official settlement statement.

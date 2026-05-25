@@ -119,7 +119,7 @@ def main() -> None:
     notion_pages = read_csv(PUBLIC_ANALYSIS / "notion_shared_page_summary_public.csv")
     notion_themes = read_csv(PUBLIC_ANALYSIS / "notion_shared_communication_theme_summary_public.csv")
     capacity_compare = read_csv(PUBLIC_ANALYSIS / "capacity_reference_comparison.csv")
-    settlement = read_csv(PUBLIC_ANALYSIS / "obud_settlement_estimate_by_studio_month.csv")
+    settlement = read_csv(PUBLIC_ANALYSIS / "obud_settlement_basis_by_owner_month.csv")
 
     ai_model_counts = {}
     if not ai_private.empty and "ai_model" in ai_private.columns:
@@ -142,9 +142,13 @@ def main() -> None:
     if "capacity_hype_segment" in class_capacity.columns:
         cap_segments = class_capacity["capacity_hype_segment"].value_counts().to_dict()
 
-    settlement_total = settlement["estimated_total_settlement_krw"].sum() if "estimated_total_settlement_krw" in settlement.columns else None
-    settlement_one_time = settlement["one_time_completed_count"].sum() if "one_time_completed_count" in settlement.columns else None
-    settlement_pass = settlement["pass_completed_count"].sum() if "pass_completed_count" in settlement.columns else None
+    settlement_one_time = settlement["one_time_participant_count"].sum() if "one_time_participant_count" in settlement.columns else None
+    settlement_pass = settlement["pass_participant_count"].sum() if "pass_participant_count" in settlement.columns else None
+    settlement_total_participants = (
+        settlement["total_settlement_participant_count"].sum()
+        if "total_settlement_participant_count" in settlement.columns
+        else None
+    )
 
     viral_row = viral_overall.iloc[0].to_dict() if len(viral_overall) else {}
     comfortable_count = int((transitions.get("feasibility_status", pd.Series(dtype=str)) == "comfortable").sum()) if not transitions.empty else 0
@@ -202,14 +206,15 @@ def main() -> None:
     )
     settlement_top = top_rows(
         settlement,
-        "estimated_total_settlement_krw",
+        "total_settlement_participant_count",
         [
             "service_month",
-            "studio_key",
-            "one_time_completed_count",
-            "pass_completed_count",
+            "settlement_owner_key",
+            "hosting_studio_keys",
+            "one_time_participant_count",
+            "pass_participant_count",
             "pass_settlement_rate_weighted_avg",
-            "estimated_total_settlement_krw",
+            "total_settlement_participant_count",
         ],
         8,
     )
@@ -241,7 +246,7 @@ def main() -> None:
         ["구분", "조직/소속", "이름", "계정", "이 보고서에서의 의미"],
         [
             ["책임자/관리자", "빅블루 요가", "유동환", "`bigblue.yoga@gmail.com`", "프로젝트 데이터 수집과 관리의 책임 주체. Google Drive 자료는 이 계정에서 공유받은 자료만 수집 대상으로 삼았다."],
-            ["분석 담당자", "빅블루 요가", "김성균", "`mow.coding@gmail.com`", "로컬 전처리, OCR, AI 검수, Hype, GIS, 외부 확산, 정원, 정산 추정 분석과 보고서 작성을 수행한 담당자."],
+            ["분석 담당자", "빅블루 요가", "김성균", "`mow.coding@gmail.com`", "로컬 전처리, OCR, AI 검수, Hype, GIS, 외부 확산, 정원, 정산 기준 분석과 보고서 작성을 수행한 담당자."],
         ],
     ))
     lines.append("")
@@ -295,7 +300,7 @@ def main() -> None:
             ["외부 확산(Viral)", f"직접 확인된 외부 언급 {fmt_int(viral_row.get('confirmed_mention_count'))}건", "네이버 블로그와 유튜브 공개 검색 결과를 수집하고, 본문 확인을 통해 행사 직접 언급만 남겼다.", "출처 실명/URL 원문은 제외하고 플랫폼/요가원 단위 집계만 공유"],
             ["Google Drive 기획자료", f"분석 기회 {fmt_int(len(drive_opportunities))}축", "`bigblue.yoga@gmail.com` 계정에서 공유받은 2026년 이후 연희 요가 축제 관련 자료만 내부 아카이브로 보존했다.", "원본은 공유하지 않고 정원, F&B, 스폰서, 기획 맥락의 파생 집계만 공유"],
             ["Notion 커뮤니케이션", f"공유 페이지 {fmt_int(len(notion_pages))}건, 테마 {fmt_int(len(notion_themes))}개", "사용자가 제공한 공유 URL 2건을 읽고 기획 의도와 운영 메시지를 요약했다.", "원문 JSON과 블록 원문은 내부 보관하고, 공개본에는 페이지/테마 요약만 공유"],
-            ["오붓 정산 기준", f"완료 기준 1회권 {fmt_int(settlement_one_time)}건, 패스 {fmt_int(settlement_pass)}건", "유동환 대표가 전달한 카카오톡 설명과 오붓 화면 스크린샷을 기준으로 1회권 5% 수수료, 패스 월간 이용완료 건수별 정산률을 추정 계산했다.", "최종 회계자료가 아니라 추정치로만 표시"],
+            ["오붓 정산 기준", f"활성 예약 people_count 기준 1회권 {fmt_int(settlement_one_time)}명, 패스 {fmt_int(settlement_pass)}명", "ON STUDIO 활성 예약의 `people_count`를 참여 기준으로 보고, 취소 이력은 활성 예약에서 다시 차감하지 않는다. 장소명과 별도로 실제 정산 주체 기준을 둔다.", "공개본에는 금액 추정 없이 참여 기준과 산식만 표시"],
         ],
     ))
     lines.append("")
@@ -334,7 +339,7 @@ def main() -> None:
             ["직접 확인된 외부 언급", fmt_int(viral_row.get("confirmed_mention_count"))],
             ["F&B 협업 브랜드 후보", fmt_int(len(fnb))],
             ["스폰서 asset inventory", fmt_int(len(sponsor_assets))],
-            ["오붓 정산 추정 총액", fmt_money(settlement_total)],
+            ["오붓 정산 기준 참여 수", fmt_int(settlement_total_participants)],
         ],
     ))
     lines.append("")
@@ -558,31 +563,32 @@ def main() -> None:
         ],
     ))
     lines.append("")
-    lines.append("## 14. 오붓 정산 추정치: 회계 확정값이 아니라 의사결정용 참고값")
+    lines.append("## 14. 오붓 정산 기준: 참여 기준과 산식 검토")
     lines.append("")
-    lines.append("정산 분석은 유동환 대표가 전달한 기준을 반영했다. 1회권은 이용일 기준 영업일 3일 후 5% 수수료를 제외하고 정산되는 것으로 기록했다. 패스권은 구매한 패키지 종류가 아니라 소비자별 월간 이용완료 건수 구간에 따라 1~9회 75%, 10~99회 65%, 100회 이상 55% 정산률을 적용하는 것으로 해석했다.")
+    lines.append("정산 공개본은 최종 정산액을 제시하는 자료가 아니라, 참여 기준과 산식 검토를 위한 자료다. 실제 최종 정산액은 공식 정산서 또는 주최 측 확정 자료를 기준으로 별도 관리한다.")
     lines.append("")
-    lines.append("다만 현재 프로젝트는 해당 소비자의 오붓 플랫폼 전체 월간 이용내역을 갖고 있지 않고, 연희 요가 위크 ON STUDIO 관측치만 갖고 있다. 따라서 패스권 정산액은 최종 회계값이 아니라 추정치이며, 오붓 최종 정산서와 대조해야 한다.")
+    lines.append("이번 보정에서는 ON STUDIO 활성 예약 파일의 `people_count`를 기준 참여 수로 보았다. 취소 파일은 수요 변동과 취소 이력 분석용으로만 보관하고, 활성 예약에서 다시 차감하지 않는다. 또한 장소명만 보지 않고 실제 정산 담당 주체를 별도 `settlement_owner_key`로 묶어 빅블루 담당 수업이 다른 장소에서 열린 경우도 누락되지 않게 했다.")
     lines.append("")
     lines.append(md_table(
         ["항목", "값"],
         [
-            ["완료 기준 1회권", fmt_int(settlement_one_time)],
-            ["완료 기준 패스권", fmt_int(settlement_pass)],
-            ["정산 추정 총액", fmt_money(settlement_total)],
+            ["기준 1회권 참여 수", fmt_int(settlement_one_time)],
+            ["기준 패스권 참여 수", fmt_int(settlement_pass)],
+            ["전체 기준 참여 수", fmt_int(settlement_total_participants)],
         ],
     ))
     lines.append("")
     lines.append(md_table(
-        ["월", "요가원/장소", "1회권 완료", "패스 완료", "패스 가중 정산률", "정산 추정액"],
+        ["월", "정산 주체", "개최 장소", "1회권 참여", "패스 참여", "패스 가중 정산률", "총 기준 참여"],
         [
             [
                 r.service_month,
-                r.studio_key,
-                fmt_int(r.one_time_completed_count),
-                fmt_int(r.pass_completed_count),
+                r.settlement_owner_key,
+                r.hosting_studio_keys,
+                fmt_int(r.one_time_participant_count),
+                fmt_int(r.pass_participant_count),
                 fmt_pct(r.pass_settlement_rate_weighted_avg),
-                fmt_money(r.estimated_total_settlement_krw),
+                fmt_int(r.total_settlement_participant_count),
             ]
             for r in settlement_top.itertuples()
         ],
@@ -609,7 +615,7 @@ def main() -> None:
     lines.append("")
     lines.append("- 예약/취소 데이터는 ON STUDIO 화면 수동 수집 기반이다. 최종 정산이나 플랫폼 원장과 차이가 있을 수 있다.")
     lines.append("- 리뷰는 오붓 화면 스크린샷 기반 OCR이다. Gemini Vision 검수로 1차 품질을 높였지만, 원문 플랫폼 export가 제공되면 더 안전하다.")
-    lines.append("- 정산 추정치는 최종 회계값이 아니다. 오붓의 최종 정산서와 소비자별 월간 전체 이용완료 건수 확인이 필요하다.")
+    lines.append("- 공개본의 정산 표는 최종 금액 자료가 아니다. 공식 정산서 또는 주최 측 확정 자료로 실제 금액을 별도 확인해야 한다.")
     lines.append("- GIS는 실제 GPS 이동 기록이 아니라 예약 시간표상 이동 가능성 분석이다.")
     lines.append("- Viral은 공개 웹 검색 기반이다. 인스타그램 비공개 계정, 스토리, DM, 카카오톡 공유처럼 닫힌 확산은 포함하지 않는다.")
     lines.append("- Google Drive와 Notion 원문에는 운영상 민감한 내용이 있을 수 있어 공개 보고서에는 요약과 집계만 쓴다.")
@@ -630,7 +636,7 @@ def main() -> None:
             ["정원+Hype", "`years/2026/data/processed/analysis/public/class_capacity_hype_metrics.csv`"],
             ["GIS 심화 리포트", "`years/2026/reports/analysis/gis_deep_analysis_report.md`"],
             ["외부 확산 분석 리포트", "`years/2026/reports/external_web/yeonhui_yoga_week_viral_analysis_report.md`"],
-            ["오붓 정산 추정", "`years/2026/reports/analysis/obud_settlement_analysis_report.md`"],
+            ["오붓 정산 기준", "`years/2026/reports/analysis/obud_settlement_analysis_report.md`"],
             ["공개 전 감사", "`years/2026/docs/public-github-release-audit.md`"],
         ],
     ))

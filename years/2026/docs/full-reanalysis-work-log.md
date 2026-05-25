@@ -13,7 +13,7 @@
 - Gemini Vision 리뷰 구조화 검수
 - 리뷰 작성자 private 후보 매칭
 - 수업/요가원 Hype metrics
-- 오붓 1회권/패스권 정산 추정치
+- 오붓 1회권/패스권 정산 기준표
 - GIS 좌표, 지도, 거리 행렬, 시간표 기반 동선
 - 네이버/유튜브 외부 확산(Viral) 수집, 필터, 본문 수집, 본문 feature, Viral metrics
 - Google Drive archive 기반 분석
@@ -41,9 +41,9 @@
 - 오붓 리뷰 public: 96건
 - 수업별 Hype metrics: 83행
 - 요가원별 Hype metrics: 12행
-- 정산 class estimate: 110행
-- 정산 studio-month estimate: 19행
-- 정산 추정 총액: 14,927,529원
+- 정산 class basis: 108행
+- 정산 owner-month basis: 19행
+- 정산 기준 참여 수: 1회권 589명, 패스 1088명, 총 1677명
 - 네이버 블로그 raw: 2415행, 고유 링크 1075개
 - 유튜브 raw: 85행, 고유 영상 68개, 고유 채널 32개
 - 직접 확인된 외부 언급: 60행
@@ -97,5 +97,5 @@
 
 - `studio_hype_metrics.csv`: 12행, `대저택프라이빗` 98예약/6리뷰, `숨명상센터` 44예약/1리뷰.
 - `studio_capacity_hype_metrics.csv`: 12행, `대저택프라이빗` 11세션/98예약/정원 98/가중 채움률 100.0%.
-- `obud_settlement_estimate_by_studio_month.csv`: 19행, 잘못 분리된 `대저택 프라이빗`/`숨 명상센터` key 0건.
+- `obud_settlement_basis_by_owner_month.csv`: 19행, 잘못 분리된 `대저택 프라이빗`/`숨 명상센터` key 0건.
 - 통합 보고서의 채움률 표에서 `대저택프라이빗`은 단일 행으로 표시된다.

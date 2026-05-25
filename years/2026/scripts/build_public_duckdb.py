@@ -37,10 +37,10 @@ OPTIONAL_TABLES = {
     "ticket_price_reference": PUBLIC_ANALYSIS_DIR / "ticket_price_reference.csv",
     "obud_settlement_rules": PUBLIC_ANALYSIS_DIR / "obud_settlement_rules.csv",
     "obud_pass_settlement_table": PUBLIC_ANALYSIS_DIR / "obud_pass_settlement_table.csv",
-    "obud_settlement_estimate_by_class": PUBLIC_ANALYSIS_DIR
-    / "obud_settlement_estimate_by_class.csv",
-    "obud_settlement_estimate_by_studio_month": PUBLIC_ANALYSIS_DIR
-    / "obud_settlement_estimate_by_studio_month.csv",
+    "obud_settlement_basis_by_class": PUBLIC_ANALYSIS_DIR
+    / "obud_settlement_basis_by_class.csv",
+    "obud_settlement_basis_by_owner_month": PUBLIC_ANALYSIS_DIR
+    / "obud_settlement_basis_by_owner_month.csv",
     "obud_pass_package_inference_summary": PUBLIC_ANALYSIS_DIR
     / "obud_pass_package_inference_summary.csv",
     "notion_shared_page_summary": PUBLIC_ANALYSIS_DIR

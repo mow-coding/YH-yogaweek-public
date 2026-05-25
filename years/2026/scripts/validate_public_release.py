@@ -34,6 +34,10 @@ FORBIDDEN_PUBLIC_PATTERNS = {
 
 BAD_STUDIO_KEYS = {"대저택 프라이빗", "숨 명상센터", "비전스트롤"}
 GENERIC_CLASS_BODY_KEYS = {"요가", "명상", "수업", "필라테스"}
+DEPRECATED_AMOUNT_COLUMNS = [
+    f"estimated_{kind}_settlement_krw"
+    for kind in ["total", "one_time", "pass"]
+]
 
 
 def read_csv(path: Path) -> pd.DataFrame:
@@ -74,6 +78,11 @@ def assert_unique(frame: pd.DataFrame, columns: list[str], label: str, blockers:
         return
     duplicated = int(frame.duplicated(columns).sum())
     check(duplicated == 0, f"{label} unique on {columns} (duplicates {duplicated})", blockers, passes)
+
+
+def assert_missing_columns(frame: pd.DataFrame, columns: list[str], label: str, blockers: list[str], passes: list[str]) -> None:
+    present = [column for column in columns if column in frame.columns]
+    check(not present, f"{label} excludes deprecated amount-estimate columns", blockers, passes)
 
 
 def class_body_key(value: object) -> str:
@@ -235,8 +244,8 @@ def main() -> int:
     class_hype = count_rows(PUBLIC_ANALYSIS / "class_hype_metrics.csv", 83, blockers, passes)
     studio_capacity = count_rows(PUBLIC_ANALYSIS / "studio_capacity_hype_metrics.csv", 12, blockers, passes)
     class_capacity = count_rows(PUBLIC_ANALYSIS / "class_capacity_hype_metrics.csv", 83, blockers, passes)
-    settlement_class = count_rows(PUBLIC_ANALYSIS / "obud_settlement_estimate_by_class.csv", 110, blockers, passes)
-    settlement_studio_month = count_rows(PUBLIC_ANALYSIS / "obud_settlement_estimate_by_studio_month.csv", 19, blockers, passes)
+    settlement_class = count_rows(PUBLIC_ANALYSIS / "obud_settlement_basis_by_class.csv", 108, blockers, passes)
+    settlement_owner_month = count_rows(PUBLIC_ANALYSIS / "obud_settlement_basis_by_owner_month.csv", 19, blockers, passes)
     location_nodes = count_rows(PUBLIC_ANALYSIS / "location_nodes.csv", 13, blockers, passes)
     location_distance = count_rows(PUBLIC_ANALYSIS / "location_distance_matrix.csv", 169, blockers, passes)
     class_location_evidence = count_rows(
@@ -251,7 +260,7 @@ def main() -> int:
         reservations,
         cancellations,
         studio_capacity,
-        settlement_studio_month,
+        settlement_owner_month,
         location_nodes,
         location_distance,
         class_location_evidence,
@@ -262,8 +271,8 @@ def main() -> int:
         ("class_hype_metrics", class_hype),
         ("studio_capacity_hype_metrics", studio_capacity),
         ("class_capacity_hype_metrics", class_capacity),
-        ("obud_settlement_estimate_by_class", settlement_class),
-        ("obud_settlement_estimate_by_studio_month", settlement_studio_month),
+        ("obud_settlement_basis_by_class", settlement_class),
+        ("obud_settlement_basis_by_owner_month", settlement_owner_month),
     ]:
         if "studio_key" in frame.columns:
             assert_no_bad_keys(frame, "studio_key", label, blockers, passes)
@@ -274,7 +283,46 @@ def main() -> int:
     assert_unique(studio_hype, ["studio_key"], "studio_hype_metrics", blockers, passes)
     assert_unique(class_hype, ["studio_key", "class_base_key"], "class_hype_metrics", blockers, passes)
     assert_unique(class_capacity, ["studio_key", "class_base_key"], "class_capacity_hype_metrics", blockers, passes)
-    assert_unique(settlement_class, ["service_month", "studio_key", "class_base_key"], "obud_settlement_estimate_by_class", blockers, passes)
+    assert_unique(
+        settlement_class,
+        ["service_month", "settlement_owner_key", "studio_key", "class_base_key"],
+        "obud_settlement_basis_by_class",
+        blockers,
+        passes,
+    )
+    assert_unique(
+        settlement_owner_month,
+        ["service_month", "settlement_owner_key"],
+        "obud_settlement_basis_by_owner_month",
+        blockers,
+        passes,
+    )
+    assert_missing_columns(
+        settlement_class,
+        DEPRECATED_AMOUNT_COLUMNS,
+        "obud_settlement_basis_by_class",
+        blockers,
+        passes,
+    )
+    assert_missing_columns(
+        settlement_owner_month,
+        DEPRECATED_AMOUNT_COLUMNS,
+        "obud_settlement_basis_by_owner_month",
+        blockers,
+        passes,
+    )
+    bigblue_april = settlement_owner_month[
+        settlement_owner_month["service_month"].eq("2026-04")
+        & settlement_owner_month["settlement_owner_key"].eq("빅블루요가")
+    ]
+    check(not bigblue_april.empty, "Bigblue settlement owner exists for 2026-04", blockers, passes)
+    if not bigblue_april.empty:
+        check(
+            "연희정음" in str(bigblue_april.iloc[0].get("hosting_studio_keys", "")),
+            "Bigblue 2026-04 settlement owner includes Yeonhui Jeongeum-hosted Bigblue class",
+            blockers,
+            passes,
+        )
 
     review_0044 = reviews[reviews["review_id"].eq("review_0044")]
     check(not review_0044.empty, "review_0044 exists in public review table", blockers, passes)

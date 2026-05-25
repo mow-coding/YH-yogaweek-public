@@ -230,5 +230,5 @@ The user noticed that the public integrated report showed `대저택프라이빗
 - Public aggregate files now have 0 `studio_key` rows equal to `대저택 프라이빗` or `숨 명상센터`.
 - `studio_hype_metrics.csv` now has 12 rows.
 - `studio_capacity_hype_metrics.csv` now has 12 rows.
-- `obud_settlement_estimate_by_studio_month.csv` now has 19 rows.
+- `obud_settlement_basis_by_owner_month.csv` now has 19 rows.
 - The integrated stakeholder report capacity table shows one `대저택프라이빗` row: 98 reservations, 6 reviews, 100.0% weighted fill rate, 11 sold-out sessions out of 11 sessions.

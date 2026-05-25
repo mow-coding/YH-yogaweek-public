@@ -16,7 +16,7 @@
 | Google Vision OCR 텍스트 | `data/raw/obud_reviews/ocr_text/` | OCR API key는 로컬 파일/환경변수, 결과 원문은 raw | OCR 구조화 |
 | Gemini Vision 검수 결과 | `data/processed/obud_reviews/private/obud_reviews_ai_checked_private.csv` | Gemini API key는 로컬 전용. 원본 이미지와 OCR 텍스트를 함께 사용해 JSON 구조화 검수 | 리뷰 구조화 품질 검수 |
 | 티켓 가격표 | `references/obud-ticket-pricing.md` | 사용자 제공 이미지 기반 기록 | 가격 추정 기준 |
-| 오붓 정산 기준 | `references/obud-settlement-rules.md`, `data/raw/settlement/obud/` | 빅블루 요가 유동환 대표 전달 카카오톡 메시지와 오붓 화면 스크린샷 기반 전사. 2026-05-16 공개 오붓 사이트/FAQ/오붓패스/입점문의/sitemap 확인 결과 공개 정산표는 미확인 | 1회권/패스권 정산 추정 |
+| 오붓 정산 기준 | `references/obud-settlement-rules.md`, `data/raw/settlement/obud/` | 대표자 전달 메모와 오붓 화면 스크린샷 기반 정산 기준 기록. 2026-05-16 공개 오붓 사이트/FAQ/오붓패스/입점문의/sitemap 확인 결과 공개 정산표는 미확인 | 1회권/패스권 참여 기준과 산식 검토 |
 | 요가원/행사 장소 주소 | `data/external/studio_locations_public.csv` | ON STUDIO 수업 설명과 공개 웹 검색으로 수집. 최종 예약/시간표에 남은 active 장소만 GIS seed로 사용하며, 초기 기획안에만 남은 궁동산 행은 active GIS에서 제외 | GIS 1차 분석 |
 | 수업별 실제 장소 증거 | `data/processed/analysis/public/class_location_evidence_public.csv` | 수업 설명의 `📍 장소`, `집합 장소`, `장소:` 문구를 파싱해 `organizer_studio_key`와 `actual_location_key`를 분리 | GIS 동선 분석 |
 | Google Drive 공유 프로그램/운영 문서 | `data/raw/google_drive_shared/rightnow_yogi/files/`, `data/raw/google_drive_shared/rightnow_yogi/full_archive/` | `bigblue.yoga@gmail.com` 계정에서 `rightnow.yogi@gmail.com`으로부터 공유받은 2026년 이후 연희 요가 축제 관련 자료의 로컬 사본. raw는 GitHub 공유 제외 | 수업 정원, 운영 문구, F&B/스폰서/기획 맥락 |
@@ -41,7 +41,7 @@
 | AI/규칙 검수 | `scripts/ai_review_quality_check.py` | 수업명 매칭 private 리뷰표 | `data/processed/obud_reviews/private/obud_reviews_ai_checked_private.csv` | 완료 |
 | 리뷰 작성자 내부 매칭 | `scripts/match_reviewers_private.py` | 리뷰 private, 예약 private | `data/processed/obud_reviews/private/review_reviewer_match_private.csv` | 완료 |
 | 분석 테이블/리포트 | `scripts/build_analysis_tables.py` | 예약/취소/review/가격 | public 리뷰, Hype metrics, 리포트 | 완료 |
-| 오붓 정산 기준/추정 | `scripts/build_obud_settlement_analysis.py` | 예약/취소 공개용 CSV, 오붓 정산표 전사값, 유동환 대표의 `소비자 기준`/`이용완료된 기준` 후속 확인 | 정산 규칙 CSV, 패스 정산표, 수업/요가원-월별 정산 추정치, 패스권 회차 추정 요약 | 완료/최종 정산서 확인 필요 |
+| 오붓 정산 기준 | `scripts/build_obud_settlement_analysis.py` | 예약/취소 공개용 CSV, 오붓 정산표 전사값, 2026-05-25 보정 요청 | 정산 규칙 CSV, 패스 정산률표, 수업/정산주체-월별 참여 기준표, 패스권 회차 추정 요약 | 완료/최종 금액은 공식 정산서 확인 필요 |
 | GIS 좌표화 | `scripts/geocode_studio_locations_arcgis.py` | `data/external/studio_locations_public.csv` | 좌표가 채워진 장소 테이블, 지오코딩 리포트 | 완료 |
 | GIS 분석 | `scripts/build_gis_tables.py` | 장소 좌표, Hype metrics | GIS CSV, GeoJSON, HTML 지도, GIS 리포트 | 완료 |
 | GIS 거리 행렬 | `scripts/build_gis_distance_matrix.py` | 행사 위치 카탈로그 | location nodes, distance matrix | 완료/재실행 가능 |
@@ -164,7 +164,7 @@ gemini-2.5-flash         29
 - 만족 Hype: 평균 전체 별점 / 5 * 100
 - 재방문 Hype: 평균 방문회차 percentile
 - 결제 Hype: 참가자 결제 반응 추정 지표의 percentile
-- 정산 추정액: 오붓 정산 스크린샷 기준으로 1회권은 5% 수수료 차감. 패스권은 후속 확인에 따라 소비자 개인의 월간 이용완료 횟수 구간과 25,000원 기본 수업 단가를 적용한 추정액. 현재 자료는 오붓 전체 월간 이용내역이 아니라 연희 요가 위크 ON STUDIO 관측자료이므로 최종 회계 증빙에는 오붓 최종 정산서 또는 서면 확인 필요
+- 정산 기준 참여 수: ON STUDIO 활성 예약의 `people_count`를 기준으로 집계한다. 취소 파일은 취소 이력 분석용으로만 보관하고 활성 예약에서 다시 차감하지 않는다. 공개본에는 금액 추정 총액을 두지 않으며, 실제 최종 금액은 공식 정산서 또는 주최 측 확정 자료 기준으로 별도 확인한다.
 - 운영 안정성: `(1 - cancellation_rate) * 100`
 
 Viral 지표는 Hype와 별도 축으로 둔다.

@@ -1,14 +1,14 @@
 # Obud Settlement Work Log
 
-## 2026-05-16 - Settlement rule transcription and first estimate
+## 2026-05-16 - Settlement rule transcription and first basis draft
 
 ### Request
 
-The user provided KakaoTalk messages and screenshots sent by Bigblue Yoga representative Yoo Donghwan about Obud settlement rules.
+The user provided representative notes and screenshots about Obud settlement rules.
 
 Key message content:
 
-- One-time tickets are settled after subtracting a 5% fee.
+- One-time tickets are settled after subtracting a platform fee.
 - Obud pass settlement follows the pass settlement table shown in the screenshot.
 - Repeated reserver frequency can be used to infer which pass size a participant likely used.
 
@@ -17,17 +17,16 @@ Key message content:
 One-time ticket:
 
 - Settlement timing: three business days after the service date.
-- Settlement method: transfer the transaction amount to the designated account after subtracting a 5% fee.
-- Event one-time ticket price used in the current project: 25,000 KRW.
-- Estimated one-time settlement per completed use: 23,750 KRW.
+- Settlement method: apply the platform fee and use the official settlement process.
+- Public outputs keep only the formula basis, not estimated final amounts.
 
 Pass settlement table:
 
-| Monthly completed pass-use count | Settlement rate | 20,000 KRW | 25,000 KRW | 30,000 KRW | 35,000 KRW | 40,000 KRW |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| 1-9 | 75% | 15,000 | 18,750 | 22,500 | 26,250 | 30,000 |
-| 10-99 | 65% | 13,000 | 16,250 | 19,500 | 22,750 | 26,000 |
-| 100+ | 55% | 11,000 | 13,750 | 16,500 | 19,250 | 22,000 |
+| Monthly completed pass-use count | Settlement rate |
+| --- | ---: |
+| 1-9 | 75% |
+| 10-99 | 65% |
+| 100+ | 55% |
 
 ### Public Official Document Search
 
@@ -45,7 +44,7 @@ Result:
 
 - A public settlement-rate table was not found.
 - The Obud Pass page publicly states the pass sells the right to use services from multiple partners and that actual service delivery is the responsibility of each partner.
-- The partnership inquiry page directs spaces needing separate consultation to Obud's Kakao channel.
+- The partnership inquiry page directs spaces needing separate consultation to Obud's official inquiry channel.
 
 Conclusion:
 
@@ -61,8 +60,8 @@ Added:
 - `reports/analysis/obud_settlement_analysis_report.md`
 - `data/processed/analysis/public/obud_settlement_rules.csv`
 - `data/processed/analysis/public/obud_pass_settlement_table.csv`
-- `data/processed/analysis/public/obud_settlement_estimate_by_class.csv`
-- `data/processed/analysis/public/obud_settlement_estimate_by_studio_month.csv`
+- `data/processed/analysis/public/obud_settlement_basis_by_class.csv`
+- `data/processed/analysis/public/obud_settlement_basis_by_owner_month.csv`
 - `data/processed/analysis/public/obud_pass_package_inference_summary.csv`
 - `data/processed/analysis/private/obud_pass_participant_inference_private.csv`
 
@@ -74,11 +73,10 @@ The raw screenshot folder is excluded from GitHub by `.gitignore`.
 
 ### Calculation Assumptions
 
-- Canceled reservations are subtracted by class, month, and booking method.
-- One-time settlement uses `25,000 * 0.95 = 23,750 KRW` per completed one-time use.
-- Initial assumption before follow-up clarification: pass settlement used studio-month completed pass-use count to choose the settlement rate.
-- The first estimate uses 25,000 KRW as the default class unit price because the event one-time ticket price was 25,000 KRW.
-- Participant pass package inference is separate from settlement estimation and is not a confirmed purchase record.
+- Active reservation `people_count` is the public participation basis.
+- Cancellation files are cancellation-history evidence only and are not subtracted again from the active reservation export.
+- Public outputs keep rate bands and formula basis only.
+- Participant pass package inference is separate from public settlement basis outputs and is not a confirmed purchase record.
 
 ### Verification
 
@@ -86,12 +84,33 @@ Generated output row counts:
 
 - `obud_settlement_rules.csv`: 2 rows.
 - `obud_pass_settlement_table.csv`: 15 rows.
-- `obud_settlement_estimate_by_class.csv`: 111 rows.
-- `obud_settlement_estimate_by_studio_month.csv`: 21 rows.
+- `obud_settlement_basis_by_class.csv`: 108 rows.
+- `obud_settlement_basis_by_owner_month.csv`: 19 rows.
 - `obud_pass_package_inference_summary.csv`: 6 rows.
 - `obud_pass_participant_inference_private.csv`: 246 rows.
 
 DuckDB was rebuilt and includes the public settlement tables.
+
+## 2026-05-25 - Correction request applied
+
+### Correction
+
+Yoo Donghwan requested that the settlement package be corrected so public outputs keep participation basis and formula logic only.
+
+Applied corrections:
+
+- Active reservation `people_count` is the settlement participation basis.
+- ON STUDIO cancellation files are used only as cancellation-history evidence and are not subtracted again from active reservations.
+- Settlement owner grouping now uses `settlement_owner_key`, separate from the venue/studio bracket label.
+- Bigblue-responsible classes hosted at another venue are included in the Bigblue settlement owner scope when class title or metadata identifies Bigblue/Yoo Donghwan responsibility.
+- Public outputs no longer publish estimated settlement totals or amount-estimate columns.
+
+### Verification
+
+- `obud_settlement_basis_by_class.csv`: 108 rows.
+- `obud_settlement_basis_by_owner_month.csv`: 19 rows.
+- Bigblue 2026-04 owner-month row includes both `빅블루요가` and `연희정음` as hosting studio keys.
+- Deprecated public estimate files were removed.
 
 ## 2026-05-16 - Follow-up clarification from Yoo Donghwan
 
@@ -105,7 +124,7 @@ Kim then reconfirmed whether the count means completed usage rather than purchas
 
 - Pass settlement band basis: consumer-level, not studio-level.
 - Count type: monthly completed pass uses, not purchased pass package count.
-- Remaining limitation: this project only observes ON STUDIO records for the 2026 Yeonhui Yoga Week event. Obud's final settlement may use each consumer's full monthly Obud pass usage across all services, so project estimates remain proxy/lower-bound analysis.
+- Remaining limitation: this project only observes ON STUDIO records for the 2026 Yeonhui Yoga Week event. Final settlement amounts must be checked against the official settlement statement or organizer-confirmed final data.
 
 ### Implementation update
 

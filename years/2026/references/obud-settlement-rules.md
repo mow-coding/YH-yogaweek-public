@@ -1,48 +1,29 @@
-# Obud Settlement Rules Reference
+# Obud Settlement Basis Reference
 
-Created: 2026-05-16
+Created: 2026-05-25
 
-## Source
+## Source And Scope
 
-This reference is transcribed from KakaoTalk screenshots and a message sent by Bigblue Yoga representative Yoo Donghwan to analyst Kim Sungkyun.
+This reference summarizes representative-provided settlement operating rules and the 2026-05-25 correction memo.
 
-Local raw screenshot copies are stored under `years/2026/data/raw/settlement/obud/` and are excluded from GitHub by `.gitignore`.
+Local raw screenshots and private source messages are excluded from GitHub. Public outputs must not include final settlement amounts, account-level details, private conversation text, or estimated settlement totals that could be mistaken for final accounting values.
 
-## Public Official Document Check
+## Corrected Participation Basis
 
-On 2026-05-16, the public Obud website, FAQ, Obud Pass page, partnership inquiry page, and sitemap were checked for a publicly available settlement-rate document.
+- Settlement participation is based on active ON STUDIO reservations' `people_count` or the organizer's official final participant count.
+- ON STUDIO cancellation files are cancellation-history evidence only. They must not be subtracted again from the active reservation export.
+- Reservation row count is not the participation count because one reservation row can contain multiple people.
+- Settlement grouping uses `settlement_owner_key`, not only the venue/studio label in brackets.
+- Bigblue Yoga scope includes classes hosted elsewhere when class title or class metadata identifies Bigblue/Yoo Donghwan responsibility.
 
-Checked URLs:
+## Public Rule Summary
 
-- `https://www.obud.co/`
-- `https://www.obud.co/faq`
-- `https://www.obud.co/obud-pass`
-- `https://www.obud.co/contact/register`
-- `https://www.obud.co/sitemap.xml`
+| Booking method | Public basis |
+| --- | --- |
+| one_time | Active participant count and public formula basis only; final amount is official-statement-only |
+| pass | Consumer monthly completed pass-use band determines rate; public output keeps rate bands and participant counts only |
 
-Result: no public Obud settlement table or owner-facing settlement manual was found in the publicly indexed pages checked. The Obud Pass page publicly states that the pass sells the right to use services from multiple partners and that actual service delivery is the responsibility of each partner. The partnership inquiry page directs spaces needing separate consultation to Obud's Kakao channel.
-
-Therefore, the settlement table in this project should be treated as representative-provided operating evidence, not as a public official document. Before using the estimates as accounting evidence, obtain the final Obud settlement statement or written confirmation from Obud.
-
-## One-Time Ticket Settlement
-
-- Obud has no separate entry, registration, or monthly platform fee for this event context.
-- A fee occurs only when a reservation is made through Obud.
-- One-time ticket settlement: transfer the transaction amount to the designated account after subtracting a 5% fee, three business days after the service date.
-- Event one-time ticket price used in this project: 25,000 KRW.
-- Estimated one-time settlement per completed use: 23,750 KRW.
-
-## Pass Settlement
-
-The screenshot states that pass reservations are settled according to monthly completed pass-use count from the 1st to the last day of each month.
-
-On 2026-05-16, Kim Sungkyun asked Yoo Donghwan whether the `10회`, `100회` count is based on consumer ticket use or studio-level ticket volume. Yoo answered `소비자 기준`. Kim then reconfirmed whether the count means completed usage rather than purchased pass package, and Yoo answered `이용완료된 기준!`.
-
-Therefore, this project records the pass settlement band as:
-
-- basis entity: consumer, not studio;
-- count type: monthly completed pass uses, not purchased pass package count;
-- settlement evidence status: representative-confirmed operating rule, still not a final Obud accounting statement.
+## Pass Rate Bands
 
 | Monthly completed pass-use count | Settlement rate |
 | --- | ---: |
@@ -50,14 +31,6 @@ Therefore, this project records the pass settlement band as:
 | 10-99 | 65% |
 | 100+ | 55% |
 
-The table is applied to the class unit price including VAT. For the first estimate in this project, 25,000 KRW is used as the default class unit price because the event one-time ticket price was 25,000 KRW.
+## Final Amount Rule
 
-## Remaining Limitation
-
-The `consumer/completed-use` basis is now clarified. The remaining limitation is data coverage:
-
-- This project only has ON STUDIO records for the 2026 Yeonhui Yoga Week event.
-- Obud's actual settlement may use each consumer's full monthly Obud pass usage across all participating studios/services, not only this event.
-- Therefore, project-level pass estimates are consumer-level observed-use proxies, not final accounting figures.
-
-The final Obud settlement statement should be used before external accounting claims.
+The public release is not a final settlement statement. Actual final settlement amounts must be managed separately from the public package and verified only against the official settlement statement or organizer-confirmed final data.

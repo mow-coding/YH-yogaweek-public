@@ -21,7 +21,7 @@
 7. `reports/analysis/yeonhui_yoga_week_analysis_report.md`: 1차 분석 리포트
 8. `scripts/README.md`: 분석을 재현할 때 실행할 스크립트 순서
 
-현재 1차 범위는 **ON STUDIO 예약/취소 + 오붓 리뷰 96건 OCR/Gemini 검수 + 티켓 가격표 + Hype 지수 + GIS 분석 + 네이버/유튜브 외부 확산(Viral) 분석 + Google Drive 기획자료/정원표/전량 아카이브 + Notion 커뮤니케이션 요약 + 오붓 정산 추정치 + 통합 이해관계자 보고서**입니다.
+현재 1차 범위는 **ON STUDIO 예약/취소 + 오붓 리뷰 96건 OCR/Gemini 검수 + 티켓 가격표 + Hype 지수 + GIS 분석 + 네이버/유튜브 외부 확산(Viral) 분석 + Google Drive 기획자료/정원표/전량 아카이브 + Notion 커뮤니케이션 요약 + 오붓 정산 기준 + 통합 이해관계자 보고서**입니다.
 메신저, 인스타그램 데이터는 다음 단계 후보로 남겨두었습니다.
 
 ## 책임과 담당
@@ -98,7 +98,7 @@
 - 스폰서 asset inventory: 15행
 - Notion 공유 페이지 요약: 2행
 - Notion 커뮤니케이션 테마 요약: 13행
-- 오붓 정산 추정 총액: 14,927,529원
+- 오붓 정산 기준 참여 수: 1회권 589명, 패스 1088명, 총 1677명
 - public repo package 파일: 150개
 
 ## 주요 산출물

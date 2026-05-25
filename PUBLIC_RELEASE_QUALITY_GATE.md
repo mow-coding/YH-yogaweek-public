@@ -1,7 +1,7 @@
 # Public Release Quality Gate Report
 
 - status: PASS
-- generated_at: 2026-05-17T10:17:43
+- generated_at: 2026-05-25T18:12:20
 - public_root: `C:\Users\mylifeisbusy\Documents\dev\YH-yogaweek`
 
 ## Blockers
@@ -20,8 +20,8 @@
 - data\processed\analysis\public\class_hype_metrics.csv rows == 83 (actual 83)
 - data\processed\analysis\public\studio_capacity_hype_metrics.csv rows == 12 (actual 12)
 - data\processed\analysis\public\class_capacity_hype_metrics.csv rows == 83 (actual 83)
-- data\processed\analysis\public\obud_settlement_estimate_by_class.csv rows == 110 (actual 110)
-- data\processed\analysis\public\obud_settlement_estimate_by_studio_month.csv rows == 19 (actual 19)
+- data\processed\analysis\public\obud_settlement_basis_by_class.csv rows == 108 (actual 108)
+- data\processed\analysis\public\obud_settlement_basis_by_owner_month.csv rows == 19 (actual 19)
 - data\processed\analysis\public\location_nodes.csv rows == 13 (actual 13)
 - data\processed\analysis\public\location_distance_matrix.csv rows == 169 (actual 169)
 - data\processed\analysis\public\class_location_evidence_public.csv rows == 83 (actual 83)
@@ -29,13 +29,17 @@
 - class_hype_metrics.studio_key has no non-canonical keys ['대저택 프라이빗', '비전스트롤', '숨 명상센터']
 - studio_capacity_hype_metrics.studio_key has no non-canonical keys ['대저택 프라이빗', '비전스트롤', '숨 명상센터']
 - class_capacity_hype_metrics.studio_key has no non-canonical keys ['대저택 프라이빗', '비전스트롤', '숨 명상센터']
-- obud_settlement_estimate_by_class.studio_key has no non-canonical keys ['대저택 프라이빗', '비전스트롤', '숨 명상센터']
-- obud_settlement_estimate_by_studio_month.studio_key has no non-canonical keys ['대저택 프라이빗', '비전스트롤', '숨 명상센터']
+- obud_settlement_basis_by_class.studio_key has no non-canonical keys ['대저택 프라이빗', '비전스트롤', '숨 명상센터']
 - viral_studio_metrics.matched_studio_term has no non-canonical keys ['대저택 프라이빗', '비전스트롤', '숨 명상센터']
 - studio_hype_metrics unique on ['studio_key'] (duplicates 0)
 - class_hype_metrics unique on ['studio_key', 'class_base_key'] (duplicates 0)
 - class_capacity_hype_metrics unique on ['studio_key', 'class_base_key'] (duplicates 0)
-- obud_settlement_estimate_by_class unique on ['service_month', 'studio_key', 'class_base_key'] (duplicates 0)
+- obud_settlement_basis_by_class unique on ['service_month', 'settlement_owner_key', 'studio_key', 'class_base_key'] (duplicates 0)
+- obud_settlement_basis_by_owner_month unique on ['service_month', 'settlement_owner_key'] (duplicates 0)
+- obud_settlement_basis_by_class excludes deprecated amount-estimate columns
+- obud_settlement_basis_by_owner_month excludes deprecated amount-estimate columns
+- Bigblue settlement owner exists for 2026-04
+- Bigblue 2026-04 settlement owner includes Yeonhui Jeongeum-hosted Bigblue class
 - review_0044 exists in public review table
 - review_0044 matched to [연희정음|랜드마크] 빅블루의 호흡 회복 요가
 - public review needs_review == 0 (actual 0)
@@ -44,7 +48,7 @@
 - capacity_match_status needs_review == 0 (actual 0)
 - active GIS tables do not contain obsolete Gungdongsan location rows
 - public text scan found no forbidden patterns across 152 files
-- markdown table structure checked (80 table blocks)
+- markdown table structure checked (81 table blocks)
 - public integrated report has exactly one H1 (actual 1)
 - GitHub contributors == ['mow-coding'] (actual ['mow-coding'])
 
