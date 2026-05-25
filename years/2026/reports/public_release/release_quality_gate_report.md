@@ -1,7 +1,7 @@
 # Public Release Quality Gate Report
 
 - status: PASS
-- generated_at: 2026-05-25T18:12:20
+- generated_at: 2026-05-25T18:17:02
 - public_root: `C:\Users\mylifeisbusy\Documents\dev\YH-yogaweek`
 
 ## Blockers
